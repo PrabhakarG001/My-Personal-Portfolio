@@ -1,0 +1,66 @@
+.softskills-wrapper {
+  overflow: hidden;
+  transform: skewY(-3deg);
+  background: linear-gradient(to left, #1b63ff, #538ae2);
+  padding: 1rem 0;
+  position: absolute;
+  top: 198.1rem;
+  z-index: 2;
+   height: 3rem;
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  word-spacing: 0.9rem;
+   font-size: 1.6rem;
+   gap: 1rem;
+   max-width: 100%;
+   /* padding-bottom: 0.7rem; */
+}
+
+.softskills-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLeft 60s linear infinite;
+}
+
+.softskills-item {
+  font-weight: 550;
+  color: white;
+  font-size: 1.1rem;
+  margin: 0 1rem;
+  letter-spacing: 2.5px;
+ 
+  
+  display: flex;
+  align-items: center;
+  /* font-family: '; */
+  
+}
+
+.star {
+  margin: 0.2rem 1.5rem 0.2rem 1rem;
+  margin-left: 3.8rem;
+ 
+  font-size: 1.6rem;
+  color: #ffffff;
+
+}
+.stip {
+
+  display: flex;
+  width: 100%;
+   overflow: hidden;
+  transform: skewY(+3deg);
+  background: linear-gradient(to left, #193f9f, #527dd9); 
+  padding:1rem 0;
+  position: absolute;
+  top: 197.5rem;
+  z-index: 1;
+  height: 3rem;
+}
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

@@ -1,0 +1,161 @@
+* {
+  font-family: sans-serif;
+}
+@media (max-width: 480px) {
+  nav .title {
+    font-size: 1.2rem;       
+    margin: 0.5rem 0;        
+  }
+}
+
+
+.active {
+  background-color: rgb(20 184 166 / .1);
+  box-shadow: 0px 4px 8px rgb(25 184 166 / .5);
+  color: rgb(94 234 212/var(--tw-text-opacity,1));
+}
+
+
+@keyframes borderExpand {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+nav {
+  position: fixed;
+  display: flex;
+  top: 0;
+  height: 2rem;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(45, 212, 191, 0.07);
+}
+
+nav .title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient 8s linear infinite;
+  background-size: 300% 100%;
+  font-size: 1.5rem;
+  margin: 1rem;
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: italic;
+}
+@media (max-width: 480px) {
+  nav .title {
+    font-size: 1.2rem;       
+    margin: 0.5rem 0;        
+  }
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  list-style: none;
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  margin-right: 1.5rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+nav ul li a:not(.active):hover {
+  background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient 1s linear infinite;
+}
+
+nav .menu {
+  display: none;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.5rem;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2.25rem;
+  height: 2rem;
+  z-index: 2;
+}
+
+nav .menu span {
+  height: 0.4rem;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0.2rem;
+}
+
+@media (max-width: 480px) {
+  nav .menu {
+    display: flex;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  nav ul.open {
+    display: flex;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  nav ul li a {
+    margin: 0.2rem 0.5rem;
+  }
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+.menu-icon {
+  display: block;
+}

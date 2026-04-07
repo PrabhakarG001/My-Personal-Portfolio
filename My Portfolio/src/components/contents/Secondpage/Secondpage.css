@@ -1,0 +1,221 @@
+@media (max-width: 480px) {
+
+  .button-about,
+  .button-skills,
+  .button-tools,
+  .button-projects,
+  .button-edge,
+  .button-goals,
+  .button-resume,
+  .button-contact {
+    position: absolute;  
+    top:25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;        
+    padding: 0.4rem 0.9rem;    
+    
+  }
+
+}
+
+.button-about {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 45rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+}
+.button-skills{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 123rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+
+}
+.button-tools {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 161rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+}
+
+.button-projects{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 216rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+
+}
+.button-edge{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 183rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+}
+
+.button-goals{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 282rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+ cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+}
+
+.button-resume{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 322rem;
+  left: 49.9%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+}
+
+.button-contact{
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 355rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  background: linear-gradient(150deg,#2dd4bf, #06b6d4,#2563eb);
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor:default;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 2px solid silver;
+  
+}
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

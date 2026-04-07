@@ -1,0 +1,63 @@
+
+.buttons-wrapper {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 31.2rem;
+  left: 50%;
+  gap: 2rem;
+  display: flex;
+  transform: translateX(-50%);
+  font-family: sans-serif;
+  cursor:pointer;
+}
+
+
+.gradient-border-btn {
+  position: relative;
+  padding: 0.6rem 1.4rem;
+  font-size: 1.2rem;
+  font-weight: 450;
+  background-color: transparent;
+  color: white;
+  border-radius: 0.5rem;
+  z-index: 0;
+  border: none;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out; 
+  cursor: pointer;
+}
+
+
+.gradient-border-btn:hover {
+  transform: scale(1.2);
+}
+
+
+.gradient-border-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(270deg, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+  background-size: 600% 600%;
+  animation: rotateBorder 5s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+  
+}
+
+@keyframes rotateBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

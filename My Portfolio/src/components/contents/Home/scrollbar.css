@@ -1,0 +1,40 @@
+.scroll-button {
+  position: fixed;
+  bottom: 1.5rem;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(270deg, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+  background-size: 600% 600%;
+  animation: gradientBackground 8s linear infinite;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.8s ease;
+  z-index: 999;
+  right: 2rem;
+  
+}
+
+.scroll-button:hover {
+  transform: rotate(360deg);
+}
+
+.scroll-inner {
+  background-color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

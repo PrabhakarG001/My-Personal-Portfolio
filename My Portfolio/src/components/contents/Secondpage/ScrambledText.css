@@ -1,0 +1,46 @@
+.text-block{
+  margin: 7vw;
+  max-width: 800px;
+  font-family: sans-serif;
+  font-size: clamp(18px, 4vw, 32px);
+  color: #fff;
+  position: absolute;
+  font-size: 45px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  left: 43%;
+  transform: translateX(-50%);
+  letter-spacing: normal;
+  white-space: pre-line;
+  cursor:default;
+}
+
+.text-block::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 0.5rem;
+  width: 6.5rem;
+  background: linear-gradient(150deg, #2dd4bf, #06b6d4, #2563eb);
+  transition: width 0.4s ease;
+  transform-origin: left;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  display: flex;
+  transform: translateX(-52.5%);
+  border-radius: 0.8rem;
+  top: 3.9rem;
+  
+}
+
+.text-block:hover::after {
+  width: 0%;
+}
+
+.char{
+  display: inline-block;
+  white-space: pre;
+}

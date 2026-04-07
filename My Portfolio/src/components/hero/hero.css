@@ -1,0 +1,32 @@
+.hero-container {
+  background-color: #040118 ;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3rem 2rem;
+  color: white;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+
+.hero-text h1 {
+  font-size: 2.8rem;
+  color: #c38aff;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.3rem;
+  color: #ddd;
+}
+
+.hero-image img {
+  width: 400px;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}

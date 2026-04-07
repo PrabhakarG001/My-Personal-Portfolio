@@ -1,0 +1,12 @@
+.para{
+  color: silver;
+  font-size: 1.2rem;
+  top: 333rem;
+  left: 25%;
+  line-height: 2rem;
+  /* right: 28%; */
+  width: 62%;
+  position: absolute;
+  font-family: sans-serif;
+}
+
