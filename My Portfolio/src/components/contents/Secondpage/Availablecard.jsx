@@ -1,9 +1,16 @@
 import "./Availablecard.css";
+import { motion } from "framer-motion";
 import { FaRocket, FaCheckCircle, FaUser, FaClock } from "react-icons/fa";
 
-const Availablecard = () => {
+const Availablecard = ({ delay = 0 }) => {
   return (
-    <div className="available-card">
+    <motion.div
+      className="available-card"
+      initial={{ opacity: 0, y: 28, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="header">
         <FaRocket className="icon aqua" style={{ color: "#f97316" }}/>
         <h2 className="title">Available for Hire</h2>
@@ -23,7 +30,7 @@ const Availablecard = () => {
         <FaClock className="icon blue" />
         <p className="text">Remote & On-site Available</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

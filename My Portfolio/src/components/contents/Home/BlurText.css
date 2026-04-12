@@ -1,36 +1,11 @@
-.text-2xl {
-  line-height:1.6;
-  position: absolute;
-  margin: 0 auto;
-  align-items: center;
+.hero-blur-text {
+  width: min(100%, 760px);
+  margin-inline: auto;
   justify-content: center;
-  font-weight: 500;
-  font-size: 4.35rem;
-  top:23rem;
-  left:50%;
-  padding:1rem;
-  transform: translateX(-50%);
-  z-index: 10;
-   color: aliceblue;
-  font-size: 1.25rem;
-  font-weight: 500;
   text-align: center;
-  max-width: 650px;
-}
-
-@media (max-width: 640px) {
-  .text-2xl {
-    font-size: 1rem;  
-    top: 15rem;          
-    padding: 0.5rem;
-    position: absolute;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    width: 23rem;
-    max-width:400px;
-    text-align: justify;
-    margin: 0 auto;
-    padding: 0 0.7rem;
-  }
+  font-size: clamp(0.96rem, 2vw, 1.18rem);
+  line-height: 1.72;
+  color: #d7e5f7;
+  font-weight: 500;
+  text-wrap: balance;
 }

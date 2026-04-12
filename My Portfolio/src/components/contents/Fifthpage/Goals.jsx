@@ -1,60 +1,61 @@
+import { motion } from "framer-motion";
+import { MdMyLocation, MdRocketLaunch, MdTimeline } from "react-icons/md";
 import "./Goals.css";
-import Shorterm from "../../../assets/Shorterm.png";
-import Midterm from "../../../assets/Midterm.png";
-import Longterm from "../../../assets/Longterm.png";
-import {MdRocketLaunch,MdTimeline,MdMyLocation,} from "react-icons/md";
+
+const goals = [
+  {
+    title: "Short-Term Goal",
+    description:
+      "I aim to actively participate in hackathons to challenge myself with real-world problems and collaborate with diverse teams. These experiences will boost my problem-solving skills and expose me to new technologies.",
+    Icon: MdRocketLaunch,
+  },
+  {
+    title: "Mid-Term Goal",
+    description:
+      "I am focused on building impactful projects and securing internships that offer real-world exposure. These experiences will help me sharpen my skills, adapt to team workflows, and grow through mentorship.",
+    Icon: MdTimeline,
+  },
+  {
+    title: "Long-Term Goal",
+    description:
+      "My long-term vision is to evolve into a top-performing software engineer who drives high-impact solutions and contributes through open-source, thought leadership, and mentorship.",
+    Icon: MdMyLocation,
+  },
+];
+
+const goalReveal = {
+  hidden: { opacity: 0, y: 32, scale: 0.98 },
+  show: (index) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.62, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
 const Goals = () => {
   return (
-    <>
-      {/* Short-Term Goal */}
-      <div className="Goals short-term">
-        <img src={Shorterm} alt="Short Term Goal" className="Goals__image" />
-        <div className="Goals__content">
-          <div className="flex flex-col gap-4 text-white">
-            {/* <div className="flex items-center gap-2"> */}
-              <MdRocketLaunch />
-              <p className="Goals__heading">Short-Term Goal</p>
-           
-            <p className="Goals__description">
-             I aim to actively participate in hackathons to challenge myself with real-world problems and collaborate with diverse teams. These experiences will not only boost my problem-solving skills but also expose me to new tools and technologies.
-            </p>
+    <div className="goals-grid">
+      {goals.map(({ title, description, Icon }, index) => (
+        <motion.article
+          key={title}
+          className="goal-card"
+          variants={goalReveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.22 }}
+          custom={index}
+          whileHover={{ y: -6, scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 250, damping: 18 }}
+        >
+          <div className="goal-title-row">
+            <Icon className="goal-icon" aria-hidden="true" />
+            <h3>{title}</h3>
           </div>
-        {/* </div> */}
-      </div>
- </div>
-      {/* Mid-Term Goal */}
-      <div className="Goals mid-term">
-        <img src={Midterm} alt="Mid Term Goal" className="Goals__image" />
-        <div className="Goals__content">
-          <div className="flex flex-col gap-4 text-white">
-            <div className="flex items-center gap-2">
-              <MdTimeline className="text-[rgba(45,212,191,1)]" size={28} />
-              <p className="Goals__heading">Mid-Term Goal</p>
-            </div>
-            <p className="Goals__description">
-              I'm focused on building impactful projects and securing internships that offer real-world exposure. These experiences will help me sharpen my skills, adapt to team workflows, and grow through mentorship and practical challenges.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Long-Term Goal */}
-      <div className="Goals long-term">
-        <img src={Longterm} alt="Long Term Goal" className="Goals__image" />
-        <div className="Goals__content">
-          <div className="flex flex-col gap-4 text-white">
-            <div className="flex items-center gap-2">
-              <MdMyLocation className="text-[rgba(45,212,191,1)]" size={28} />
-              <p className="Goals__heading">Long-Term Goal</p>
-            </div>
-            <p className="Goals__description">
-            My long-term vision to evolve into a top-performing software engineer who not only drives high-impact solutions but also shapes the future of tech through open-source, thought leadership, and a strong culture of mentorship.
-            </p>
-          </div>
-        </div>
-      </div>
-    </>
+          <p>{description}</p>
+        </motion.article>
+      ))}
+    </div>
   );
 };
 

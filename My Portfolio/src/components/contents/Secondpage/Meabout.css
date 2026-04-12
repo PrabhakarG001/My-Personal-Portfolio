@@ -1,125 +1,102 @@
 .meabout-container {
-  padding: 1.5rem;
-  border-radius: 1rem;
-  margin: 2rem auto;
-  width: 1285px;
-  top: 53rem;
- left: 5.4rem;
-  position: absolute;
-transition:transform 0.3s ease,border-color 0.3s ease ;
- border: 2px solid rgba(45, 212, 191, 0.5);
-  box-shadow: 0 0 10px rgba(15, 211, 211, 0.5);
-height: 580px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.1rem, 2.9vw, 1.75rem);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.meabout-container:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(110, 249, 236, 0.45);
+  box-shadow:
+    0 26px 54px rgba(2, 8, 23, 0.52),
+    0 10px 26px rgba(45, 212, 191, 0.18),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.24);
 }
 
 .meabout-card {
-  display: flex; 
-  flex-direction: row;
-  align-items: center; 
-  justify-content: space-between;
-  gap: 2rem;
-   flex-wrap: wrap;
-}
-.meabout-container:hover{
-    transform: scale(1.01);
-  box-shadow: 0 0 15px rgba(15, 211, 211, 0.5);
-  border: 1.5px solid #14b8a6;
- 
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: clamp(1.12rem, 2.7vw, 2.15rem);
+  align-items: center;
 }
 
 .meabout-text {
-  color: #fff;
-  font-size: 1.2rem;
-  flex: 1;
-  line-height: 1.6;
-  /* max-width: 900px;
-  text-align: justify;
-  margin: 0 auto;
-  padding: 0 0.7rem; */
+  color: var(--text-secondary);
+  font-size: clamp(0.9rem, 1.9vw, 1.04rem);
+  line-height: 1.78;
+  display: grid;
+  gap: 0.45rem;
 }
 
 .highlight-white {
-  font-weight: bold;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .highlight-gradient {
-
-  background-color: rgba(45,212 ,191,1);
+  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
+  color: transparent;
+  font-weight: 700;
 }
 
 .meabout-text ul {
-  margin-top: 1rem;
-  padding-left: 1.5rem;
+  list-style: none;
+  display: grid;
+  gap: 0.3rem;
 }
 
-.meabout-text ul li {
-  margin-bottom: 0.5rem;
+.meabout-text li {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.meabout-text li svg {
+  color: var(--brand-1);
+  flex-shrink: 0;
 }
 
 .quote {
-  color:   rgba(45,212 ,191,1);
-  margin-top: 1.5rem;
+  margin-top: 0.45rem;
+  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  color: transparent;
   font-style: italic;
+  font-weight: 600;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--text-muted);
+  font-style: normal;
+  
+}
+
+.meabout-image {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  background: transparent;
 }
 
 .meabout-image img {
-  max-width: 400px;
   width: 100%;
-  border-radius: 1rem;
-  padding: 0.5rem;
   height: 100%;
-  max-height: fit-content;
+  object-fit: cover;
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .meabout-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .meabout-image img {
-    max-width: 100%;
-  }
-}
-
-
-/* @media (max-width: 480px) {
-  .meabout-container {
-    width: 80%;             
-    justify-content: center;     
-    align-items: center;       
-    top: auto;              
-    position: absolute;     
-    height: auto;           
-    padding: 1rem;          
-    margin: 1rem auto;
-    top: 38rem;
+  .meabout-image {
+    max-width: 360px;
+    margin-inline: auto;
   }
 }
-
-  .meabout-card {
-    flex-direction: column; 
-    align-items: center;
-    gap: 1rem;              
-    text-align: center;
-  }
-
-  .meabout-text {
-    font-size: 0.9rem;      
-    max-width:400px;
-  text-align: justify;
-  }
-
-  .meabout-image img {
-    max-width: 70%;         
-  }
-  .quote {
-  color:   rgba(45,212 ,191,1);
-  margin-top: 1.5rem;
-  font-style: italic;
-}; */

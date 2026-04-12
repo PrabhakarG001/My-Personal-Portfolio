@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './loader.css';
+import './Loader.css';
 
 const Loader = ({ children }) => {
   const [showContent, setShowContent] = useState(false);
@@ -9,18 +9,28 @@ const Loader = ({ children }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (showContent) return children;
+  if (showContent) return children ?? null;
 
   return (
-    <div className="loader-wrapper">
-      <span className="loader-letter">L</span>
-      <span className="loader-letter">o</span>
-      <span className="loader-letter">a</span>
-      <span className="loader-letter">d</span>
-      <span className="loader-letter">i</span>
-      <span className="loader-letter">n</span>
-      <span className="loader-letter">g</span>
-      <div className="loader" />
+    <div className="premium-loader-overlay" role="status" aria-live="polite" aria-label="Loading">
+      <div className="premium-loader-scene" aria-hidden="true">
+        <div className="premium-ring premium-ring-outer" />
+        <div className="premium-ring premium-ring-inner" />
+        <div className="premium-loader-core" />
+        <div className="premium-loader-particles">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <span key={index} style={{ '--particle-index': index }} />
+          ))}
+        </div>
+      </div>
+      <p className="premium-loader-text">
+        Loading
+        <span className="premium-loader-dots" aria-hidden="true">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </span>
+      </p>
     </div>
   );
 };

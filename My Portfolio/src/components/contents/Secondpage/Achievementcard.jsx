@@ -1,9 +1,16 @@
 import "./Achievementcard.css";
+import { motion } from "framer-motion";
 import { FaTrophy, FaLaptopCode, FaUsers } from "react-icons/fa";
 
-const Achievementcard = () => {
+const Achievementcard = ({ delay = 0 }) => {
   return (
-    <div className="achievement-card">
+    <motion.div
+      className="achievement-card"
+      initial={{ opacity: 0, y: 28, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="header">
         <FaTrophy className="icon trophy" />
         <h2 className="title">Achievements</h2>
@@ -21,9 +28,9 @@ const Achievementcard = () => {
 
       <div className="card-option">
         <FaTrophy className="icon blue" />
-        <p className="text">Levelling Up Every Day</p>
+        <p className="text">2nd Runner-Up among 150+ Teams at Hack The Beginning ’26 </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

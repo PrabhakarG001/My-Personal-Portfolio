@@ -2,9 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  position: relative;
+  min-height: clamp(4.2rem, 11vw, 6.8rem);
   width: 100%;
   text-align: center;
+  padding-inline: clamp(0.5rem, 2vw, 1rem);
+  overflow: visible;
+  margin-top: 0;
+  margin-bottom: clamp(0.4rem, 1.2vw, 1rem);
 }
 
 .gradient-typewriter {
@@ -15,12 +20,16 @@
   animation: gradient 8s linear infinite;
   display: inline-block;
   font-weight: 0.8rem;
-  font-size: 3rem;
-  top: 6rem;
+  font-size: clamp(1.2rem, 0.95rem + 3.4vw, 3rem);
   font-family: sans-serif;
-  position: absolute;
+  position: relative;
   padding: 0 1rem;
+  text-wrap: balance;
   word-break: break-word;
+  overflow-wrap: anywhere;
+  width: min(95vw, 33ch);
+  max-width: 100%;
+  line-height: 1.22;
 }
 
 .blinking-cursor {
@@ -46,23 +55,37 @@
   50% { opacity: 0; }
 }
 
-@media (max-width: 1024px) {
-  .gradient-typewriter {
-    font-size: 2.5rem;
-    top: 5rem;
-  }
-}
-
 @media (max-width: 768px) {
   .gradient-typewriter {
-    font-size: 2rem;
-    top: 6rem;
+    width: min(94vw, 26ch);
   }
 }
 
 @media (max-width: 480px) {
+  .typewriter-wrapper {
+    min-height: clamp(7.8rem, 33vw, 10.2rem);
+    padding-block: 0.35rem;
+    margin-bottom: clamp(0.55rem, 3vw, 1rem);
+  }
+
   .gradient-typewriter {
-    font-size: 1.5rem;
-    top: 6rem;
+    width: min(94vw, 24ch);
+    font-size: clamp(1.1rem, 4.9vw, 1.65rem);
+    line-height: 1.23;
+    padding: 0 0.55rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 360px) {
+  .typewriter-wrapper {
+    min-height: clamp(8.2rem, 38vw, 11rem);
+    margin-bottom: clamp(0.45rem, 3.2vw, 0.9rem);
+  }
+
+  .gradient-typewriter {
+    width: min(95vw, 22ch);
+    font-size: clamp(1.02rem, 4.6vw, 1.4rem);
   }
 }

@@ -1,61 +1,49 @@
 .softskills-wrapper {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  box-shadow: var(--shadow-md);
   overflow: hidden;
-  transform: skewY(-3deg);
-  background: linear-gradient(to left, #1b63ff, #538ae2);
-  padding: 1rem 0;
-  position: absolute;
-  top: 198.1rem;
-  z-index: 2;
-   height: 3rem;
-   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  word-spacing: 0.9rem;
-   font-size: 1.6rem;
-   gap: 1rem;
-   max-width: 100%;
-   /* padding-bottom: 0.7rem; */
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
 .softskills-track {
   display: flex;
   width: max-content;
-  animation: scrollLeft 60s linear infinite;
+  animation: scrollLeft 38s linear infinite;
+  padding: 1rem 0;
 }
 
 .softskills-item {
-  font-weight: 550;
-  color: white;
-  font-size: 1.1rem;
-  margin: 0 1rem;
-  letter-spacing: 2.5px;
- 
-  
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  /* font-family: '; */
-  
+  gap: 0.9rem;
+  margin-inline: 1rem;
+  color: #f8fafc;
+  font-size: clamp(0.82rem, 1.8vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .star {
-  margin: 0.2rem 1.5rem 0.2rem 1rem;
-  margin-left: 3.8rem;
- 
-  font-size: 1.6rem;
-  color: #ffffff;
-
+  font-size: 1rem;
+  opacity: 0.9;
 }
-.stip {
 
-  display: flex;
-  width: 100%;
-   overflow: hidden;
-  transform: skewY(+3deg);
-  background: linear-gradient(to left, #193f9f, #527dd9); 
-  padding:1rem 0;
-  position: absolute;
-  top: 197.5rem;
-  z-index: 1;
-  height: 3rem;
+@media (hover: hover) and (pointer: fine) {
+  .softskills-wrapper:hover,
+  .softskills-wrapper:focus-within {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(110, 249, 236, 0.45);
+    box-shadow:
+      0 26px 54px rgba(2, 8, 23, 0.52),
+      0 10px 26px rgba(45, 212, 191, 0.18),
+      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+  }
 }
+
 @keyframes scrollLeft {
   0% {
     transform: translateX(0%);

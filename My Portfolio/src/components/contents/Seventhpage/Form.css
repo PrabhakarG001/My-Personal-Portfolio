@@ -1,108 +1,102 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  font-family: inherit;
-  gap: 10px;
-  padding-inline: 2em;
-  padding-bottom: 0.4em;
-  /* background-color: #171717; */
-  /* background-color: #0a192f; */
-  background-color: transparent;
-  border-radius: 20px;
-  border: 2px solid rgba(45, 212, 191, 0.5);
-  box-shadow: 0 0 10px rgba(15, 211, 211, 0.5);
-  top:368rem;
-  position: absolute;
-  left: 49%;
-  width: 30rem;
-  height: 25rem;
-   transition: all ease-in-out 0.3s;
- 
+.contact-form-shell {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  box-shadow: var(--shadow-md);
+  padding: clamp(1rem, 2.8vw, 1.45rem);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
 }
-.form:hover{
-  box-shadow: 0 0 15px rgba(15, 211, 211, 0.5);
-  border: 1.5px solid #14b8a6;
-    transform: scale(1.01);
+
+.contact-form {
+  display: grid;
+  gap: 0.74rem;
 }
 
 .form-heading {
-  text-align: center;
-  margin: 1.7em;
-  color: #64ffda;
-  font-size: 1.2em;
-  background-color: transparent;
-  align-self: center;
+  color: var(--text-primary);
+  font-size: 1.06rem;
+  font-weight: 700;
+  font-family: var(--font-display);
 }
 
 .form-field {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5em;
   border-radius: 10px;
-  padding: 0.6em;
-  border: none;
-  outline: none;
-  color: white;
-  /* background-color: #171717;
-   box-shadow: inset 2px 5px 10px rgb(5, 5, 5); */
-    box-shadow: 2px 5px 8px rgba(100,255,218,0.6);
-    background-color: transparent;
-    /* background-color: rgba(15, 211, 211, 0.04); */
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.56);
+  padding: 0.12rem 0.15rem;
+  box-shadow: inset 0 1px 0 rgba(148, 163, 184, 0.08);
+  transition:
+    border-color 0.24s ease,
+    box-shadow 0.24s ease,
+    background-color 0.24s ease;
 }
 
 .input-field {
-  background: none;
+  width: 100%;
   border: none;
   outline: none;
-  width: 100%;
-  color: #e4e7f1;
-  padding-inline: 1em;
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.62rem 0.64rem;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .sendMessage-btn {
-  cursor: pointer;
-  margin-bottom: 2.5em;
-  padding: 1em;
+  border: 1px solid var(--border-strong);
   border-radius: 10px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  color: #64ffda;
-  font-weight: bold;
-  outline: 1px solid #64ffda;
-  transition: all ease-in-out 0.3s;
+  background: rgba(56, 189, 248, 0.16);
+  color: var(--text-primary);
+  padding: 0.7rem 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.3),
+    inset 0 1px 0 rgba(148, 163, 184, 0.2);
+  transition:
+    box-shadow 0.24s ease,
+    border-color 0.24s ease,
+    background-color 0.24s ease;
 }
 
-.sendMessage-btn:hover {
-  transition: all ease-in-out 0.3s;
-  background-color: #64ffda;
-  color: #000;
-  /* cursor: pointer; */
-  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+@media (hover: hover) and (pointer: fine) {
+  .contact-form-shell:hover,
+  .contact-form-shell:focus-within {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(110, 249, 236, 0.45);
+    box-shadow:
+      0 26px 54px rgba(2, 8, 23, 0.52),
+      0 10px 26px rgba(45, 212, 191, 0.18),
+      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+  }
+
+  .form-field:hover,
+  .form-field:focus-within {
+    border-color: var(--border-strong);
+    background: rgba(15, 23, 42, 0.64);
+    box-shadow:
+      inset 0 1px 0 rgba(148, 163, 184, 0.18),
+      0 0 0 1px rgba(125, 211, 252, 0.2);
+  }
+
+  .sendMessage-btn:hover,
+  .sendMessage-btn:focus-visible {
+    border-color: var(--border-strong);
+    box-shadow:
+      0 12px 26px rgba(8, 145, 178, 0.34),
+      0 0 0 1px rgba(125, 211, 252, 0.35);
+  }
 }
-
-.form-card1 {
-  background-image: linear-gradient(163deg, #64ffda 0%, #64ffda 100%);
-  border-radius: 22px;
-   transition: all ease-in-out 0.3s;
-   gap: 1.2rem;
-}
-
-.form-card1:hover {
-  box-shadow: 0px 0px 30px 1px rgba(100, 255, 218, 0.3);
-  
-  
-} 
-
-
-.form-card2 {
-  border-radius: 0;
-  transition: all 0.2s;
-}
-
-/* .form-card2:hover {
-  transform: scale(0.98);
-  border-radius: 20px;
-} */

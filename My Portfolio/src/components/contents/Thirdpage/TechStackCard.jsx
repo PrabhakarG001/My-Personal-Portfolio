@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import "./TechStackCard.css";
 
 import html from "../../../assets/html.svg";
@@ -9,72 +10,105 @@ import reactjs from "../../../assets/reactjs.svg";
 import nodejs from "../../../assets/nodejs.svg";
 import java from "../../../assets/java.svg";
 import cpp from "../../../assets/cpp.svg";
-import c from "../../../assets/c.svg";
+// import c from "../../../assets/c.svg";
 import windows from "../../../assets/windows.svg";
 import vscode from "../../../assets/vscode.svg";
-import hoppscotch from "../../../assets/hoppscotch.svg";
+// import hoppscotch from "../../../assets/hoppscotch.svg";
 import figma from "../../../assets/figma.svg";
-// import sql from "../../../assets/sql.svg";
 import mysql from "../../../assets/mysql.svg";
-// import python from "../../../assets/python.svg";
+import python from "../../../assets/python.svg";
 // import typescript from "../../../assets/typescript.svg";
-// import vercel from "../../../assets/vercel.svg";
+import vercel from "../../../assets/vercel.svg";
 
 
 const techStack1 = [
-  { name: "HTML 5 -", logo: html, type: "Frontend" },
-  { name: "CSS 3 -", logo: css3, type: "Frontend" },
-  { name: "JavaScript-", logo: javascript, type: "Frontend" },
-  { name: "MongoDB -", logo: mongodb, type: "Database" },
-  { name: "Express -", logo: expressjs, type: "Backend" },
-  { name: "Reactjs -", logo: reactjs, type: "Frontend" },
-  { name: "Nodejs -", logo: nodejs, type: "Backend" },
-  { name: "Java -", logo: java, type: "Language" },
-  { name: "C++ ", logo: cpp, type: "Language" },
-   { name: "C ", logo: c, type: "Language" },
-  // { name: "Python -", logo: python, type: "Language" },
+  { name: " ", logo: html, type: "" },
+  { name: "", logo: css3, type: "" },
+  { name: "", logo: javascript, type: "" },
+  { name: "", logo: mongodb, type: "" },
+  { name: "", logo: expressjs, type: "" },
+  { name: "", logo: reactjs, type: "" },
+  { name: "", logo: nodejs, type: "" },
+  { name: "", logo: java, type: "" },
+  { name: "", logo: cpp, type: "" },
+  //  { name: "C ", logo: c, type: "Language" },
+  { name: "", logo: python, type: "" },
   // { name: "Typescript ", logo: typescript, type: "Language" },
   
 
 ];
 
 const techStack2 = [
-  { name: "Figma ", logo: figma },
-  { name: "Windows", logo: windows },
-  { name: "Vscode", logo: vscode},
-  // { name: "vercel", logo: vercel},
-  { name: "Hoppscotch", logo: hoppscotch},
+  { name: " ", logo: figma },
+  { name: "", logo: windows },
+  { name: "", logo: vscode},
+  { name: "", logo: vercel},
+  // { name: "Hoppscotch", logo: hoppscotch},
   // { name: "sql", logo: sql },
-  { name: "mysql", logo: mysql },
+  { name: "", logo: mysql },
 ];
+
+const techCardReveal = {
+  hidden: { opacity: 0, y: 20, scale: 0.97 },
+  show: (index) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, delay: index * 0.035, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const TechCard = ({ logo, name, type, index = 0 }) => (
+  <motion.article
+    className="tech-card"
+    variants={techCardReveal}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true, amount: 0.35 }}
+    custom={index}
+    whileHover={{ y: -6, scale: 1.01 }}
+    whileTap={{ scale: 0.98 }}
+    transition={{ type: "spring", stiffness: 250, damping: 18 }}
+  >
+    <img src={logo} alt={name} className="tech-logo" />
+    <p className="tech-name">{name}</p>
+    {type ? <span className="tech-type">{type}</span> : null}
+  </motion.article>
+);
 
 const TechStackCard = () => {
   return (
-    <>
-      <div className="techstack-container">
-        {techStack1.map((tech, index) => (
-          <div className="tech-card" key={index}>
-         <div className="tech-inner">
-         <div className="tech-front">
-         <img src={tech.logo} alt={tech.name} className="tech-logo" />
-         </div>
-         </div>
-         </div>
-        ))}
-      </div>
+    <div className="techstack-layout">
+      <motion.div
+        className="techstack-section"
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.26 }}
+        transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h3 className="techstack-title">Core Stack</h3>
+        <div className="techstack-grid core-grid">
+          {techStack1.map((tech, index) => (
+            <TechCard key={tech.name} index={index} {...tech} />
+          ))}
+        </div>
+      </motion.div>
 
-      <div className="extra-tech-container">
-        {techStack2.map((tech, index) => (
-        <div className="tech-card" key={index}>
-        <div className="tech-inner">
-        <div className="tech-front">
-        <img src={tech.logo} alt={tech.name} className="tech-logo" />
+      <motion.div
+        className="techstack-section"
+        initial={{ opacity: 0, y: 26 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.26 }}
+        transition={{ duration: 0.58, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <h3 className="techstack-title">Tools I Use</h3>
+        <div className="techstack-grid tools-grid">
+          {techStack2.map((tech, index) => (
+            <TechCard key={tech.name} index={techStack1.length + index} {...tech} />
+          ))}
         </div>
-        </div>
-        </div>
-        ))}
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 };
 

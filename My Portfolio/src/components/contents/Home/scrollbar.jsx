@@ -6,7 +6,12 @@ const ScrollToTop = () => {
   };
 
   return (
-    <div className="scroll-button" onClick={handleScrollTop}>
+    <button
+      type="button"
+      className="scroll-button"
+      onClick={handleScrollTop}
+      aria-label="Scroll to top"
+    >
       <div className="scroll-inner">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +27,7 @@ const ScrollToTop = () => {
           <polyline points="18 15 12 9 6 15" />
         </svg>
       </div>
-    </div>
+    </button>
   );
 };
 

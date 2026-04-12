@@ -33,7 +33,7 @@ const Typewriter = ({
   }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, delay]);
 
   return (
-    <div className="typewriter-wrapper">
+    <div className="typewriter-wrapper" data-scroll="fade" style={{ "--scroll-delay": "140ms" }}>
       <span className="gradient-typewriter">
         {text}
         <span className="blinking-cursor">|</span>
