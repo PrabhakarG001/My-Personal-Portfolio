@@ -4,6 +4,23 @@ import { FiExternalLink } from "react-icons/fi";
 import "./project.css";
 
 const projects = [
+  
+  // {
+  //   title: "Classic Tic-Tac-Toe Game",
+  //   image: "/projecttwo.png",
+  //   description:
+  //     "This Tic Tac Toe game was developed using only HTML, CSS, and JavaScript. It supports two-player gameplay with turn tracking, win condition detection, and smooth responsiveness across mobile and desktop screens.",
+  //   liveLink: "https://prabhakarg001.github.io/Tic-Toc-Toe-Game/",
+  //   codeLink: "https://github.com/PrabhakarG001/Tic-Toc-Toe-Game",
+  // },
+    {
+    title: "StayVerse",
+    image: "/StayVerse.png",
+    description:
+      "Currently building StayVerse — an innovative rental and stay-booking platform designed to simplify property discovery, seamless bookings, secure payments, and a modern travel experience for users and hosts. ",
+    liveLink: "#typewriter",
+    codeLink: "#contact",
+  },
   {
     title: "My Personal Portfolio Website",
     image: "/project1.png",
@@ -12,13 +29,13 @@ const projects = [
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
-  {
-    title: "Classic Tic-Tac-Toe Game",
-    image: "/projecttwo.png",
+    {
+    title: "ApproveX",
+    image: "/ApproveX.png",
     description:
-      "This Tic Tac Toe game was developed using only HTML, CSS, and JavaScript. It supports two-player gameplay with turn tracking, win condition detection, and smooth responsiveness across mobile and desktop screens.",
-    liveLink: "https://prabhakarg001.github.io/Tic-Toc-Toe-Game/",
-    codeLink: "https://github.com/PrabhakarG001/Tic-Toc-Toe-Game",
+      "ApproveX — an innovative approval and verification platform designed to streamline student activity requests through smart automation, AI-based validation, secure workflows, and verified digital certifications.",
+    liveLink: "",
+    codeLink: "#contact",
   },
 ];
 

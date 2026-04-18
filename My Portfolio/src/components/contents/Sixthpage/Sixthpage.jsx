@@ -25,7 +25,7 @@ const Sixthpage = () => {
           transition={{ duration: 0.45, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         >
           <AuroraButton
-            href="https://drive.google.com/file/d/1eAxQg-FIbvEfF6uRT-5J3akm_JvbOhFz/view"
+            href="https://drive.google.com/file/d/16tnbepZlDVjNbiyZ9bZLln4AaZ6AbbSE/view?usp=drivesdk"
             target="_blank"
             rel="noopener noreferrer"
             icon={FiEye}
@@ -41,7 +41,7 @@ const Sixthpage = () => {
           transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <AuroraButton
-            href="https://drive.google.com/uc?export=download&id=1eAxQg-FIbvEfF6uRT-5J3akm_JvbOhFz"
+            href="https://drive.google.com/file/d/16tnbepZlDVjNbiyZ9bZLln4AaZ6AbbSE/view?usp=drivesdk"
             target="_blank"
             rel="noopener noreferrer"
             icon={FiDownload}
