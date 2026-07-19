@@ -19,6 +19,8 @@ import mysql from "../../../assets/mysql.svg";
 import python from "../../../assets/python.svg";
 // import typescript from "../../../assets/typescript.svg";
 import vercel from "../../../assets/vercel.svg";
+import tailwindcss from "../../../assets/tailwindcss.svg";
+import firebase from "../../../assets/firebase.svg";
 
 
 const techStack1 = [
@@ -33,6 +35,7 @@ const techStack1 = [
   { name: "", logo: cpp, type: "" },
   //  { name: "C ", logo: c, type: "Language" },
   { name: "", logo: python, type: "" },
+  { name: "", logo: tailwindcss, type: "" },
   // { name: "Typescript ", logo: typescript, type: "Language" },
   
 
@@ -46,6 +49,7 @@ const techStack2 = [
   // { name: "Hoppscotch", logo: hoppscotch},
   // { name: "sql", logo: sql },
   { name: "", logo: mysql },
+  { name: "", logo: firebase },
 ];
 
 const techCardReveal = {
