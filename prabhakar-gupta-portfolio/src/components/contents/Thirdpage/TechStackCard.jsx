@@ -14,7 +14,7 @@ import cpp from "../../../assets/cpp.svg";
 import windows from "../../../assets/windows.svg";
 import vscode from "../../../assets/vscode.svg";
 // import hoppscotch from "../../../assets/hoppscotch.svg";
-import figma from "../../../assets/figma.svg";
+import render from "../../../assets/render.svg";
 import mysql from "../../../assets/mysql.svg";
 import python from "../../../assets/python.svg";
 // import typescript from "../../../assets/typescript.svg";
@@ -42,7 +42,7 @@ const techStack1 = [
 ];
 
 const techStack2 = [
-  { name: " ", logo: figma },
+  { name: " ", logo: render },
   { name: "", logo: windows },
   { name: "", logo: vscode},
   { name: "", logo: vercel},
