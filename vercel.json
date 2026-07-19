@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd prabhakar-gupta-portfolio && npm install --include=dev",
+  "buildCommand": "cd prabhakar-gupta-portfolio && npx vite build",
+  "outputDirectory": "prabhakar-gupta-portfolio/dist"
+}

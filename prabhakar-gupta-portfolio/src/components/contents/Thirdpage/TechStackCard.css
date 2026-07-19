@@ -1,0 +1,134 @@
+.techstack-layout {
+  display: grid;
+  margin-top: clamp(0.35rem, 1.1vw, 0.8rem);
+  gap: clamp(1.55rem, 3.2vw, 2.35rem);
+  align-items: start;
+}
+
+.techstack-section {
+  display: grid;
+  grid-template-rows: auto auto;
+  width: 100%;
+  gap: clamp(0.9rem, 1.8vw, 1.1rem);
+  justify-items: center;
+}
+
+.techstack-title {
+  margin-bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1rem, 2.3vw, 1.22rem);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+.techstack-title::after {
+  content: "";
+  display: block;
+  width: clamp(56px, 8.2vw, 88px);
+  height: 0.34rem;
+  margin: 0.5rem auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(45, 212, 191, 0.38),
+    #2dd4bf 36%,
+    #22d3ee 72%,
+    rgba(34, 211, 238, 0.38)
+  );
+  box-shadow: 0 0 14px rgba(45, 212, 191, 0.54);
+}
+
+.techstack-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.6vw, 0.95rem);
+  width: 100%;
+  align-content: start;
+}
+
+.core-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tools-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tech-card {
+  width: 100%;
+  max-width: none;
+  min-height: 136px;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.56rem;
+  padding: 0.5rem;
+  margin-inline: auto;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.tech-logo {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+}
+
+.tech-name {
+  color: var(--text-primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tech-type {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tech-card:hover,
+  .tech-card:focus-within {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(110, 249, 236, 0.45);
+    box-shadow:
+      0 26px 54px rgba(2, 8, 23, 0.52),
+      0 10px 26px rgba(45, 212, 191, 0.18),
+      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+  }
+}
+
+@media (max-width: 1024px) {
+  .core-grid,
+  .tools-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .techstack-layout {
+    margin-top: 0.25rem;
+    gap: 1.2rem;
+  }
+
+  .techstack-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+  }
+
+  .tech-card {
+    max-width: none;
+    min-height: 124px;
+  }
+
+  .tech-logo {
+    width: 48px;
+    height: 48px;
+  }
+}

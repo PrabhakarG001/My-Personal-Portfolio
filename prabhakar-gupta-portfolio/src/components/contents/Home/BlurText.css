@@ -1,0 +1,11 @@
+.hero-blur-text {
+  width: min(100%, 760px);
+  margin-inline: auto;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(0.96rem, 2vw, 1.18rem);
+  line-height: 1.72;
+  color: #d7e5f7;
+  font-weight: 500;
+  text-wrap: balance;
+}

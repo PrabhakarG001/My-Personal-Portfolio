@@ -1,0 +1,134 @@
+.card {
+  align-self: stretch;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  color: var(--text-primary);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.image {
+  width: min(210px, 100%);
+  animation: floatAstronaut 8s ease-in-out infinite;
+  transition: transform 0.28s ease, filter 0.28s ease;
+}
+
+.heading {
+  font-size: 1.06rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.subtext {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.icons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.linkedin,
+.github,
+.email {
+  width: 2.32rem;
+  height: 2.32rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.56);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.24),
+    inset 0 1px 0 rgba(148, 163, 184, 0.15);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.linkedin svg,
+.github svg,
+.email svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.linkedin svg path,
+.github svg path,
+.email svg path {
+  fill: currentColor;
+}
+
+.linkedin:hover,
+.github:hover,
+.email:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow:
+    0 14px 26px rgba(8, 145, 178, 0.3),
+    0 0 0 1px rgba(125, 211, 252, 0.26);
+}
+
+.linkedin:hover {
+  color: #2563eb;
+}
+
+.github:hover {
+  color: #38bdf8;
+}
+
+.email:hover {
+  color: #f472b6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-6px) scale(1.01);
+    border-color: rgba(110, 249, 236, 0.45);
+    box-shadow:
+      0 26px 54px rgba(2, 8, 23, 0.52),
+      0 10px 26px rgba(45, 212, 191, 0.18),
+      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+  }
+
+  .card:hover .image,
+  .card:focus-within .image {
+    filter: drop-shadow(0 12px 26px rgba(56, 189, 248, 0.22));
+  }
+
+  .linkedin:focus-visible,
+  .github:focus-visible,
+  .email:focus-visible {
+    border-color: var(--border-strong);
+    box-shadow:
+      0 14px 26px rgba(8, 145, 178, 0.3),
+      0 0 0 1px rgba(125, 211, 252, 0.26);
+  }
+}
+
+@keyframes floatAstronaut {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}

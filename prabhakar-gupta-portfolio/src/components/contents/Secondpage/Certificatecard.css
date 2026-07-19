@@ -1,0 +1,77 @@
+.certificate-card {
+  height: 100%;
+  border-radius: var(--radius-md);
+  padding: clamp(1.05rem, 2.4vw, 1.22rem);
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(110, 249, 236, 0.45);
+  box-shadow:
+    0 26px 54px rgba(2, 8, 23, 0.52),
+    0 10px 26px rgba(45, 212, 191, 0.18),
+    inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+}
+
+.certificate-card .header {
+  display: flex;
+  align-items: center;
+  gap: 0.76rem;
+  margin-bottom: 0.98rem;
+}
+
+.certificate-card .title {
+  font-size: 1.04rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.certificate-card .card-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.78rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  padding: 0.86rem;
+  margin-bottom: 0.76rem;
+}
+
+.certificate-card .text {
+  font-size: 0.91rem;
+  color: var(--text-secondary);
+  line-height: 1.56;
+}
+
+.certificate-card .text span {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+}
+
+.certificate-card .text a {
+  color: var(--brand-2);
+  font-weight: 600;
+}
+
+.certificate-card .icon {
+  font-size: 1.05rem;
+  margin-top: 0.18rem;
+  flex-shrink: 0;
+}
+
+.certificate-card .gradient {
+  color: var(--brand-1);
+}
+
+.certificate-card .green {
+  color: #22c55e;
+}
+
+.certificate-card .cyan {
+  color: #06b6d4;
+}

@@ -1,0 +1,91 @@
+.typewriter-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: clamp(4.2rem, 11vw, 6.8rem);
+  width: 100%;
+  text-align: center;
+  padding-inline: clamp(0.5rem, 2vw, 1rem);
+  overflow: visible;
+  margin-top: 0;
+  margin-bottom: clamp(0.4rem, 1.2vw, 1rem);
+}
+
+.gradient-typewriter {
+  background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 8s linear infinite;
+  display: inline-block;
+  font-weight: 0.8rem;
+  font-size: clamp(1.2rem, 0.95rem + 3.4vw, 3rem);
+  font-family: sans-serif;
+  position: relative;
+  padding: 0 1rem;
+  text-wrap: balance;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  width: min(95vw, 33ch);
+  max-width: 100%;
+  line-height: 1.22;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 1ch;
+  margin-left: 4px;
+  background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: blink 0.7s infinite, gradient 8s linear infinite;
+  font-weight: bold;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .gradient-typewriter {
+    width: min(94vw, 26ch);
+  }
+}
+
+@media (max-width: 480px) {
+  .typewriter-wrapper {
+    min-height: clamp(7.8rem, 33vw, 10.2rem);
+    padding-block: 0.35rem;
+    margin-bottom: clamp(0.55rem, 3vw, 1rem);
+  }
+
+  .gradient-typewriter {
+    width: min(94vw, 24ch);
+    font-size: clamp(1.1rem, 4.9vw, 1.65rem);
+    line-height: 1.23;
+    padding: 0 0.55rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 360px) {
+  .typewriter-wrapper {
+    min-height: clamp(8.2rem, 38vw, 11rem);
+    margin-bottom: clamp(0.45rem, 3.2vw, 0.9rem);
+  }
+
+  .gradient-typewriter {
+    width: min(95vw, 22ch);
+    font-size: clamp(1.02rem, 4.6vw, 1.4rem);
+  }
+}
