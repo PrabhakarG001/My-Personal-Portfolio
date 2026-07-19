@@ -47,8 +47,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header>
-      <nav className={menuOpen ? "open" : ""}>
+
         <a href="#home" className="title">
           Prabhakar Gupta
         </a>

@@ -13,6 +13,40 @@ import Availablecard from "./components/contents/Secondpage/Availablecard.jsx";
 import Touchcard from "./components/contents/Seventhpage/Touchcard.jsx";
 import Form from "./components/contents/Seventhpage/Form.jsx";
 import GradientText from './components/contents/Home/GradientText.jsx';
+import CardNav from "./components/CardNav";
+import logo from "./assets/c.svg"; // placeholder logo
+
+// Define navigation items for CardNav
+const navItems = [
+  {
+    label: "About",
+    bgColor: "#1B1722",
+    textColor: "#fff",
+    links: [
+      { label: "Company", ariaLabel: "About Company", href: "#" },
+      { label: "Careers", ariaLabel: "About Careers", href: "#" }
+    ]
+  },
+  {
+    label: "Projects",
+    bgColor: "#2F293A",
+    textColor: "#fff",
+    links: [
+      { label: "Featured", ariaLabel: "Featured Projects", href: "#" },
+      { label: "Case Studies", ariaLabel: "Project Case Studies", href: "#" }
+    ]
+  },
+  {
+    label: "Contact",
+    bgColor: "#2F293A",
+    textColor: "#fff",
+    links: [
+      { label: "Email", ariaLabel: "Email us", href: "#" },
+      { label: "Twitter", ariaLabel: "Twitter", href: "#" },
+      { label: "LinkedIn", ariaLabel: "LinkedIn", href: "#" }
+    ]
+  }
+];
 
 
  import  BlurText from './components/contents/Home/BlurText.jsx';
@@ -39,7 +73,22 @@ function App() {
   return (
     <>
       <SplashCursor />
-      <Navbar />
+      {/* Mobile CardNav */}
+      <div className="block md:hidden">
+        <CardNav
+          logo={logo}
+          logoAlt="Logo"
+          items={navItems}
+          baseColor="#fff"
+          menuColor="#000"
+          buttonBgColor="#111"
+          buttonTextColor="#fff"
+        />
+      </div>
+      {/* Desktop Navbar */}
+      <div className="hidden md:block">
+        <Navbar />
+      </div>
       <AuroraHero />
       <Loader/>
       

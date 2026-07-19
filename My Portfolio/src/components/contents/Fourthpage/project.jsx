@@ -3,46 +3,69 @@ import "./project.css";
 import { FiExternalLink } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 
-const ProjectOne = () => (
+const StayVerse = () => (
   <div className="project-container one">
-    <img src="/project1.png" alt="Project One" className="project-img"/>
+    <img src="/stayverse.png" alt="StayVerse" className="project-img" />
     <div className="project-info">
-      <h2>My Personal Porfolio Website</h2>
-      <p>
-  A fully responsive and modern portfolio website built using <span className="highlight-white"> React, Tailwind CSS</span> and <span className="highlight-white">JavaScript. </span> It includes animated scroll effects, reusable components, and clean layout design. The site highlights my technical skills, personal projects, certifications, and contact details. It also features smooth navigation, interactive hover effects, and optimized loading for better performance. Ideal for recruiters and collaborators to explore my work and connect professionally.
-</p> <div className="buttons-wrapper">
-      <a href="#projects" className="gradient-border-btn"><FiExternalLink /> Live Demo</a>
-      <a href="#contact" className="button-2"> <FaGithub /> Github</a>
-    </div>
-    </div>
-  </div>
-);
-
-const ProjectTwo = () => (
-  <div className="project-container two">
-    <img
-      src="projecttwo.png"
-      alt="Project Two"
-      className="project-img"
-    />
-    <div className="project-info">
-      <h2>Classis Tic-Toc-Toe Game</h2>
-      <p>This Tic Tac Toe game was developed using <span className="highlight-white">only HTML, CSS, </span> and <span className="highlight-white">JavaScript. </span> It supports two-player gameplay with turn tracking, win condition detection, and an automatic reset option. The layout adapts to various screen sizes, providing a smooth experience on mobile and desktop devices. The project highlights core JavaScript logic handling and DOM manipulation without any external libraries.</p>
+      <h2>StayVerse</h2>
+      <p>StayVerse is a collaborative virtual workspace platform that enables teams to create immersive rooms, share screens, and brainstorm in real‑time. Built with React, Three.js, and WebRTC for seamless video and 3D interactions.</p>
       <div className="buttons-wrapper">
-      <a href="https://prabhakarg001.github.io/Tic-Toc-Toe-Game/" target="_blank" rel="noopener noreferrer"  className="gradient-border-btn"> <FiExternalLink /> Live Demo</a>
-       <a href="https://github.com/PrabhakarG001/Tic-Toc-Toe-Game" target="_blank" rel="noopener noreferrer" className="button-2"> <FaGithub /> Github</a>
-    </div>
+        <a href="#" className="gradient-border-btn"><FiExternalLink /> Live Demo</a>
+        <a href="#" className="button-2"><FaGithub /> Github</a>
+      </div>
     </div>
   </div>
 );
 
-const Project = () => {
-  return (
-    <div className="project-wrapper">
-      <ProjectOne />
-      <ProjectTwo />
+const MeetSphere = () => (
+  <div className="project-container two">
+    <img src="/meetsphere.png" alt="MeetSphere" className="project-img" />
+    <div className="project-info">
+      <h2>MeetSphere</h2>
+      <p>MeetSphere is an AI‑powered meeting assistant that records, transcribes, and summarizes video calls. Developed using Next.js, OpenAI APIs, and Tailwind CSS for a clean UI.</p>
+      <div className="buttons-wrapper">
+        <a href="#" className="gradient-border-btn"><FiExternalLink /> Live Demo</a>
+        <a href="#" className="button-2"><FaGithub /> Github</a>
+      </div>
     </div>
-  );
-};
+  </div>
+);
+
+const IntellixAI = () => (
+  <div className="project-container three">
+    <img src="/intellixai.png" alt="IntellixAI" className="project-img" />
+    <div className="project-info">
+      <h2>IntellixAI</h2>
+      <p>IntellixAI is a predictive analytics platform that ingests time‑series data and provides AI‑driven forecasts. Powered by Python FastAPI backend, React frontend, and TensorFlow models.</p>
+      <div className="buttons-wrapper">
+        <a href="#" className="gradient-border-btn"><FiExternalLink /> Live Demo</a>
+        <a href="#" className="button-2"><FaGithub /> Github</a>
+      </div>
+    </div>
+  </div>
+);
+
+const Portfolio = () => (
+  <div className="project-container four">
+    <img src="/portfolio.png" alt="Portfolio" className="project-img" />
+    <div className="project-info">
+      <h2>My Personal Portfolio</h2>
+      <p>A modern, responsive portfolio showcasing my skills, projects, and achievements. Built with React, Tailwind CSS, and GSAP animations for a premium experience.</p>
+      <div className="buttons-wrapper">
+        <a href="#" className="gradient-border-btn"><FiExternalLink /> Live Demo</a>
+        <a href="#" className="button-2"><FaGithub /> Github</a>
+      </div>
+    </div>
+  </div>
+);
+
+const Project = () => (
+  <div className="project-wrapper">
+    <StayVerse />
+    <MeetSphere />
+    <IntellixAI />
+    <Portfolio />
+  </div>
+);
 
 export default Project;
