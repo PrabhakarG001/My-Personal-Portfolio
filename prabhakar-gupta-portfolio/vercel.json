@@ -1,0 +1,5 @@
+{
+  "installCommand": "npm install --include=dev",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist"
+}
