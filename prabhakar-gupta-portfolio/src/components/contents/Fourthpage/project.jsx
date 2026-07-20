@@ -32,7 +32,7 @@ const projects = [
     title: "My Personal Portfolio Website",
     image: "/Portfolio.png",
     description:
-      "A fully responsive and modern portfolio website built using React, Tailwind CSS and JavaScript. It includes animated scroll effects, reusable components, and a clean layout that highlights my technical skills and projects.",
+      "I developed a personal portfolio website to showcase my projects, skills, and technical journey through a modern and visually engaging interface. The website features a clean, responsive design that ensures a seamless experience across devices, along with smooth animations and well-structured sections for better user interaction. It integrates EmailJS for real-time communication, allowing visitors to easily connect with me. This project highlights my attention to UI/UX design, frontend development skills, and ability to create professional, user-focused web applications.",
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
