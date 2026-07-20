@@ -1,10 +1,10 @@
 import "./Certificatecard.css";
-import { motion } from "framer-motion";
 import { FaAward, FaCode, FaLaptopCode } from "react-icons/fa";
+import InteractiveCard from "../../InteractiveCard.jsx";
 
 const CertificateCard = ({ delay = 0 }) => {
   return (
-    <motion.div
+    <InteractiveCard
       className="certificate-card"
       initial={{ opacity: 0, y: 28, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -37,7 +37,7 @@ const CertificateCard = ({ delay = 0 }) => {
           <a href="#">Link: Coming Soon</a>
         </p>
       </div>
-    </motion.div>
+    </InteractiveCard>
   );
 };
 

@@ -157,7 +157,7 @@ const CardNav = ({
           </div>
 
           <div className="logo-container">
-            <img src={logo} alt={logoAlt} className="logo" />
+            <span className="brand-text">Prabhakar Gupta</span>
           </div>
 
           <button

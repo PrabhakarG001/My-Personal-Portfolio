@@ -1,9 +1,10 @@
 import "./Touchcard.css";
 import { motion } from "framer-motion";
+import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Touchcard = ({ delay = 0 }) => {
   return (
-    <motion.div
+    <InteractiveCard
       className="card"
       initial={{ opacity: 0, x: -24 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -93,7 +94,7 @@ const Touchcard = ({ delay = 0 }) => {
           </svg>
         </motion.a>
       </motion.div>
-    </motion.div>
+    </InteractiveCard>
   );
 };
 

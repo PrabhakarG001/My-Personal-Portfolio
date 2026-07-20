@@ -4,16 +4,15 @@ import { FiExternalLink } from "react-icons/fi";
 import "./project.css";
 
 const projects = [
-  
-  // {
-  //   title: "Classic Tic-Tac-Toe Game",
-  //   image: "/projecttwo.png",
-  //   description:
-  //     "This Tic Tac Toe game was developed using only HTML, CSS, and JavaScript. It supports two-player gameplay with turn tracking, win condition detection, and smooth responsiveness across mobile and desktop screens.",
-  //   liveLink: "https://prabhakarg001.github.io/Tic-Toc-Toe-Game/",
-  //   codeLink: "https://github.com/PrabhakarG001/Tic-Toc-Toe-Game",
-  // },
-    {
+  {
+    title: "Classic Tic-Tac-Toe Game",
+    image: "/projecttwo.png",
+    description:
+      "This Tic Tac Toe game was developed using only HTML, CSS, and JavaScript. It supports two-player gameplay with turn tracking, win condition detection, and smooth responsiveness across mobile and desktop screens.",
+    liveLink: "https://prabhakarg001.github.io/Tic-Toc-Toe-Game/",
+    codeLink: "https://github.com/PrabhakarG001/Tic-Toc-Toe-Game",
+  },
+  {
     title: "StayVerse",
     image: "/StayVerse.png",
     description:
@@ -29,7 +28,7 @@ const projects = [
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
-    {
+  {
     title: "ApproveX",
     image: "/ApproveX.png",
     description:
@@ -49,52 +48,51 @@ const projectReveal = {
   }),
 };
 
+const ProjectCard = ({ project, index }) => {
+  return (
+    <motion.article
+      className="universal-card project-container"
+      variants={projectReveal}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.22 }}
+      custom={index}
+    >
+      <img src={project.image} alt={project.title} className="project-img" />
+
+      <div className="project-info">
+        <h2>{project.title}</h2>
+        <p>{project.description}</p>
+
+        <div className="buttons-wrapper">
+          <a
+            href={project.liveLink}
+            className="gradient-border-btn arrow-btn-container eyeball-target"
+            target={project.liveLink.startsWith("http") ? "_blank" : undefined}
+            rel={project.liveLink.startsWith("http") ? "noopener noreferrer" : undefined}
+          >
+            <FiExternalLink className="arrow-icon eyeball-icon" /> Live Demo
+          </a>
+
+          <a
+            href={project.codeLink}
+            className="button-2 eyeball-target"
+            target={project.codeLink.startsWith("http") ? "_blank" : undefined}
+            rel={project.codeLink.startsWith("http") ? "noopener noreferrer" : undefined}
+          >
+            <FaGithub className="eyeball-icon" /> GitHub
+          </a>
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
 const Project = () => {
   return (
     <div className="project-wrapper">
       {projects.map((project, index) => (
-        <motion.article
-          key={project.title}
-          className="project-container"
-          variants={projectReveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.22 }}
-          custom={index}
-          whileHover={{ y: -6, scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
-        >
-          <img src={project.image} alt={project.title} className="project-img" />
-
-          <div className="project-info">
-            <h2>{project.title}</h2>
-            <p>{project.description}</p>
-
-            <div className="buttons-wrapper">
-              <motion.a
-                href={project.liveLink}
-                className="gradient-border-btn"
-                target={project.liveLink.startsWith("http") ? "_blank" : undefined}
-                rel={project.liveLink.startsWith("http") ? "noopener noreferrer" : undefined}
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.96 }}
-              >
-                <FiExternalLink /> Live Demo
-              </motion.a>
-
-              <motion.a
-                href={project.codeLink}
-                className="button-2"
-                target={project.codeLink.startsWith("http") ? "_blank" : undefined}
-                rel={project.codeLink.startsWith("http") ? "noopener noreferrer" : undefined}
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.96 }}
-              >
-                <FaGithub /> GitHub
-              </motion.a>
-            </div>
-          </div>
-        </motion.article>
+        <ProjectCard key={project.title} project={project} index={index} />
       ))}
     </div>
   );

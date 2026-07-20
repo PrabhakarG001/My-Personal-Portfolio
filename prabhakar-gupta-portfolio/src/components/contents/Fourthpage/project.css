@@ -5,40 +5,10 @@
 }
 
 .project-container {
-  position: relative;
-  isolation: isolate;
-  border-radius: 24px;
-  border: 1px solid rgba(110, 249, 236, 0.24);
-  background: transparent;
-  box-shadow:
-    0 10px 24px rgba(2, 8, 23, 0.3),
-    0 2px 12px rgba(56, 189, 248, 0.08),
-    inset 0 0 0 1px rgba(56, 189, 248, 0.16);
-  overflow: hidden;
   display: grid;
   grid-template-rows: minmax(170px, 46%) 1fr;
   min-height: clamp(31rem, 48vw, 38rem);
-  backdrop-filter: blur(8px);
-  transition: border-color 0.28s ease, box-shadow 0.28s ease;
-}
-
-.project-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: inherit;
-  background: transparent;
-}
-
-.project-container::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  /* Other card styles are handled by .universal-card */
 }
 
 .project-img {
@@ -130,14 +100,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .project-container:hover {
-    border-color: rgba(110, 249, 236, 0.45);
-    box-shadow:
-      0 26px 54px rgba(2, 8, 23, 0.52),
-      0 10px 26px rgba(45, 212, 191, 0.18),
-      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
-  }
-
   .project-container:hover .project-img {
     filter: saturate(1.16) contrast(1.08);
   }
@@ -160,9 +122,12 @@
   }
 }
 
-.button-2:hover {
-  border-color: var(--border-strong);
-  color: var(--text-primary);
+.arrow-icon {
+  transition: transform 0.4s ease;
+}
+
+.arrow-btn-container:hover .arrow-icon {
+  transform: rotate(45deg);
 }
 
 @media (max-width: 920px) {

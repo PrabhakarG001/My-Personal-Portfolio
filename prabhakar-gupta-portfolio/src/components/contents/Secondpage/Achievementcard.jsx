@@ -1,10 +1,10 @@
 import "./Achievementcard.css";
-import { motion } from "framer-motion";
 import { FaTrophy, FaLaptopCode, FaUsers } from "react-icons/fa";
+import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Achievementcard = ({ delay = 0 }) => {
   return (
-    <motion.div
+    <InteractiveCard
       className="achievement-card"
       initial={{ opacity: 0, y: 28, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -30,7 +30,7 @@ const Achievementcard = ({ delay = 0 }) => {
         <FaTrophy className="icon blue" />
         <p className="text">2nd Runner-Up among 150+ Teams at Hack The Beginning ’26 </p>
       </div>
-    </motion.div>
+    </InteractiveCard>
   );
 };
 

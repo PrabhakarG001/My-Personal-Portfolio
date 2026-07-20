@@ -1,19 +1,11 @@
 .card {
   align-self: stretch;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-soft);
-  background: transparent;
-  box-shadow: var(--shadow-md);
   padding: 1rem;
   display: grid;
   justify-items: center;
   gap: 0.6rem;
   text-align: center;
   color: var(--text-primary);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
-    border-color 0.28s ease;
 }
 
 .image {
@@ -98,16 +90,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .card:hover,
-  .card:focus-within {
-    transform: translateY(-6px) scale(1.01);
-    border-color: rgba(110, 249, 236, 0.45);
-    box-shadow:
-      0 26px 54px rgba(2, 8, 23, 0.52),
-      0 10px 26px rgba(45, 212, 191, 0.18),
-      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
-  }
-
   .card:hover .image,
   .card:focus-within .image {
     filter: drop-shadow(0 12px 26px rgba(56, 189, 248, 0.22));

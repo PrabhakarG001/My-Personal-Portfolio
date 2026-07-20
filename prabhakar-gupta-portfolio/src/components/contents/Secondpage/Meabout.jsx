@@ -6,7 +6,7 @@ import { FaHandPointRight } from "react-icons/fa";
 const Meabout = ({ delay = 0 }) => {
   return (
     <motion.div
-      className="meabout-container"
+      className="universal-card meabout-container"
       initial={{ opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.28 }}

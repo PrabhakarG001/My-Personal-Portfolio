@@ -37,6 +37,7 @@
   font-weight: 700;
   font-size: clamp(1rem, 2vw, 1.22rem);
   cursor: pointer;
+  text-align: left;
   animation: brandShift 7s linear infinite;
 }
 
@@ -128,11 +129,8 @@
 }
 
 @media (max-width: 940px) {
-  .desktop-nav {
+  .site-header {
     display: none;
   }
-
-  .mobile-toggle {
-    display: inline-flex;
-  }
 }
+

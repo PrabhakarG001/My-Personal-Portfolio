@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import "./TechStackCard.css";
 
 import html from "../../../assets/html.svg";
@@ -42,14 +43,12 @@ const techStack1 = [
 ];
 
 const techStack2 = [
-  { name: " ", logo: render },
-  { name: "", logo: windows },
-  { name: "", logo: vscode},
-  { name: "", logo: vercel},
-  // { name: "Hoppscotch", logo: hoppscotch},
-  // { name: "sql", logo: sql },
-  { name: "", logo: mysql },
+  { name: "", logo: render },
   { name: "", logo: firebase },
+  { name: "", logo: vercel },
+  { name: "", logo: vscode },
+  { name: "", logo: windows },
+  { name: "", logo: mysql },
 ];
 
 const techCardReveal = {
@@ -62,23 +61,23 @@ const techCardReveal = {
   }),
 };
 
-const TechCard = ({ logo, name, type, index = 0 }) => (
-  <motion.article
-    className="tech-card"
-    variants={techCardReveal}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.35 }}
-    custom={index}
-    whileHover={{ y: -6, scale: 1.01 }}
-    whileTap={{ scale: 0.98 }}
-    transition={{ type: "spring", stiffness: 250, damping: 18 }}
-  >
-    <img src={logo} alt={name} className="tech-logo" />
-    <p className="tech-name">{name}</p>
-    {type ? <span className="tech-type">{type}</span> : null}
-  </motion.article>
-);
+const TechCard = ({ logo, name, type, index = 0 }) => {
+  return (
+    <motion.article
+      className="universal-card tech-card"
+      variants={techCardReveal}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.35 }}
+      custom={index}
+      whileTap={{ scale: 0.98 }}
+    >
+      <img src={logo} alt={name} className="tech-logo" />
+      <p className="tech-name">{name}</p>
+      {type ? <span className="tech-type">{type}</span> : null}
+    </motion.article>
+  );
+};
 
 const TechStackCard = () => {
   return (
@@ -93,7 +92,7 @@ const TechStackCard = () => {
         <h3 className="techstack-title">Core Stack</h3>
         <div className="techstack-grid core-grid">
           {techStack1.map((tech, index) => (
-            <TechCard key={tech.name} index={index} {...tech} />
+            <TechCard key={index} index={index} {...tech} />
           ))}
         </div>
       </motion.div>
@@ -108,7 +107,7 @@ const TechStackCard = () => {
         <h3 className="techstack-title">Tools I Use</h3>
         <div className="techstack-grid tools-grid">
           {techStack2.map((tech, index) => (
-            <TechCard key={tech.name} index={techStack1.length + index} {...tech} />
+            <TechCard key={index} index={4 + index} {...tech} />
           ))}
         </div>
       </motion.div>

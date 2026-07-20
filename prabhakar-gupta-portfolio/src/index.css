@@ -90,3 +90,127 @@ canvas {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #14b8a6, #2563eb);
 }
+
+.shine-overlay {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.interactive-card-wrapper:hover .shine-overlay {
+  left: 150%;
+}
+
+.follow-ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(110, 249, 236, 0.5) 0%, transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* Universal Card Base Style */
+.universal-card {
+  background: transparent !important;
+  border: 1px solid rgba(0, 255, 200, 0.25) !important;
+  border-radius: 16px !important;
+  transition: all 0.4s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  /* Reset previous glass styles */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 8px 25px rgba(0, 255, 200, 0.15) !important;
+}
+
+/* Shine Effect */
+.universal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Soft Inner Glow */
+.universal-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.02);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover Interaction */
+@media (hover: hover) and (pointer: fine) {
+  .universal-card:hover {
+    transform: translateY(-6px) scale(1.02) !important;
+    box-shadow: 0 12px 40px rgba(0, 255, 200, 0.35) !important;
+    border: 1px solid rgba(0, 255, 200, 0.6) !important;
+  }
+  
+  .universal-card:hover::before {
+    left: 120%;
+  }
+  
+  .universal-card:hover::after {
+    opacity: 1;
+  }
+
+  /* Eyeball Target Hover Styles */
+  .eyeball-target {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .eyeball-target:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 200, 0.4) !important;
+  }
+}
+
+.eyeball-icon {
+  transition: transform 0.2s ease-out;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  .universal-card:active {
+    transform: translateY(-3px) scale(1.01) !important;
+    box-shadow: 0 8px 25px rgba(0, 255, 200, 0.25) !important;
+    border: 1px solid rgba(0, 255, 200, 0.5) !important;
+  }
+}

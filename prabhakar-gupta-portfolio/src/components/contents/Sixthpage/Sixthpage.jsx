@@ -6,7 +6,7 @@ import "./Sixthpage.css";
 const Sixthpage = () => {
   return (
     <motion.div
-      className="resume-shell"
+      className="universal-card resume-shell"
       initial={{ opacity: 0, y: 28, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.3 }}

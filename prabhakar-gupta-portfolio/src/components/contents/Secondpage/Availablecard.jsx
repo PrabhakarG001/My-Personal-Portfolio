@@ -1,10 +1,10 @@
 import "./Availablecard.css";
-import { motion } from "framer-motion";
 import { FaRocket, FaCheckCircle, FaUser, FaClock } from "react-icons/fa";
+import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Availablecard = ({ delay = 0 }) => {
   return (
-    <motion.div
+    <InteractiveCard
       className="available-card"
       initial={{ opacity: 0, y: 28, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -30,7 +30,7 @@ const Availablecard = ({ delay = 0 }) => {
         <FaClock className="icon blue" />
         <p className="text">Remote & On-site Available</p>
       </div>
-    </motion.div>
+    </InteractiveCard>
   );
 };
 

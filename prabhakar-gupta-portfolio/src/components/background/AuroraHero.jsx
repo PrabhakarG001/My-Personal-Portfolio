@@ -124,21 +124,21 @@ export const AuroraButton = ({
       </span>
       <span className="aurora-action-content">
         <span className="aurora-action-label">{children}</span>
-        {Icon ? <Icon className="aurora-action-icon" /> : null}
+        {Icon ? <Icon className="aurora-action-icon eyeball-icon" /> : null}
       </span>
     </>
   );
 
   if (href) {
     return (
-      <motion.a href={href} target={target} rel={rel} {...sharedProps}>
+      <motion.a href={href} target={target} rel={rel} {...sharedProps} className={`${sharedProps.className} eyeball-target`}>
         {content}
       </motion.a>
     );
   }
 
   return (
-    <motion.button type={type} onClick={onClick} {...sharedProps}>
+    <motion.button type={type} onClick={onClick} {...sharedProps} className={`${sharedProps.className} eyeball-target`}>
       {content}
     </motion.button>
   );

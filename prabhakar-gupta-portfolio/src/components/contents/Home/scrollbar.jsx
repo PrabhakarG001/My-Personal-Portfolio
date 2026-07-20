@@ -8,12 +8,13 @@ const ScrollToTop = () => {
   return (
     <button
       type="button"
-      className="scroll-button"
+      className="scroll-button eyeball-target"
       onClick={handleScrollTop}
       aria-label="Scroll to top"
     >
       <div className="scroll-inner">
         <svg
+          className="eyeball-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

@@ -157,7 +157,7 @@ const Form = ({ delay = 0 }) => {
 
   return (
     <motion.div
-      className="contact-form-shell"
+      className="universal-card contact-form-shell"
       initial={{ opacity: 0, x: 24 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, amount: 0.3 }}

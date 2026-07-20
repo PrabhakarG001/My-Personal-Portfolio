@@ -4,6 +4,7 @@ import "./App.css";
 
 import SplashCursor from "./components/splashcursor/splashcursor.jsx";
 import Navbar from "./components/layout/Navbar.jsx";
+import CardNav from "./components/CardNav.jsx";
 import Dock from "./components/layout/Dock.jsx";
 import Footer from "./components/layout/footer.jsx";
 import Scrollbar from "./components/contents/Home/scrollbar.jsx";
@@ -22,6 +23,7 @@ import Availablecard from "./components/contents/Secondpage/Availablecard.jsx";
 
 import TechStackCard from "./components/contents/Thirdpage/TechStackCard.jsx";
 import SoftSkills from "./components/contents/Thirdpage/SoftSkills.jsx";
+import { useEyeballEffect } from "./hooks/useEyeballEffect.js";
 
 import Project from "./components/contents/Fourthpage/project.jsx";
 import Goals from "./components/contents/Fifthpage/Goals.jsx";
@@ -70,11 +72,54 @@ const SectionShell = ({ id, chip, title, children, className = "" }) => (
 );
 
 function App() {
+  useEyeballEffect();
+  
+  const navItems = [
+    {
+      label: "About",
+      bgColor: "rgba(255, 255, 255, 0.05)",
+      textColor: "#fff",
+      links: [
+        { label: "About Me", href: "#about", ariaLabel: "About Me" },
+        { label: "Skills", href: "#skills", ariaLabel: "Skills" },
+        { label: "Resume", href: "#resume", ariaLabel: "Resume" }
+      ]
+    },
+    {
+      label: "Projects", 
+      bgColor: "rgba(255, 255, 255, 0.08)",
+      textColor: "#fff",
+      links: [
+        { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
+        { label: "Goals", href: "#goals", ariaLabel: "Career Goals" }
+      ]
+    },
+    {
+      label: "Contact",
+      bgColor: "rgba(255, 255, 255, 0.05)", 
+      textColor: "#fff",
+      links: [
+        { label: "Connect", href: "#contact", ariaLabel: "Connect" },
+      ]
+    }
+  ];
+
   return (
     <div className="app-shell">
       <AuroraHero />
       <SplashCursor />
       <Navbar />
+      <CardNav
+        logo="/logo.png"
+        logoAlt="Prabhakar Gupta"
+        items={navItems}
+        baseColor="rgba(15, 23, 42, 0.85)"
+        menuColor="#fff"
+        buttonBgColor="#2dd4bf"
+        buttonTextColor="#0f172a"
+        ease="power3.out"
+        className="glass-nav-card"
+      />
       <Dock />
       <Scrollbar />
       <Loader />

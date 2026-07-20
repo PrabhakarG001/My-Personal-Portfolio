@@ -1,19 +1,5 @@
 .meabout-container {
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-soft);
-  background: transparent;
-  box-shadow: var(--shadow-md);
   padding: clamp(1.1rem, 2.9vw, 1.75rem);
-  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-}
-
-.meabout-container:hover {
-  transform: translateY(-6px) scale(1.01);
-  border-color: rgba(110, 249, 236, 0.45);
-  box-shadow:
-    0 26px 54px rgba(2, 8, 23, 0.52),
-    0 10px 26px rgba(45, 212, 191, 0.18),
-    inset 0 0 0 1px rgba(56, 189, 248, 0.24);
 }
 
 .meabout-card {
@@ -92,7 +78,15 @@
 
 @media (max-width: 920px) {
   .meabout-card {
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .meabout-text li {
+    justify-content: center;
   }
 
   .meabout-image {

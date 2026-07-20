@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MdMyLocation, MdRocketLaunch, MdTimeline } from "react-icons/md";
 import "./Goals.css";
+import InteractiveCard from "../../InteractiveCard.jsx";
 
 const goals = [
   {
@@ -37,7 +38,7 @@ const Goals = () => {
   return (
     <div className="goals-grid">
       {goals.map(({ title, description, Icon }, index) => (
-        <motion.article
+        <InteractiveCard
           key={title}
           className="goal-card"
           variants={goalReveal}
@@ -45,15 +46,13 @@ const Goals = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.22 }}
           custom={index}
-          whileHover={{ y: -6, scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 250, damping: 18 }}
         >
           <div className="goal-title-row">
             <Icon className="goal-icon" aria-hidden="true" />
             <h3>{title}</h3>
           </div>
           <p>{description}</p>
-        </motion.article>
+        </InteractiveCard>
       ))}
     </div>
   );

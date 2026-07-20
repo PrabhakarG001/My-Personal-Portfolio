@@ -41,34 +41,30 @@
 
 .techstack-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.8rem, 1.6vw, 0.95rem);
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.5rem, 1.6vw, 1rem);
   width: 100%;
   align-content: start;
 }
 
 .core-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .tools-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .tech-card {
-  width: 100%;
-  max-width: none;
+  width: 85%;
+  max-width: 140px;
   min-height: 136px;
-  border-radius: 14px;
-  border: 1px solid var(--border-soft);
-  background: transparent;
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 0.56rem;
-  padding: 0.5rem;
-  margin-inline: auto;
-  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+  gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  margin: 0.8rem auto;
 }
 
 .tech-logo {
@@ -92,22 +88,12 @@
   text-transform: uppercase;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .tech-card:hover,
-  .tech-card:focus-within {
-    transform: translateY(-6px) scale(1.01);
-    border-color: rgba(110, 249, 236, 0.45);
-    box-shadow:
-      0 26px 54px rgba(2, 8, 23, 0.52),
-      0 10px 26px rgba(45, 212, 191, 0.18),
-      inset 0 0 0 1px rgba(56, 189, 248, 0.24);
-  }
-}
+
 
 @media (max-width: 1024px) {
   .core-grid,
   .tools-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -118,17 +104,33 @@
   }
 
   .techstack-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     align-content: start;
+    gap: 0.5rem;
+  }
+  
+  .core-grid,
+  .tools-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .tech-card {
-    max-width: none;
-    min-height: 124px;
+    width: 90%;
+    min-height: 110px;
+    padding: 0.75rem 0.5rem;
+    margin: 0.5rem auto;
   }
 
   .tech-logo {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .tech-name {
+    font-size: 0.75rem;
+  }
+  
+  .tech-type {
+    font-size: 0.65rem;
   }
 }

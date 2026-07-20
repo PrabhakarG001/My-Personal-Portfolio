@@ -22,7 +22,7 @@ const SoftSkills = () => {
 
   return (
     <motion.div
-      className="softskills-wrapper"
+      className="universal-card softskills-wrapper"
       role="list"
       aria-label="Soft skills"
       initial={{ opacity: 0, y: 24, scale: 0.99 }}
