@@ -11,14 +11,11 @@ import reactjs from "../../../assets/reactjs.svg";
 import nodejs from "../../../assets/nodejs.svg";
 import java from "../../../assets/java.svg";
 import cpp from "../../../assets/cpp.svg";
-// import c from "../../../assets/c.svg";
 import windows from "../../../assets/windows.svg";
 import vscode from "../../../assets/vscode.svg";
-// import hoppscotch from "../../../assets/hoppscotch.svg";
 import render from "../../../assets/render.svg";
 import mysql from "../../../assets/mysql.svg";
 import python from "../../../assets/python.svg";
-// import typescript from "../../../assets/typescript.svg";
 import vercel from "../../../assets/vercel.svg";
 import tailwindcss from "../../../assets/tailwindcss.svg";
 import firebase from "../../../assets/firebase.svg";
@@ -34,12 +31,8 @@ const techStack1 = [
   { name: "", logo: nodejs, type: "" },
   { name: "", logo: java, type: "" },
   { name: "", logo: cpp, type: "" },
-  //  { name: "C ", logo: c, type: "Language" },
   { name: "", logo: python, type: "" },
   { name: "", logo: tailwindcss, type: "" },
-  // { name: "Typescript ", logo: typescript, type: "Language" },
-  
-
 ];
 
 const techStack2 = [
