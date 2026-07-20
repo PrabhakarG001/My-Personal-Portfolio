@@ -24,7 +24,7 @@ const projects = [
     title: "StayVerse",
     image: "/StayVerse.png",
     description:
-      "Currently building StayVerse — an innovative rental and stay-booking platform designed to simplify property discovery, seamless bookings, secure payments, and a modern travel experience for users and hosts. ",
+      "StayVerse is a smart hotel discovery platform built using Node.js, Express, EJS, and MongoDB. It features a clean, responsive UI with dynamic data rendering and an optimized backend for fast and reliable performance. The platform allows users to seamlessly explore, search, and interact with hotel listings, highlighting strong full-stack development, efficient data handling, and user-focused design.",
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
