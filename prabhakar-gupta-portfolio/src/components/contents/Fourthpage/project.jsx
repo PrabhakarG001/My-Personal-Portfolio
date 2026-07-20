@@ -5,12 +5,20 @@ import "./project.css";
 
 const projects = [
   {
-    title: "Classic Tic-Tac-Toe Game",
-    image: "/projecttwo.png",
+    title: "IntellixAI",
+    image: "/IntellixAI.png",
     description:
-      "This Tic Tac Toe game was developed using only HTML, CSS, and JavaScript. It supports two-player gameplay with turn tracking, win condition detection, and smooth responsiveness across mobile and desktop screens.",
-    liveLink: "https://prabhakarg001.github.io/Tic-Toc-Toe-Game/",
-    codeLink: "https://github.com/PrabhakarG001/Tic-Toc-Toe-Game",
+      "IntellixAI is an AI-powered application that delivers intelligent responses using the Nvidia Nemotron API and Firebase. It is designed to provide fast, context-aware outputs with a smooth and responsive user experience, showcasing my ability to integrate modern AI services into real-world applications.",
+    liveLink: "#typewriter",
+    codeLink: "#contact",
+  },
+  {
+    title: "MeetSphere",
+    image: "/Meetsphere.png",
+    description:
+      "MeetSphere is a real-time video conferencing application developed using the MERN stack, WebRTC, and Socket.io. It enables users to join virtual meetings with live audio-video communication, demonstrating my skills in building scalable real-time systems.",
+    liveLink: "#typewriter",
+    codeLink: "#contact",
   },
   {
     title: "StayVerse",
@@ -22,18 +30,10 @@ const projects = [
   },
   {
     title: "My Personal Portfolio Website",
-    image: "/project1.png",
+    image: "/Portfolio.png",
     description:
       "A fully responsive and modern portfolio website built using React, Tailwind CSS and JavaScript. It includes animated scroll effects, reusable components, and a clean layout that highlights my technical skills and projects.",
     liveLink: "#typewriter",
-    codeLink: "#contact",
-  },
-  {
-    title: "ApproveX",
-    image: "/ApproveX.png",
-    description:
-      "ApproveX — an innovative approval and verification platform designed to streamline student activity requests through smart automation, AI-based validation, secure workflows, and verified digital certifications.",
-    liveLink: "",
     codeLink: "#contact",
   },
 ];
