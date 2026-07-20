@@ -52,6 +52,7 @@
   min-width: 0;
   overflow-wrap: anywhere;
   text-wrap: pretty;
+  text-align: justify;
 }
 
 .buttons-wrapper {
