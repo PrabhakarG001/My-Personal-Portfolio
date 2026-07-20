@@ -54,7 +54,7 @@
 .buttons-wrapper {
   margin-top: auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: stretch;
   gap: 0.72rem;
 }

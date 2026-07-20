@@ -24,7 +24,7 @@
   padding: 0 1rem;
   
   /* User requested responsiveness fixes */
-  font-size: clamp(16px, 4vw, 28px);
+  font-size: clamp(18px, 6vw, 42px);
   white-space: normal;
   text-align: center;
   

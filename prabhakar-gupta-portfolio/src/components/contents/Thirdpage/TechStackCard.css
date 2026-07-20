@@ -56,8 +56,8 @@
 }
 
 .tech-card {
-  width: 85%;
-  max-width: 140px;
+  width: 100%;
+  max-width: none;
   min-height: 136px;
   display: grid;
   justify-items: center;
@@ -115,10 +115,10 @@
   }
 
   .tech-card {
-    width: 90%;
+    width: 100%;
     min-height: 110px;
     padding: 0.75rem 0.5rem;
-    margin: 0.5rem auto;
+    margin: 0;
   }
 
   .tech-logo {
