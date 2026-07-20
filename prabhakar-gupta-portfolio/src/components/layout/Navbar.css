@@ -60,11 +60,20 @@
   transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover {
   color: var(--text-primary);
   border-color: var(--border-strong);
   background: rgba(56, 189, 248, 0.12);
+}
+
+.nav-link.active {
+  color: transparent;
+  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3));
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brandShift 7s linear infinite;
+  border-color: var(--border-strong);
 }
 
 .mobile-toggle {
@@ -112,11 +121,20 @@
   cursor: pointer;
 }
 
-.mobile-link.active,
 .mobile-link:hover {
   color: var(--text-primary);
   border-color: var(--border-strong);
   background: rgba(56, 189, 248, 0.14);
+}
+
+.mobile-link.active {
+  color: transparent;
+  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3));
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brandShift 7s linear infinite;
+  border-color: var(--border-strong);
 }
 
 @keyframes brandShift {

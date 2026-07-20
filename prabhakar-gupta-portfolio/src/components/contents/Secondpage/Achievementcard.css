@@ -1,6 +1,6 @@
 .achievement-card {
   height: 100%;
-  padding: clamp(1.05rem, 2.4vw, 1.22rem);
+
   color: var(--text-primary);
 }
 
@@ -53,4 +53,13 @@
 
 .achievement-card .blue {
   color: #3b82f6 !important;
+}
+@media (max-width: 768px) {
+  .achievement-card {
+    /* match available and certificate card visual size on mobile */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }

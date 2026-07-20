@@ -60,10 +60,10 @@ export const AuroraButton = ({
   const baseBoxShadow = useMotionTemplate`0 0 0 1px rgba(148, 163, 184, 0.2) inset, 0 8px 20px rgba(2, 6, 23, 0.46), 0 0 16px ${aura}`;
   const hoverBoxShadow = useMotionTemplate`0 0 0 1px rgba(148, 163, 184, 0.32) inset, 0 14px 30px rgba(2, 6, 23, 0.56), 0 0 24px ${aura}`;
   const sweepGlow = useMotionTemplate`radial-gradient(ellipse at center, ${aura} 0%, rgba(255,255,255,0.28) 34%, rgba(255,255,255,0) 70%)`;
-  const baseBackground = useMotionTemplate`linear-gradient(180deg, rgba(2, 6, 23, 0.22) 0%, rgba(2, 6, 23, 0.36) 100%), radial-gradient(140% 190% at 18% 0%, ${aura}33 0%, rgba(255,255,255,0) 58%)`;
-  const hoverBackground = useMotionTemplate`linear-gradient(180deg, rgba(2, 6, 23, 0.34) 0%, rgba(2, 6, 23, 0.46) 100%), radial-gradient(140% 190% at 18% 0%, ${aura}40 0%, rgba(255,255,255,0) 58%)`;
-  const baseSurface = useMotionTemplate`linear-gradient(180deg, rgba(148, 163, 184, 0.1) 0%, rgba(2, 6, 23, 0.18) 100%), radial-gradient(120% 160% at 24% 0%, ${aura}26 0%, rgba(255,255,255,0) 52%)`;
-  const hoverSurface = useMotionTemplate`linear-gradient(180deg, rgba(148, 163, 184, 0.08) 0%, rgba(2, 6, 23, 0.28) 100%), radial-gradient(120% 160% at 24% 0%, ${aura}2e 0%, rgba(255,255,255,0) 52%)`;
+  const baseBackground = useMotionTemplate`linear-gradient(180deg, rgba(2, 6, 23, 0.65) 0%, rgba(2, 6, 23, 0.85) 100%), radial-gradient(140% 190% at 18% 0%, ${aura}60 0%, rgba(255,255,255,0) 58%)`;
+  const hoverBackground = useMotionTemplate`linear-gradient(180deg, rgba(2, 6, 23, 0.75) 0%, rgba(2, 6, 23, 0.95) 100%), radial-gradient(140% 190% at 18% 0%, ${aura}80 0%, rgba(255,255,255,0) 58%)`;
+  const baseSurface = useMotionTemplate`linear-gradient(180deg, rgba(148, 163, 184, 0.25) 0%, rgba(2, 6, 23, 0.45) 100%), radial-gradient(120% 160% at 24% 0%, ${aura}44 0%, rgba(255,255,255,0) 52%)`;
+  const hoverSurface = useMotionTemplate`linear-gradient(180deg, rgba(148, 163, 184, 0.15) 0%, rgba(2, 6, 23, 0.55) 100%), radial-gradient(120% 160% at 24% 0%, ${aura}55 0%, rgba(255,255,255,0) 52%)`;
 
   const style = {
     border,

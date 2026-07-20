@@ -1,5 +1,7 @@
 .techstack-layout {
   display: grid;
+  width: min(1140px, 100%);
+  margin-inline: auto;
   margin-top: clamp(0.35rem, 1.1vw, 0.8rem);
   gap: clamp(1.55rem, 3.2vw, 2.35rem);
   align-items: start;
@@ -42,7 +44,7 @@
 .techstack-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(0.5rem, 1.6vw, 1rem);
+  gap: clamp(1.2rem, 3.5vw, 2.5rem);
   width: 100%;
   align-content: start;
 }
@@ -64,12 +66,12 @@
   align-content: center;
   gap: 0.75rem;
   padding: 1.25rem 1rem;
-  margin: 0.8rem auto;
+  margin: 0;
 }
 
 .tech-logo {
-  width: 74px;
-  height: 74px;
+  width: 96px;
+  height: 96px;
   object-fit: contain;
 }
 
@@ -104,14 +106,14 @@
   }
 
   .techstack-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     align-content: start;
-    gap: 0.5rem;
+    gap: 1rem;
   }
   
   .core-grid,
   .tools-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .tech-card {

@@ -75,20 +75,7 @@ canvas {
 }
 
 ::-webkit-scrollbar {
-  width: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.68);
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--brand-1), var(--brand-2));
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #14b8a6, #2563eb);
+  display: none;
 }
 
 .shine-overlay {
@@ -212,5 +199,105 @@ canvas {
     transform: translateY(-3px) scale(1.01) !important;
     box-shadow: 0 8px 25px rgba(0, 255, 200, 0.25) !important;
     border: 1px solid rgba(0, 255, 200, 0.5) !important;
+  }
+}
+
+/* --- ALL CARDS ALIGNMENT UPDATE --- */
+.meabout-container, .certificate-card, .achievement-card, .available-card, .softskills-wrapper, .goal-card, .resume-shell, .contact-form-shell, .project-container, .nav-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.meabout-container h1, .meabout-container h2, .meabout-container h3, .certificate-card h1, .certificate-card h2, .certificate-card h3, .achievement-card h1, .achievement-card h2, .achievement-card h3, .available-card h1, .available-card h2, .available-card h3, .softskills-wrapper h1, .softskills-wrapper h2, .softskills-wrapper h3, .goal-card h1, .goal-card h2, .goal-card h3, .resume-shell h1, .resume-shell h2, .resume-shell h3, .contact-form-shell h1, .contact-form-shell h2, .contact-form-shell h3, .project-container h1, .project-container h2, .project-container h3 {
+  font-weight: bold !important;
+}
+
+.meabout-container p, .certificate-card p, .achievement-card p, .available-card p, .softskills-wrapper p, .goal-card p, .resume-shell p, .contact-form-shell p, .project-container p {
+  color: var(--text-secondary, rgba(226, 236, 248, 0.88)) !important;
+}
+
+@media (min-width: 1024px) {
+  .meabout-container, .certificate-card, .achievement-card, .available-card, .softskills-wrapper, .goal-card, .resume-shell, .contact-form-shell, .project-container, .nav-card {
+    text-align: left !important;
+    padding: 24px !important;
+  }
+  
+  .meabout-container h1, .meabout-container h2, .meabout-container h3, .certificate-card h1, .certificate-card h2, .certificate-card h3, .achievement-card h1, .achievement-card h2, .achievement-card h3, .available-card h1, .available-card h2, .available-card h3, .softskills-wrapper h1, .softskills-wrapper h2, .softskills-wrapper h3, .goal-card h1, .goal-card h2, .goal-card h3, .resume-shell h1, .resume-shell h2, .resume-shell h3, .contact-form-shell h1, .contact-form-shell h2, .contact-form-shell h3, .project-container h1, .project-container h2, .project-container h3 {
+    margin-bottom: 12px !important;
+  }
+  
+  .meabout-container p, .certificate-card p, .achievement-card p, .available-card p, .softskills-wrapper p, .goal-card p, .resume-shell p, .contact-form-shell p, .project-container p {
+    margin-bottom: 8px !important;
+  }
+  
+  .meabout-container:hover, .certificate-card:hover, .achievement-card:hover, .available-card:hover, .softskills-wrapper:hover, .goal-card:hover, .resume-shell:hover, .contact-form-shell:hover, .project-container:hover, .nav-card:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .meabout-container, .certificate-card, .achievement-card, .available-card, .softskills-wrapper, .goal-card, .resume-shell, .contact-form-shell, .project-container, .nav-card {
+    text-align: left !important;
+    padding: 20px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: anywhere !important;
+    max-width: 100% !important;
+  }
+  
+  .meabout-container h1, .meabout-container h2, .meabout-container h3, .certificate-card h1, .certificate-card h2, .certificate-card h3, .achievement-card h1, .achievement-card h2, .achievement-card h3, .available-card h1, .available-card h2, .available-card h3, .softskills-wrapper h1, .softskills-wrapper h2, .softskills-wrapper h3, .goal-card h1, .goal-card h2, .goal-card h3, .resume-shell h1, .resume-shell h2, .resume-shell h3, .contact-form-shell h1, .contact-form-shell h2, .contact-form-shell h3, .project-container h1, .project-container h2, .project-container h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 14px !important;
+    text-align: center !important;
+  }
+  
+  .meabout-container p, .certificate-card p, .achievement-card p, .available-card p, .softskills-wrapper p, .goal-card p, .resume-shell p, .contact-form-shell p, .project-container p {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    text-align: left !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .meabout-container button, .certificate-card button, .achievement-card button, .available-card button, .softskills-wrapper button, .goal-card button, .resume-shell button, .contact-form-shell button, .project-container button, .nav-card button, .nav-card .btn {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .meabout-container ul, .softskills-wrapper ul, .resume-shell ul, .goal-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 14px !important;
+    padding-left: 0;
+  }
+
+  .meabout-container li, .softskills-wrapper li, .resume-shell li, .goal-card li {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    text-align: left !important;
+  }
+
+  /* Reduce size for specific cards on mobile */
+  .certificate-card, .achievement-card, .available-card {
+    padding: 12px !important;
+  }
+  
+  .certificate-card h1, .certificate-card h2, .certificate-card h3,
+  .achievement-card h1, .achievement-card h2, .achievement-card h3,
+  .available-card h1, .available-card h2, .available-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .certificate-card p, .achievement-card p, .available-card p {
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .certificate-card .card-option, .achievement-card .card-option, .available-card .card-option {
+    padding: 10px !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
   }
 }

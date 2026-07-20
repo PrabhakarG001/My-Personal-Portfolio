@@ -209,9 +209,25 @@ body #contact .card {
   }
 }
 
+@media (max-width: 940px) {
+  .app-content {
+    width: 90%;
+  }
+}
+
+/* Tablet breakpoint */
+@media (max-width: 1024px) {
+  .app-content {
+    width: 92%;
+  }
+  .hero-panel {
+    min-height: min(70vh, 640px);
+  }
+}
+
 @media (max-width: 760px) {
   .app-content {
-    width: min(1140px, calc(100% - 1.15rem));
+    width: 90%;
     padding-top: 4.6rem;
   }
 
@@ -223,14 +239,68 @@ body #contact .card {
     width: 100%;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
   }
 
   .motion-btn {
     width: 100%;
-    max-width: 260px;
+    max-width: 200px;
   }
 
   .about-cards-grid {
     grid-template-columns: minmax(0, 1fr);
+
+    /* Mobile text improvements */
+    .hero-panel, .section-shell, .section-title, .about-cards-grid, .meabout-container, .certificate-card, .achievement-card, .available-card, .techstack-group, .tech-card, .softskills-wrapper, .goal-card, .resume-shell, .contact-form-shell {
+      text-align: center;
+      padding-left: 16px;
+      padding-right: 16px;
+      max-width: 90%;
+      margin: 0 auto;
+      line-height: 1.7;
+      word-break: normal;
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+/* Custom Scroll Progress Indicators */
+.scroll-progress-desktop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 7px;
+  height: 100vh;
+  background: linear-gradient(180deg, #6effe8, #2dd4bf);
+  transform-origin: top;
+  z-index: 10000;
+  box-shadow: 0 0 14px rgba(45, 212, 191, 0.5);
+  display: none;
+  pointer-events: none;
+}
+
+.scroll-progress-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 5px;
+  background: linear-gradient(90deg, #6effe8, #2dd4bf);
+  transform-origin: left;
+  z-index: 10000;
+  box-shadow: 0 0 14px rgba(45, 212, 191, 0.5);
+  display: none;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .scroll-progress-desktop {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-progress-mobile {
+    display: block;
   }
 }

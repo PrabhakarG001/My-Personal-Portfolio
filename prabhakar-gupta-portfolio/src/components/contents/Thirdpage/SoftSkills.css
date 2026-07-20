@@ -1,13 +1,15 @@
 .softskills-wrapper {
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
 }
 
 .softskills-track {
   display: flex;
   width: max-content;
   animation: scrollLeft 38s linear infinite;
-  padding: 1rem 0;
+  padding: 0.25rem 0;
 }
 
 .softskills-item {

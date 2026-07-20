@@ -1,0 +1,16 @@
+/* SectionShell component styling */
+.section-shell {
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.section-chip {
+  font-weight: 500;
+  color: #666;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}

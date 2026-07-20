@@ -87,7 +87,7 @@
   .hero-actions .aurora-action-button {
     flex: 1;
     min-width: 0;
-    max-width: 260px;
+    max-width: 200px;
     width: 100%;
     padding: 0.35rem 0.8rem;
     font-size: 0.8rem;

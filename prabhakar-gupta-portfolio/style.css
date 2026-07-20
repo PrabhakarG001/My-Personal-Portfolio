@@ -1,0 +1,50 @@
+/* Loader CSS for Gemini sparkle */
+body {
+  background: #1a73e8; /* Google blue */
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  transition: opacity 0.3s ease;
+}
+
+/* The Gemini Sparkle Shape */
+.gemini-sparkle {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1a73e8, #b388ff, #ff8bc3);
+  background-size: 200% 200%;
+  clip-path: polygon(
+    50% 0%, 
+    62% 38%, 
+    100% 50%, 
+    62% 62%, 
+    50% 100%, 
+    38% 62%, 
+    0% 50%, 
+    38% 38%
+  );
+  animation: 
+    spin-pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1), 
+    gradient-shift 3s infinite ease-in-out;
+}
+
+@keyframes spin-pulse {
+  0% { transform: scale(0.8) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(180deg); }
+  100% { transform: scale(0.8) rotate(360deg); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,5 +1,5 @@
 .resume-shell {
-  padding: clamp(1rem, 2.8vw, 1.45rem);
+
   display: grid;
   gap: 1rem;
 }

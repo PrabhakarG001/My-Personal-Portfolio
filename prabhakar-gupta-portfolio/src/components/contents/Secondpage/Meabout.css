@@ -1,5 +1,5 @@
 .meabout-container {
-  padding: clamp(1.1rem, 2.9vw, 1.75rem);
+
 }
 
 .meabout-card {
@@ -86,7 +86,11 @@
   }
   
   .meabout-text li {
-    justify-content: center;
+    justify-content: flex-start;
+  }
+  .meabout-text ul {
+    text-align: left;
+    padding-left: 0;
   }
 
   .meabout-image {

@@ -1,14 +1,14 @@
 .project-wrapper {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(2.2rem, 4.5vw, 3rem);
+  gap: 48px 32px; /* Increased gap from top (row-gap) */
 }
 
 .project-container {
   display: grid;
   grid-template-rows: minmax(170px, 46%) 1fr;
   min-height: clamp(31rem, 48vw, 38rem);
-  /* Other card styles are handled by .universal-card */
+  padding: 0 !important; /* overrides global universal card padding */
 }
 
 .project-img {
@@ -24,17 +24,20 @@
 .project-info {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: clamp(0.95rem, 1.8vw, 1.12rem);
-  padding: clamp(1.08rem, 2.2vw, 1.32rem);
+  padding: 24px;
   min-width: 0;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .project-info h2 {
   font-size: clamp(1.08rem, 2.3vw, 1.28rem);
   color: var(--text-primary);
   font-family: var(--font-display);
+  font-weight: bold;
   line-height: 1.24;
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 12px;
   min-width: 0;
   overflow-wrap: anywhere;
   text-wrap: balance;
@@ -43,20 +46,21 @@
 
 .project-info p {
   font-size: clamp(0.96rem, 0.9rem + 0.24vw, 1.05rem);
-  line-height: 1.72;
+  line-height: 1.6;
   color: rgba(226, 236, 248, 0.88);
-  margin: 0;
+  margin-bottom: 10px;
   min-width: 0;
   overflow-wrap: anywhere;
   text-wrap: pretty;
 }
 
 .buttons-wrapper {
-  margin-top: auto;
+  margin-top: 12px;
   display: flex;
   flex-wrap: nowrap;
-  align-items: stretch;
-  gap: 0.72rem;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .gradient-border-btn,
@@ -65,7 +69,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.42rem;
-  flex: 1 1 calc(50% - 0.31rem);
+  flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
   white-space: nowrap;
@@ -133,6 +137,24 @@
 @media (max-width: 920px) {
   .project-wrapper {
     grid-template-columns: minmax(0, 1fr);
+    gap: 32px; /* Increased vertical gap for mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .project-info {
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .project-info h2 {
+    font-size: clamp(1rem, 5vw, 1.15rem);
+    line-height: 1.5;
+  }
+  
+  .buttons-wrapper {
+    justify-content: center;
+    flex-wrap: nowrap;
   }
 }
 
@@ -140,5 +162,13 @@
   .gradient-border-btn,
   .button-2 {
     flex-basis: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gradient-border-btn,
+  .button-2 {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.98rem;
   }
 }

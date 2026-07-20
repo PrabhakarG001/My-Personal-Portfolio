@@ -1,240 +1,125 @@
-.premium-loader-overlay {
+/* =========================
+   OVERLAY (BLUR WEBSITE)
+========================= */
+.loader-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 1.35rem;
-  overflow: hidden;
-  isolation: isolate;
-  background:
-    radial-gradient(circle at 18% 20%, rgba(64, 121, 255, 0.24), transparent 44%),
-    radial-gradient(circle at 82% 78%, rgba(64, 255, 170, 0.16), transparent 46%),
-    linear-gradient(130deg, #05070c 8%, #0a1020 52%, #04060b 100%);
-  animation: loader-overlay-fade 0.45s ease-out;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-.premium-loader-overlay::before {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  z-index: -1;
-  background: conic-gradient(
-    from 25deg,
-    rgba(64, 255, 170, 0.14),
-    rgba(64, 121, 255, 0.2),
-    rgba(255, 255, 255, 0.06),
-    rgba(64, 121, 255, 0.16),
-    rgba(64, 255, 170, 0.12)
-  );
-  filter: blur(90px);
-  transform-origin: center;
-  animation: ambient-drift 9s linear infinite;
-}
-
-.premium-loader-scene {
-  --loader-size: clamp(8.5rem, 26vw, 12rem);
+/* =========================
+   WRAPPER (RESPONSIVE SIZE)
+========================= */
+.loader {
   position: relative;
-  width: var(--loader-size);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  filter: drop-shadow(0 1.2rem 2.2rem rgba(11, 18, 40, 0.65));
+  width: min(60px, 15vw);
+  height: min(50px, 12vw);
 }
 
-.premium-ring {
+/* =========================
+   DOT STYLE
+========================= */
+.dot {
   position: absolute;
-  inset: 0;
+  width: 8px;
+  height: 8px;
+  background: white;
   border-radius: 50%;
-  will-change: transform, filter, opacity;
 }
 
-.premium-ring-outer {
-  background: conic-gradient(
-    from 30deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(64, 121, 255, 0.96) 28%,
-    rgba(64, 255, 170, 0.96) 54%,
-    rgba(255, 255, 255, 0.88) 72%,
-    rgba(255, 255, 255, 0.05) 92%
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - clamp(0.5rem, 1.6vw, 0.75rem)), #000 0);
-  mask: radial-gradient(farthest-side, transparent calc(100% - clamp(0.5rem, 1.6vw, 0.75rem)), #000 0);
-  filter: drop-shadow(0 0 1.15rem rgba(64, 121, 255, 0.4));
-  animation: ring-spin 2.4s linear infinite;
+/* =========================
+   INITIAL (HORIZONTAL LINE)
+========================= */
+.dot1 { left: 0; top: 20px; }
+.dot2 { left: 25px; top: 20px; }
+.dot3 { left: 50px; top: 20px; }
+
+/* =========================
+   WAVE (PHASE 1 & END)
+========================= */
+@keyframes wave1 {
+  0% { transform: translateY(0); }
+  10% { transform: translateY(-6px); }
+  20% { transform: translateY(6px); }
+  30% { transform: translateY(0); }
+
+  /* stop before triangle */
+  35%, 100% { transform: translateY(0); }
 }
 
-.premium-ring-inner {
-  inset: 18%;
-  background: conic-gradient(
-    from 180deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(64, 255, 170, 0.9) 32%,
-    rgba(64, 121, 255, 0.95) 62%,
-    rgba(255, 255, 255, 0.9) 78%,
-    rgba(255, 255, 255, 0.04) 100%
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - clamp(0.45rem, 1.2vw, 0.6rem)), #000 0);
-  mask: radial-gradient(farthest-side, transparent calc(100% - clamp(0.45rem, 1.2vw, 0.6rem)), #000 0);
-  opacity: 0.95;
-  filter: drop-shadow(0 0 0.9rem rgba(64, 255, 170, 0.34));
-  animation: ring-spin-reverse 1.75s linear infinite;
+/* =========================
+   TRIANGLE (PHASE 2)
+========================= */
+
+/* dot1 → bottom left */
+@keyframes dot1Move {
+  0%, 35% { left: 0; top: 20px; }
+
+  45% { left: 10px; top: 35px; }
+  70% { left: 10px; top: 35px; }
+
+  /* return to line */
+  80% { left: 0; top: 20px; }
+  100% { left: 0; top: 20px; }
 }
 
-.premium-loader-core {
-  width: 35%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.95), rgba(99, 201, 255, 0.84) 38%, rgba(64, 121, 255, 0.14) 76%, transparent 100%);
-  box-shadow:
-    0 0 0.65rem rgba(255, 255, 255, 0.72),
-    0 0 2rem rgba(64, 121, 255, 0.46),
-    0 0 3rem rgba(64, 255, 170, 0.18);
-  animation: core-pulse 1.8s ease-in-out infinite;
+/* dot2 → bottom right */
+@keyframes dot2Move {
+  0%, 35% { left: 25px; top: 20px; }
+
+  45% { left: 40px; top: 35px; }
+  70% { left: 40px; top: 35px; }
+
+  80% { left: 25px; top: 20px; }
+  100% { left: 25px; top: 20px; }
 }
 
-.premium-loader-particles {
-  position: absolute;
-  inset: 0;
+/* dot3 → TOP */
+@keyframes dot3Move {
+  0%, 35% { left: 50px; top: 20px; }
+
+  45% { left: 25px; top: 0px; }
+  70% { left: 25px; top: 0px; }
+
+  80% { left: 50px; top: 20px; }
+  100% { left: 50px; top: 20px; }
 }
 
-.premium-loader-particles span {
-  --orbit-distance: clamp(3rem, 8.6vw, 4.6rem);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(0.28rem, 0.8vw, 0.4rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(120, 204, 255, 0.92));
-  box-shadow: 0 0 1rem rgba(120, 204, 255, 0.75);
-  opacity: 0.34;
-  transform: translate(-50%, -50%) rotate(calc(var(--particle-index) * 45deg)) translateX(var(--orbit-distance)) scale(0.5);
-  animation: particle-pulse 1.35s ease-in-out infinite;
-  animation-delay: calc(var(--particle-index) * -0.1s);
+/* =========================
+   APPLY ANIMATION
+========================= */
+.dot1 {
+  animation:
+    wave1 1.8s ease-in-out infinite,
+    dot1Move 1.8s ease-in-out infinite;
 }
 
-.premium-loader-text {
-  margin: 0;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.2rem;
-  color: rgba(245, 249, 255, 0.96);
-  font-family: "Segoe UI", "Avenir Next", "Helvetica Neue", sans-serif;
-  font-size: clamp(0.76rem, 2.1vw, 0.95rem);
-  font-weight: 600;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  text-shadow: 0 0 1rem rgba(64, 121, 255, 0.42);
+.dot2 {
+  animation:
+    wave1 1.8s ease-in-out infinite,
+    dot2Move 1.8s ease-in-out infinite;
+  animation-delay: 0.15s, 0s;
 }
 
-.premium-loader-dots {
-  display: inline-flex;
-  min-width: 1.8em;
-  justify-content: flex-start;
+.dot3 {
+  animation:
+    wave1 1.8s ease-in-out infinite,
+    dot3Move 1.8s ease-in-out infinite;
+  animation-delay: 0.3s, 0s;
 }
 
-.premium-loader-dots span {
-  opacity: 0.15;
-  animation: dot-blink 1s ease-in-out infinite;
-}
-
-.premium-loader-dots span:nth-child(2) {
-  animation-delay: 0.18s;
-}
-
-.premium-loader-dots span:nth-child(3) {
-  animation-delay: 0.36s;
-}
-
-@keyframes loader-overlay-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes ambient-drift {
-  from {
-    transform: rotate(0deg) scale(0.92);
-  }
-  to {
-    transform: rotate(360deg) scale(1.04);
-  }
-}
-
-@keyframes ring-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes ring-spin-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes core-pulse {
-  0%,
-  100% {
-    transform: scale(0.92);
-    opacity: 0.88;
-  }
-  50% {
-    transform: scale(1.07);
-    opacity: 1;
-  }
-}
-
-@keyframes particle-pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) rotate(calc(var(--particle-index) * 45deg)) translateX(var(--orbit-distance)) scale(0.52);
-  }
-  50% {
-    opacity: 0.98;
-    transform: translate(-50%, -50%) rotate(calc(var(--particle-index) * 45deg)) translateX(calc(var(--orbit-distance) + 0.32rem)) scale(1);
-  }
-}
-
-@keyframes dot-blink {
-  0%,
-  100% {
-    opacity: 0.12;
-  }
-  45% {
-    opacity: 0.95;
-  }
-}
-
+/* =========================
+   MOBILE SCALE
+========================= */
 @media (max-width: 480px) {
-  .premium-loader-overlay {
-    gap: 1.1rem;
-  }
-
-  .premium-loader-text {
-    letter-spacing: 0.2em;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .premium-loader-overlay::before,
-  .premium-ring-outer,
-  .premium-ring-inner,
-  .premium-loader-core,
-  .premium-loader-particles span,
-  .premium-loader-dots span {
-    animation: none;
+  .loader {
+    transform: scale(0.8);
   }
 }

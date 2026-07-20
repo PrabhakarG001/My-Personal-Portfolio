@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { FiArrowRight, FiMail } from "react-icons/fi";
 import "./App.css";
 
@@ -9,8 +10,8 @@ import Dock from "./components/layout/Dock.jsx";
 import Footer from "./components/layout/footer.jsx";
 import Scrollbar from "./components/contents/Home/scrollbar.jsx";
 import Loader from "./components/Loader.jsx";
-
 import AuroraHero, { AuroraButton } from "./components/background/AuroraHero.jsx";
+import SectionShell from "./components/SectionShell.jsx";
 
 import GradientText from "./components/contents/Home/GradientText.jsx";
 import Typewriter from "./components/contents/Home/Typewriter.jsx";
@@ -48,32 +49,16 @@ const scrollToSection = (id) => {
   }
 };
 
-const SectionShell = ({ id, chip, title, children, className = "" }) => (
-  <motion.section
-    id={id}
-    className={`section-shell ${className}`.trim()}
-    variants={sectionReveal}
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true, amount: 0.22 }}
-  >
-    <p className="section-chip">{chip}</p>
-    <motion.h2
-      className="section-title"
-      initial={{ opacity: 0, letterSpacing: "0.12em" }}
-      whileInView={{ opacity: 1, letterSpacing: "0.01em" }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-    >
-      {title}
-    </motion.h2>
-    {children}
-  </motion.section>
-);
-
 function App() {
   useEyeballEffect();
-  
+
+  const { scrollYProgress } = useScroll();
+  const scaleProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   const navItems = [
     {
       label: "About",
@@ -82,30 +67,46 @@ function App() {
       links: [
         { label: "About Me", href: "#about", ariaLabel: "About Me" },
         { label: "Skills", href: "#skills", ariaLabel: "Skills" },
-        { label: "Resume", href: "#resume", ariaLabel: "Resume" }
-      ]
+        { label: "Resume", href: "#resume", ariaLabel: "Resume" },
+      ],
     },
     {
-      label: "Projects", 
+      label: "Projects",
       bgColor: "rgba(255, 255, 255, 0.08)",
       textColor: "#fff",
       links: [
         { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
-        { label: "Goals", href: "#goals", ariaLabel: "Career Goals" }
-      ]
+        { label: "Goals", href: "#goals", ariaLabel: "Career Goals" },
+      ],
     },
     {
       label: "Contact",
-      bgColor: "rgba(255, 255, 255, 0.05)", 
+      bgColor: "rgba(255, 255, 255, 0.05)",
       textColor: "#fff",
-      links: [
-        { label: "Connect", href: "#contact", ariaLabel: "Connect" },
-      ]
-    }
+      links: [{ label: "Connect", href: "#contact", ariaLabel: "Connect" }],
+    },
   ];
+
+  // Loader overlay state – show on initial load
+  const [showLoader, setShowLoader] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 2000); // match total loop duration
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="app-shell">
+      {/* Scroll progress indicators */}
+      <motion.div className="scroll-progress-desktop" style={{ scaleY: scaleProgress }} />
+      <motion.div className="scroll-progress-mobile" style={{ scaleX: scaleProgress }} />
+
+      {/* Loader overlay – appears on page open */}
+      {showLoader && (
+        <div className="loader-overlay">
+          <Loader />
+        </div>
+      )}
+
       <AuroraHero />
       <SplashCursor />
       <Navbar />
@@ -122,7 +123,6 @@ function App() {
       />
       <Dock />
       <Scrollbar />
-      <Loader />
 
       <main className="app-content">
         <motion.section
