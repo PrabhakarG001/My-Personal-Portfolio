@@ -247,13 +247,13 @@ canvas {
   }
   
   .meabout-container h1, .meabout-container h2, .meabout-container h3, .certificate-card h1, .certificate-card h2, .certificate-card h3, .achievement-card h1, .achievement-card h2, .achievement-card h3, .available-card h1, .available-card h2, .available-card h3, .softskills-wrapper h1, .softskills-wrapper h2, .softskills-wrapper h3, .goal-card h1, .goal-card h2, .goal-card h3, .resume-shell h1, .resume-shell h2, .resume-shell h3, .contact-form-shell h1, .contact-form-shell h2, .contact-form-shell h3, .project-container h1, .project-container h2, .project-container h3 {
-    font-size: 1.25rem !important;
+    font-size: clamp(1.1rem, 4vw, 1.5rem) !important;
     margin-bottom: 14px !important;
     text-align: center !important;
   }
   
   .meabout-container p, .certificate-card p, .achievement-card p, .available-card p, .softskills-wrapper p, .goal-card p, .resume-shell p, .contact-form-shell p, .project-container p {
-    font-size: 16px !important;
+    font-size: clamp(0.9rem, 3vw, 1rem) !important;
     line-height: 1.7 !important;
     text-align: left !important;
     margin-bottom: 16px !important;
@@ -273,7 +273,7 @@ canvas {
   }
 
   .meabout-container li, .softskills-wrapper li, .resume-shell li, .goal-card li {
-    font-size: 16px !important;
+    font-size: clamp(0.9rem, 3vw, 1rem) !important;
     line-height: 1.7 !important;
     text-align: left !important;
   }
@@ -286,12 +286,12 @@ canvas {
   .certificate-card h1, .certificate-card h2, .certificate-card h3,
   .achievement-card h1, .achievement-card h2, .achievement-card h3,
   .available-card h1, .available-card h2, .available-card h3 {
-    font-size: 1.1rem !important;
+    font-size: clamp(1rem, 3.5vw, 1.25rem) !important;
     margin-bottom: 10px !important;
   }
 
   .certificate-card p, .achievement-card p, .available-card p {
-    font-size: 14px !important;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem) !important;
     margin-bottom: 12px !important;
   }
   
@@ -311,5 +311,14 @@ canvas {
   * {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+  }
+  /* Text alignment fix for goal and project cards on phone */
+  .goal-card h1, .goal-card h2, .goal-card h3,
+  .project-container h1, .project-container h2, .project-container h3 {
+    text-align: left !important;
+  }
+  
+  .goal-card p, .project-container p {
+    text-align: justify !important;
   }
 }

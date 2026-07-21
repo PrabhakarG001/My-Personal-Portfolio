@@ -7,7 +7,8 @@
 .app-content {
   position: relative;
   z-index: 2;
-  width: min(1140px, calc(100% - 2rem));
+  width: 90%;
+  max-width: 1140px;
   margin-inline: auto;
   padding-top: clamp(5rem, 8.3vw, 6.1rem);
   padding-bottom: clamp(3rem, 7vw, 5rem);
@@ -67,6 +68,11 @@
   font-weight: 700;
   cursor: pointer;
   transition: box-shadow 0.24s ease;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .motion-btn.secondary {
@@ -213,16 +219,11 @@ body #contact .card {
 }
 
 @media (max-width: 940px) {
-  .app-content {
-    width: 90%;
-  }
+  /* No width override needed, already 90% */
 }
 
 /* Tablet breakpoint */
 @media (max-width: 1024px) {
-  .app-content {
-    width: 92%;
-  }
   .hero-panel {
     min-height: min(70vh, 640px);
   }
@@ -230,7 +231,6 @@ body #contact .card {
 
 @media (max-width: 760px) {
   .app-content {
-    width: 90%;
     padding-top: 4.6rem;
   }
 

@@ -1,6 +1,7 @@
 /* SectionShell component styling */
 .section-shell {
-  padding: 2rem;
+  padding-block: 2rem;
+  padding-inline: 0;
   margin: 0 auto;
   max-width: 1200px;
 }

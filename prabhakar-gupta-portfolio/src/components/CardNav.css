@@ -5,8 +5,8 @@
   top: 1em;
   left: 50%;
   transform: translateX(-50%);
-  width: 92%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 1140px;
   z-index: 999;
   box-sizing: border-box;
 }
@@ -15,7 +15,6 @@
 @media (max-width: 940px) {
   .card-nav-container {
     display: block;
-    width: 90%;
     top: 1.2em;
   }
 }
@@ -23,7 +22,6 @@
 /* Tablet breakpoint */
 @media (max-width: 1024px) {
   .card-nav-container {
-    width: 94%;
     top: 1.1em;
   }
   .nav-card {
@@ -241,6 +239,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding-block: 0.5rem;
 }
 
 .nav-card-link:hover {
@@ -249,7 +248,6 @@
 
 @media (max-width: 760px) {
   .card-nav-container {
-    width: calc(90% - 4rem);  /* match about card: app-content 90% minus section-shell 2rem padding each side */
     max-width: none;
     left: 50%;
     transform: translateX(-50%);
