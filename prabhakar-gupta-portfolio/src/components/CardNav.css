@@ -255,9 +255,9 @@
     top: 1em;
   }
   .card-nav-top {
-    padding: 0.3rem 0.4rem;
-    justify-content: center;
-    gap: 10rem;
+    padding: 0.3rem 1.5rem; /* Gap on left and right */
+    justify-content: space-between;
+    gap: 0;
   }
 }
 
