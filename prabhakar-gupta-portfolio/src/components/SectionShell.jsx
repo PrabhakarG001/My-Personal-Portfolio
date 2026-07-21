@@ -1,7 +1,7 @@
 import React from "react";
 import "./SectionShell.css";
 
-/** Simple layout wrapper */
+// Simple layout wrapper
 export default function SectionShell({ id, chip, title, children }) {
   return (
     <section id={id} className="section-shell">

@@ -9,7 +9,6 @@ import mongodb from "../../../assets/mongodb.svg";
 import expressjs from "../../../assets/expressjs.svg";
 import reactjs from "../../../assets/reactjs.svg";
 import nodejs from "../../../assets/nodejs.svg";
-// import java from "../../../assets/java.svg";
 import cpp from "../../../assets/cpp.svg";
 import windows from "../../../assets/windows.svg";
 import vscode from "../../../assets/vscode.svg";
@@ -29,7 +28,6 @@ const techStack1 = [
   { name: "", logo: expressjs, type: "" },
   { name: "", logo: reactjs, type: "" },
   { name: "", logo: nodejs, type: "" },
-  // { name: "", logo: java, type: "" },
   { name: "", logo: cpp, type: "" },
   { name: "", logo: python, type: "" },
   { name: "", logo: tailwindcss, type: "" },

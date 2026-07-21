@@ -71,7 +71,7 @@ function App() {
       ],
     },
     {
-      label: "Portfolio & Goals",
+      label: "Projects",
       bgColor: "rgba(255, 255, 255, 0.08)",
       textColor: "#fff",
       links: [
