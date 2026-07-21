@@ -43,7 +43,7 @@ const CardNav = ({
         contentEl.offsetHeight;
 
         const topBar = 60;
-        const padding = 16;
+        const padding = 0;
         const contentHeight = contentEl.scrollHeight;
 
         contentEl.style.visibility = wasVisibility;

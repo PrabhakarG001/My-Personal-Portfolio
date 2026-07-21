@@ -115,9 +115,8 @@
   animation-delay: 0.3s, 0s;
 }
 
-/* =========================
-   MOBILE SCALE
-========================= */
+
+   /* MOBILE SCALE */
 @media (max-width: 480px) {
   .loader {
     transform: scale(0.8);

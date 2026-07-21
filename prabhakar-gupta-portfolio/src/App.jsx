@@ -61,7 +61,7 @@ function App() {
 
   const navItems = [
     {
-      label: "About",
+      label: "Professional Profile",
       bgColor: "rgba(255, 255, 255, 0.05)",
       textColor: "#fff",
       links: [
@@ -71,7 +71,7 @@ function App() {
       ],
     },
     {
-      label: "Projects",
+      label: "Portfolio & Goals",
       bgColor: "rgba(255, 255, 255, 0.08)",
       textColor: "#fff",
       links: [
@@ -80,7 +80,7 @@ function App() {
       ],
     },
     {
-      label: "Contact",
+      label: "Get In Touch",
       bgColor: "rgba(255, 255, 255, 0.05)",
       textColor: "#fff",
       links: [{ label: "Connect", href: "#contact", ariaLabel: "Connect" }],
