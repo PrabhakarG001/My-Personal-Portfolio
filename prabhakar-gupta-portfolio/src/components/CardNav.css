@@ -133,6 +133,7 @@
   font-weight: 700;
   font-size: clamp(1rem, 2vw, 1.22rem);
   animation: brandShift 7s linear infinite;
+  white-space: nowrap;
 }
 
 /* ─── CTA button ────────────────────────────────────────── */
