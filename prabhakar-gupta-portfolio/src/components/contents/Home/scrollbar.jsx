@@ -8,7 +8,7 @@ const ScrollToTop = () => {
   return (
     <button
       type="button"
-      className="scroll-button eyeball-target"
+      className="scroll-button"
       onClick={handleScrollTop}
       aria-label="Scroll to top"
     >

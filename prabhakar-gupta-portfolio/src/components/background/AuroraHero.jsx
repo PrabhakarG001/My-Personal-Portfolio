@@ -131,14 +131,14 @@ export const AuroraButton = ({
 
   if (href) {
     return (
-      <motion.a href={href} target={target} rel={rel} {...sharedProps} className={`${sharedProps.className} eyeball-target`}>
+      <motion.a href={href} target={target} rel={rel} {...sharedProps} className={`${sharedProps.className}`}>
         {content}
       </motion.a>
     );
   }
 
   return (
-    <motion.button type={type} onClick={onClick} {...sharedProps} className={`${sharedProps.className} eyeball-target`}>
+    <motion.button type={type} onClick={onClick} {...sharedProps} className={`${sharedProps.className}`}>
       {content}
     </motion.button>
   );

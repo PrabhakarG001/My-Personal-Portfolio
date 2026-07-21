@@ -24,7 +24,7 @@ import Availablecard from "./components/contents/Secondpage/Availablecard.jsx";
 
 import TechStackCard from "./components/contents/Thirdpage/TechStackCard.jsx";
 import SoftSkills from "./components/contents/Thirdpage/SoftSkills.jsx";
-import { useEyeballEffect } from "./hooks/useEyeballEffect.js";
+
 
 import Project from "./components/contents/Fourthpage/project.jsx";
 import Goals from "./components/contents/Fifthpage/Goals.jsx";
@@ -50,7 +50,7 @@ const scrollToSection = (id) => {
 };
 
 function App() {
-  useEyeballEffect();
+
 
   const { scrollYProgress } = useScroll();
   const scaleProgress = useSpring(scrollYProgress, {

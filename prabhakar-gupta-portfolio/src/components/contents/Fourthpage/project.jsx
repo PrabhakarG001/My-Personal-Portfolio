@@ -4,6 +4,16 @@ import { FiExternalLink } from "react-icons/fi";
 import "./project.css";
 
 const projects = [
+  
+  
+  {
+    title: "StayVerse",
+    image: "/StayVerse.png",
+    description:
+      "StayVerse is a smart hotel discovery platform built using Node.js, Express, EJS, and MongoDB. It is designed to deliver a seamless browsing experience with dynamic data rendering, efficient backend processing, and a clean, responsive interface, highlighting my ability to build scalable full-stack applications. It emphasizes performance, usability, and structured data management in a real-world use case. The project showcases my ability to design complete web solutions with interactive features and optimized user experiences.",
+    liveLink: "#typewriter",
+    codeLink: "#contact",
+  },
   {
     title: "IntellixAI",
     image: "/IntellixAI.png",
@@ -19,14 +29,6 @@ const projects = [
       "MeetSphere is a real-time video conferencing application developed using the MERN stack, WebRTC, and Socket.io. It enables seamless live audio-video communication with efficient data handling and low latency, demonstrating my ability to build scalable and interactive real-time systems. It showcases expertise in real-time networking, synchronization, and user-centric application design. The project highlights my experience in implementing complex communication features and developing reliable real-time applications.",
     liveLink: "#typewriter",
     codeLink: "https://github.com/PrabhakarG001/MeetSphere",
-  },
-  {
-    title: "StayVerse",
-    image: "/StayVerse.png",
-    description:
-      "StayVerse is a smart hotel discovery platform built using Node.js, Express, EJS, and MongoDB. It is designed to deliver a seamless browsing experience with dynamic data rendering, efficient backend processing, and a clean, responsive interface, highlighting my ability to build scalable full-stack applications. It emphasizes performance, usability, and structured data management in a real-world use case. The project showcases my ability to design complete web solutions with interactive features and optimized user experiences.",
-    liveLink: "#typewriter",
-    codeLink: "#contact",
   },
   {
     title: "My Personal Portfolio Website",
@@ -68,7 +70,7 @@ const ProjectCard = ({ project, index }) => {
         <div className="buttons-wrapper">
           <a
             href={project.liveLink}
-            className="gradient-border-btn arrow-btn-container eyeball-target"
+            className="gradient-border-btn arrow-btn-container"
             target={project.liveLink.startsWith("http") ? "_blank" : undefined}
             rel={project.liveLink.startsWith("http") ? "noopener noreferrer" : undefined}
           >
@@ -77,7 +79,7 @@ const ProjectCard = ({ project, index }) => {
 
           <a
             href={project.codeLink}
-            className="button-2 eyeball-target"
+            className="button-2"
             target={project.codeLink.startsWith("http") ? "_blank" : undefined}
             rel={project.codeLink.startsWith("http") ? "noopener noreferrer" : undefined}
           >
