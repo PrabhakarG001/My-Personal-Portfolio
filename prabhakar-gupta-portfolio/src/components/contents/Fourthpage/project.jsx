@@ -8,7 +8,7 @@ const projects = [
     title: "IntellixAI",
     image: "/IntellixAI.png",
     description:
-      "IntellixAI is an AI-powered application that delivers intelligent responses using the Nvidia Nemotron API and Firebase. It is designed to provide fast, context-aware outputs with a smooth and responsive user experience, showcasing my ability to integrate modern AI services into real-world applications.",
+      "IntellixAI is an AI-powered application that delivers intelligent responses using the Nvidia Nemotron API and Firebase. It is designed to provide fast, context-aware outputs with a smooth and responsive user experience, showcasing my ability to integrate modern AI services into real-world applications. It reflects strong skills in API integration, performance optimization, and intelligent system design. The project demonstrates my understanding of building AI-driven solutions with modern cloud technologies and scalable architectures.",
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
@@ -16,15 +16,15 @@ const projects = [
     title: "MeetSphere",
     image: "/Meetsphere.png",
     description:
-      "MeetSphere is a real-time video conferencing application developed using the MERN stack, WebRTC, and Socket.io. It enables users to join virtual meetings with live audio-video communication, demonstrating my skills in building scalable real-time systems.",
+      "MeetSphere is a real-time video conferencing application developed using the MERN stack, WebRTC, and Socket.io. It enables seamless live audio-video communication with efficient data handling and low latency, demonstrating my ability to build scalable and interactive real-time systems. It showcases expertise in real-time networking, synchronization, and user-centric application design. The project highlights my experience in implementing complex communication features and developing reliable real-time applications.",
     liveLink: "#typewriter",
-    codeLink: "#contact",
+    codeLink: "https://github.com/PrabhakarG001/MeetSphere",
   },
   {
     title: "StayVerse",
     image: "/StayVerse.png",
     description:
-      "StayVerse is a smart hotel discovery platform built using Node.js, Express, EJS, and MongoDB. It features a clean, responsive UI with dynamic data rendering and an optimized backend for fast and reliable performance. The platform allows users to seamlessly explore, search, and interact with hotel listings, highlighting strong full-stack development, efficient data handling, and user-focused design.",
+      "StayVerse is a smart hotel discovery platform built using Node.js, Express, EJS, and MongoDB. It is designed to deliver a seamless browsing experience with dynamic data rendering, efficient backend processing, and a clean, responsive interface, highlighting my ability to build scalable full-stack applications. It emphasizes performance, usability, and structured data management in a real-world use case. The project showcases my ability to design complete web solutions with interactive features and optimized user experiences.",
     liveLink: "#typewriter",
     codeLink: "#contact",
   },
@@ -32,11 +32,12 @@ const projects = [
     title: "My Personal Portfolio Website",
     image: "/Portfolio.png",
     description:
-      "I developed a personal portfolio website to showcase my projects, skills, and technical journey through a modern and visually engaging interface. The website features a clean, responsive design that ensures a seamless experience across devices, along with smooth animations and well-structured sections for better user interaction. It integrates EmailJS for real-time communication, allowing visitors to easily connect with me. This project highlights my attention to UI/UX design, frontend development skills, and ability to create professional, user-focused web applications.",
+      "My portfolio website is a personal project built to showcase my skills, projects, and development journey. It features a modern UI, responsive design, smooth interactions, and EmailJS integration for communication, demonstrating my focus on user experience and professional frontend development. It also reflects my attention to detail, design consistency, and clean code practices. The website represents my personal brand while providing an interactive platform to highlight my technical expertise and achievements.",
     liveLink: "#typewriter",
-    codeLink: "#contact",
+    codeLink: "https://github.com/PrabhakarG001/My-Personal-Portfolio",
   },
 ];
+
 
 const projectReveal = {
   hidden: { opacity: 0, y: 34, scale: 0.98 },
