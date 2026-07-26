@@ -29,7 +29,7 @@ const Sixthpage = () => {
             target="_blank"
             rel="noopener noreferrer"
             icon={FiEye}
-          >cleR
+          >
             View Online
           </AuroraButton>
         </motion.div>
