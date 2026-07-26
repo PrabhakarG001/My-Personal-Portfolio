@@ -25,11 +25,11 @@ const Sixthpage = () => {
           transition={{ duration: 0.45, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         >
           <AuroraButton
-            href="https://drive.google.com/file/d/1-so2IF5z9njpUdWs-yWMlb4OsDH0QjQF/view?usp=drivesdk"
+            href="https://drive.google.com/file/d/1vkCMGCmoro5sQvWRNusei4At5i9K1WJF/view?usp=drivesdk"
             target="_blank"
             rel="noopener noreferrer"
             icon={FiEye}
-          >
+          >cleR
             View Online
           </AuroraButton>
         </motion.div>
