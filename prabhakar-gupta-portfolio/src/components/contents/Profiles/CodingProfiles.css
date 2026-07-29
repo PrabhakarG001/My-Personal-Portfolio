@@ -215,6 +215,15 @@
   border-radius: 8px;
 }
 
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 @media (max-width: 1100px) {
   .coding-profiles-wrapper {
     grid-template-columns: repeat(2, 1fr);
