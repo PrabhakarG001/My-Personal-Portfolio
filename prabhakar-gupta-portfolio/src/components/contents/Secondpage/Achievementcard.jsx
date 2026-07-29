@@ -1,5 +1,5 @@
 import "./Achievementcard.css";
-import { FaTrophy, FaLaptopCode, FaUsers } from "react-icons/fa";
+import { FaTrophy, FaLaptopCode, FaMedal } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Achievementcard = ({ delay = 0 }) => {
@@ -17,18 +17,32 @@ const Achievementcard = ({ delay = 0 }) => {
       </div>
 
       <div className="card-option">
-        <FaLaptopCode className="icon green" />
-        <p className="text">Combining structured education with self-practice</p>
-      </div>
-
-      <div className="card-option">
-        <FaUsers className="icon cyan" />
-        <p className="text">Built projects using team-style structure & Git</p>
-      </div>
-
-      <div className="card-option">
         <FaTrophy className="icon blue" />
-        <p className="text">2nd Runner-Up among 150+ Teams at Hack The Beginning ’26 </p>
+        <p className="text">
+          Secured <strong>2nd Runner-Up</strong> position in Hack The Beginning ’2K26 among 150+ teams.{" "}
+          <a
+            href="https://drive.google.com/drive/folders/1DIi-"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="achievement-link"
+          >
+            [Link]
+          </a>
+        </p>
+      </div>
+
+      <div className="card-option">
+        <FaMedal className="icon cyan" />
+        <p className="text">
+          Earned <strong>LeetCode 50 and 100 Days Badges</strong> through consistent problem-solving.
+        </p>
+      </div>
+
+      <div className="card-option">
+        <FaLaptopCode className="icon green" />
+        <p className="text">
+          <strong>Solved 150+</strong> problems on LeetCode across diverse topics including arrays, trees and graphs.
+        </p>
       </div>
     </InteractiveCard>
   );

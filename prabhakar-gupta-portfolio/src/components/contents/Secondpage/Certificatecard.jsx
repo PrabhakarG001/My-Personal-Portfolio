@@ -1,5 +1,5 @@
 import "./Certificatecard.css";
-import { FaAward, FaCode, FaLaptopCode } from "react-icons/fa";
+import { FaAward, FaCode, FaLaptopCode, FaTrophy } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
 
 const CertificateCard = ({ delay = 0 }) => {
@@ -35,6 +35,23 @@ const CertificateCard = ({ delay = 0 }) => {
           <span>Issued: February 2026</span>
           <br />
           <a href="#">Link: Coming Soon</a>
+        </p>
+      </div>
+      <div className="card-option">
+        <FaTrophy className="icon blue" style={{ color: "#3b82f6" }} />
+        <p className="text">
+          Smart India Hackathon
+          <br />
+          <span>Sept 2025 • Cleared Internal Round 1 & 2</span>
+          <br />
+          <a
+            href="https://drive.google.com/file/d/1GxtyxuaYWuZKiRPKckke1EG8uhQDaC8U/view?usp=drivesdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#3b82f6", textDecoration: "underline", textUnderlineOffset: "3px" }}
+          >
+            [Link]
+          </a>
         </p>
       </div>
     </InteractiveCard>

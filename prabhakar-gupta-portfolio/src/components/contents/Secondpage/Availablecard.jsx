@@ -1,5 +1,5 @@
 import "./Availablecard.css";
-import { FaRocket, FaCheckCircle, FaUser, FaClock } from "react-icons/fa";
+import { FaRocket, FaCheckCircle, FaUser, FaClock, FaBriefcase } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Availablecard = ({ delay = 0 }) => {
@@ -18,17 +18,22 @@ const Availablecard = ({ delay = 0 }) => {
 
       <div className="card-option">
         <FaCheckCircle className="icon green" />
-        <p className="text">Open to New Opportunities</p>
+        <p className="text"><strong>Open to Opportunities:</strong> Full-time roles and internships</p>
       </div>
 
       <div className="card-option">
         <FaUser className="icon cyan" />
-        <p className="text">Open to Training & Learning</p>
+        <p className="text"><strong>Adaptable:</strong> Eager to embrace training & new technologies</p>
       </div>
 
       <div className="card-option">
         <FaClock className="icon blue" />
-        <p className="text">Remote & On-site Available</p>
+        <p className="text"><strong>Flexible Work:</strong> Remote, hybrid, & on-site availability</p>
+      </div>
+
+      <div className="card-option">
+        <FaBriefcase className="icon purple" style={{ color: "#a855f7" }} />
+        <p className="text"><strong>Target Roles:</strong> Seeking Full-Stack / SDE positions</p>
       </div>
     </InteractiveCard>
   );

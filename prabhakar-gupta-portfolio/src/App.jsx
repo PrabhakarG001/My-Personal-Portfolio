@@ -27,6 +27,7 @@ import SoftSkills from "./components/contents/Thirdpage/SoftSkills.jsx";
 
 
 import Project from "./components/contents/Fourthpage/project.jsx";
+import CodingProfiles from "./components/contents/Profiles/CodingProfiles.jsx";
 import Goals from "./components/contents/Fifthpage/Goals.jsx";
 import Sixthpage from "./components/contents/Sixthpage/Sixthpage.jsx";
 
@@ -76,6 +77,7 @@ function App() {
       textColor: "#fff",
       links: [
         { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
+        { label: "Profiles", href: "#coding-profiles", ariaLabel: "Coding Profiles" },
         { label: "Goals", href: "#goals", ariaLabel: "Career Goals" },
       ],
     },
@@ -187,6 +189,10 @@ function App() {
 
         <SectionShell id="projects" chip="My recent works" title="Featured Projects">
           <Project />
+        </SectionShell>
+
+        <SectionShell id="coding-profiles" chip="Competitive Programming" title="Coding Profiles">
+          <CodingProfiles />
         </SectionShell>
 
         <SectionShell id="goals" chip="My Roadmap" title="Career Goals">

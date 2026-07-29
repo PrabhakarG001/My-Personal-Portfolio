@@ -18,6 +18,8 @@ import python from "../../../assets/python.svg";
 import vercel from "../../../assets/vercel.svg";
 import tailwindcss from "../../../assets/tailwindcss.svg";
 import firebase from "../../../assets/firebase.svg";
+import vite from "../../../assets/vite.svg";
+import npm from "../../../assets/npm.svg";
 
 
 const techStack1 = [
@@ -31,15 +33,17 @@ const techStack1 = [
   { name: "", logo: cpp, type: "" },
   { name: "", logo: python, type: "" },
   { name: "", logo: tailwindcss, type: "" },
+  { name: "", logo: firebase, type: "" },
 ];
 
 const techStack2 = [
   { name: "", logo: render },
-  { name: "", logo: firebase },
   { name: "", logo: vercel },
   { name: "", logo: vscode },
   { name: "", logo: windows },
   { name: "", logo: mysql },
+  { name: "", logo: vite },
+  { name: "", logo: npm },
 ];
 
 const techCardReveal = {

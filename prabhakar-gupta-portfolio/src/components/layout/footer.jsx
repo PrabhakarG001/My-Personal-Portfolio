@@ -31,7 +31,7 @@ const Footer = () => {
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.4, delay: 0.18 }}
         >
-          Developed & Designed by <strong>Prabhakar Gupta</strong>
+          Developed & Designed <span>&hearts;</span> by <strong>Prabhakar Gupta</strong>
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
