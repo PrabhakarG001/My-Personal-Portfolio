@@ -46,53 +46,33 @@ const CodingProfiles = () => {
     const fetchLeetCode = async () => {
       try {
         const timestamp = Date.now();
-        const [profileRes, solvedRes, contestRes] = await Promise.all([
-          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}?t=${timestamp}`).catch(() => null),
-          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/solved?t=${timestamp}`).catch(() => null),
-          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/contest?t=${timestamp}`).catch(() => null),
-        ]);
-
-        let profile = await safeJson(profileRes);
-        let solved = await safeJson(solvedRes);
-        let contest = await safeJson(contestRes);
-
-        // Fallback if alfa-leetcode-api is rate limited (returns empty object)
-        if (!profile.ranking && !solved.solvedProblem) {
-          const fallbackRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${USERNAME}`).catch(() => null);
-          const fallbackData = await safeJson(fallbackRes);
-          if (fallbackData && fallbackData.totalSolved !== undefined) {
-            profile = { ranking: fallbackData.ranking };
-            solved = {
-              solvedProblem: fallbackData.totalSolved,
-              easySolved: fallbackData.easySolved,
-              mediumSolved: fallbackData.mediumSolved,
-              hardSolved: fallbackData.hardSolved,
-              totalSubmissionNum: [{ submissions: fallbackData.totalSubmissions?.[0]?.submissions || 1 }],
-              acSubmissionNum: [{ 
-                submissions: fallbackData.totalSubmissions?.[0]?.count || 0,
-                count: fallbackData.totalSubmissions?.[0]?.count || 0
-              }]
-            };
-          }
-        }
+        
+        // Primary API for stable, high-rate-limit stats
+        const mainRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${USERNAME}`).catch(() => null);
+        const mainData = await safeJson(mainRes);
+        
+        // Secondary API for contest data (often rate limited, handled gracefully)
+        const contestRes = await fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/contest?t=${timestamp}`).catch(() => null);
+        const contestData = await safeJson(contestRes);
 
         let acceptance = "N/A";
-        let recentAC = solved?.acSubmissionNum?.[0]?.count || 0; 
+        let recentAC = mainData?.recentSubmissions?.length || 0;
         
-        if (solved?.totalSubmissionNum?.[0]?.submissions && solved?.acSubmissionNum?.[0]?.submissions) {
-          const totalSubs = solved.totalSubmissionNum[0].submissions;
-          const acSubs = solved.acSubmissionNum[0].submissions;
-          acceptance = ((acSubs / totalSubs) * 100).toFixed(1) + "%";
+        if (mainData && mainData.totalSubmissions && mainData.totalSubmissions[0]) {
+           const allDiff = mainData.totalSubmissions[0];
+           if (allDiff.submissions > 0) {
+              acceptance = ((allDiff.count / allDiff.submissions) * 100).toFixed(1) + "%";
+           }
         }
 
         setLcData({
-          solvedProblem: solved.solvedProblem || 0,
-          easySolved: solved.easySolved || 0,
-          mediumSolved: solved.mediumSolved || 0,
-          hardSolved: solved.hardSolved || 0,
-          globalRank: profile.ranking || "N/A",
-          contestRating: Math.round(contest.contestRating) || "-",
-          totalContests: contest.contestAttend || 0,
+          solvedProblem: mainData?.totalSolved || 0,
+          easySolved: mainData?.easySolved || 0,
+          mediumSolved: mainData?.mediumSolved || 0,
+          hardSolved: mainData?.hardSolved || 0,
+          globalRank: mainData?.ranking || "N/A",
+          contestRating: contestData?.contestRating ? Math.round(contestData.contestRating) : "-",
+          totalContests: contestData?.contestAttend || 0,
           acceptance,
           recentAC
         });
