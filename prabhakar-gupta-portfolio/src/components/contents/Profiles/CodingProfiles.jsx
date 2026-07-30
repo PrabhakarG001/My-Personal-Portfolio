@@ -47,13 +47,38 @@ const CodingProfiles = () => {
       try {
         const timestamp = Date.now();
         
-        // Primary API for stable, high-rate-limit stats
-        const mainRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${USERNAME}`).catch(() => null);
-        const mainData = await safeJson(mainRes);
+        // Primary API for stable, high-rate-limit stats (added cache-busting)
+        const mainRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${USERNAME}?t=${timestamp}`).catch(() => null);
+        let mainData = await safeJson(mainRes);
         
         // Secondary API for contest data (often rate limited, handled gracefully)
         const contestRes = await fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/contest?t=${timestamp}`).catch(() => null);
         const contestData = await safeJson(contestRes);
+
+        // Fallback if primary API is down, rate limited, or returning 0
+        if (!mainData || !mainData.totalSolved) {
+           const [solvedRes, profileRes, acRes] = await Promise.all([
+             fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/solved?t=${timestamp}`).catch(() => null),
+             fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}?t=${timestamp}`).catch(() => null),
+             fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/acSubmission?t=${timestamp}`).catch(() => null)
+           ]);
+           
+           const solvedData = await safeJson(solvedRes);
+           const profileData = await safeJson(profileRes);
+           const acData = await safeJson(acRes);
+
+           if (solvedData && solvedData.solvedProblem !== undefined) {
+               mainData = {
+                   totalSolved: solvedData.solvedProblem,
+                   easySolved: solvedData.easySolved,
+                   mediumSolved: solvedData.mediumSolved,
+                   hardSolved: solvedData.hardSolved,
+                   totalSubmissions: solvedData.totalSubmissionNum,
+                   ranking: profileData?.ranking || "N/A",
+                   recentSubmissions: acData?.submission || []
+               };
+           }
+        }
 
         let acceptance = "N/A";
         let recentAC = mainData?.recentSubmissions?.length || 0;
