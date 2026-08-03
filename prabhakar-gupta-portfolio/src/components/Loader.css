@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 /* =========================
    OVERLAY (BLUR WEBSITE)
@@ -46,11 +46,11 @@
    TEXT STROKE ANIMATION
 ========================= */
 .mac-welcome-text-path {
-  font-family: 'Caveat', cursive;
-  font-size: 5rem;
+  font-family: 'Sacramento', cursive;
+  font-size: 6rem;
   fill: transparent;
   stroke: #ffffff;
-  stroke-width: 1.5px;
+  stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: round;
   
