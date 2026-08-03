@@ -28,57 +28,50 @@
 ========================= */
 .mac-loader-container {
   position: relative;
-  width: 100%;
-  max-width: 800px;
+  width: min(150px, 40vw);
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
 }
 
-.mac-welcome-svg {
+.mac-hello-svg {
   width: 100%;
   height: auto;
-  overflow: visible;
+  color: #ffffff;
 }
 
 /* =========================
-   TEXT STROKE ANIMATION
+   PATH ANIMATION
 ========================= */
-.mac-welcome-text-path {
-  font-family: 'Pacifico', cursive;
-  font-size: 5rem;
-  fill: transparent;
-  stroke: #ffffff;
-  stroke-width: 1.5px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  
-  /* SVG line drawing effect */
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: drawText 2.5s ease-in-out forwards, fillText 0.5s ease-in-out 2s forwards;
+.mac-hello-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawHello 2s ease-in-out forwards;
 }
 
-@keyframes drawText {
-  0% { stroke-dashoffset: 2000; }
-  100% { stroke-dashoffset: 0; }
+.mac-hello-path-1 {
+  /* First part of hello */
+  animation-delay: 0s;
 }
 
-@keyframes fillText {
-  0% { fill: transparent; stroke-width: 1.5px; }
-  100% { fill: #ffffff; stroke-width: 0px; }
+.mac-hello-path-2 {
+  /* Second part of hello, starts slightly after */
+  animation-delay: 0.1s;
 }
 
-/* MOBILE SCALE */
-@media (max-width: 768px) {
-  .mac-welcome-text-path {
-    font-size: 3.5rem;
+@keyframes drawHello {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 
+/* MOBILE SCALE */
 @media (max-width: 480px) {
-  .mac-welcome-text-path {
-    font-size: 2.5rem;
+  .mac-loader-container {
+    width: min(120px, 35vw);
   }
 }
