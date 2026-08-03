@@ -178,52 +178,15 @@ canvas {
     opacity: 1;
   }
 
+  /* Eyeball Target Hover Styles */
+  .eyeball-target {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
   .eyeball-target:hover {
     transform: scale(1.1) !important;
     box-shadow: 0 0 15px rgba(0, 255, 200, 0.4) !important;
   }
-}
-
-/* Hover Bubble and Arrow */
-.universal-card .hover-bubble {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 44px;
-  height: 44px;
-  background: var(--brand-1, #00ffc8);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: 20;
-  opacity: 0;
-  pointer-events: none; /* Keep splash cursor working */
-  transform: scale(0.5);
-  box-shadow: 0 0 15px rgba(0, 255, 200, 0.5);
-}
-
-.universal-card:hover .hover-bubble {
-  top: 16px;
-  left: 16px;
-  opacity: 1;
-  transform: scale(1);
-}
-
-.universal-card .hover-arrow {
-  width: 22px;
-  height: 22px;
-  color: var(--bg-page, #030712);
-  transform: translate(-10px, 10px) rotate(-45deg);
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.universal-card:hover .hover-arrow {
-  transform: translate(0, 0) rotate(0deg);
-  opacity: 1;
-  transition-delay: 0.1s;
 }
 
 .eyeball-icon {
