@@ -1,5 +1,5 @@
 /* =========================
-   OVERLAY (BLACK BACKGROUND)
+   OVERLAY (BLUR WEBSITE)
 ========================= */
 .loader-overlay {
   position: fixed;
@@ -10,7 +10,9 @@
   align-items: center;
   justify-content: center;
 
-  background: #000000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   animation: fadeOutOverlay 0.8s ease 2.7s forwards;
 }
 
