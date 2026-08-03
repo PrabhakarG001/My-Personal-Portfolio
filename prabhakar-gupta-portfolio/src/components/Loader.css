@@ -47,7 +47,7 @@
 .mac-hello-path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: drawHello 2s ease-in-out forwards;
+  animation: drawHello 2s ease-in-out forwards, fillHello 0.5s ease-in-out 2s forwards;
 }
 
 .mac-hello-path-1 {
@@ -73,5 +73,11 @@
 @media (max-width: 480px) {
   .mac-loader-container {
     width: min(120px, 35vw);
+  }
+}
+
+@keyframes fillHello {
+  to {
+    fill: currentColor;
   }
 }
