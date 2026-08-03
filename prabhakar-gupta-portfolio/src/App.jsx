@@ -92,7 +92,7 @@ function App() {
   // Loader overlay state – show on initial load
   const [showLoader, setShowLoader] = React.useState(true);
   React.useEffect(() => {
-    const timer = setTimeout(() => setShowLoader(false), 2000); // match total loop duration
+    const timer = setTimeout(() => setShowLoader(false), 3500); // match total loop duration
     return () => clearTimeout(timer);
   }, []);
 

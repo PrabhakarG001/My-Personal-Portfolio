@@ -1,5 +1,5 @@
 /* =========================
-   OVERLAY (BLUR WEBSITE)
+   OVERLAY (BLACK BACKGROUND)
 ========================= */
 .loader-overlay {
   position: fixed;
@@ -10,116 +10,64 @@
   align-items: center;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  background: #000000;
+  animation: fadeOutOverlay 0.8s ease 2.7s forwards;
+}
+
+@keyframes fadeOutOverlay {
+  0% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
 }
 
 /* =========================
-   WRAPPER (RESPONSIVE SIZE)
+   WRAPPER
 ========================= */
-.loader {
+.mac-loader-container {
   position: relative;
-  width: min(60px, 15vw);
-  height: min(50px, 12vw);
+  width: min(150px, 40vw);
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mac-hello-svg {
+  width: 100%;
+  height: auto;
+  color: #ffffff;
 }
 
 /* =========================
-   DOT STYLE
+   PATH ANIMATION
 ========================= */
-.dot {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+.mac-hello-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawHello 2s ease-in-out forwards;
 }
 
-/* =========================
-   INITIAL (HORIZONTAL LINE)
-========================= */
-.dot1 { left: 0; top: 20px; }
-.dot2 { left: 25px; top: 20px; }
-.dot3 { left: 50px; top: 20px; }
-
-/* =========================
-   WAVE (PHASE 1 & END)
-========================= */
-@keyframes wave1 {
-  0% { transform: translateY(0) scale(1); box-shadow: 0 0 5px white; }
-  10% { transform: translateY(-8px) scale(1.3); box-shadow: 0 0 15px white, 0 0 5px white; }
-  20% { transform: translateY(8px) scale(0.9); box-shadow: 0 0 5px white; }
-  30% { transform: translateY(0) scale(1); box-shadow: 0 0 5px white; }
-
-  /* stop before triangle */
-  35%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 5px white; }
+.mac-hello-path-1 {
+  /* First part of hello */
+  animation-delay: 0s;
 }
 
-/* =========================
-   TRIANGLE (PHASE 2)
-========================= */
-
-/* dot1 → bottom left */
-@keyframes dot1Move {
-  0%, 35% { left: 0; top: 20px; background: white; }
-
-  45% { left: 10px; top: 35px; background: #f8fafc; }
-  70% { left: 10px; top: 35px; background: #f8fafc; }
-
-  /* return to line */
-  80% { left: 0; top: 20px; background: white; }
-  100% { left: 0; top: 20px; background: white; }
+.mac-hello-path-2 {
+  /* Second part of hello, starts slightly after */
+  animation-delay: 0.1s;
 }
 
-/* dot2 → bottom right */
-@keyframes dot2Move {
-  0%, 35% { left: 25px; top: 20px; background: white; }
-
-  45% { left: 40px; top: 35px; background: #f8fafc; }
-  70% { left: 40px; top: 35px; background: #f8fafc; }
-
-  80% { left: 25px; top: 20px; background: white; }
-  100% { left: 25px; top: 20px; background: white; }
+@keyframes drawHello {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
-/* dot3 → TOP */
-@keyframes dot3Move {
-  0%, 35% { left: 50px; top: 20px; background: white; }
-
-  45% { left: 25px; top: 0px; background: #f8fafc; }
-  70% { left: 25px; top: 0px; background: #f8fafc; }
-
-  80% { left: 50px; top: 20px; background: white; }
-  100% { left: 50px; top: 20px; background: white; }
-}
-
-/* =========================
-   APPLY ANIMATION
-========================= */
-.dot1 {
-  animation:
-    wave1 1.8s ease-in-out infinite,
-    dot1Move 1.8s ease-in-out infinite;
-}
-
-.dot2 {
-  animation:
-    wave1 1.8s ease-in-out infinite,
-    dot2Move 1.8s ease-in-out infinite;
-  animation-delay: 0.15s, 0s;
-}
-
-.dot3 {
-  animation:
-    wave1 1.8s ease-in-out infinite,
-    dot3Move 1.8s ease-in-out infinite;
-  animation-delay: 0.3s, 0s;
-}
-
-
-   /* MOBILE SCALE */
+/* MOBILE SCALE */
 @media (max-width: 480px) {
-  .loader {
-    transform: scale(0.8);
+  .mac-loader-container {
+    width: min(120px, 35vw);
   }
 }
