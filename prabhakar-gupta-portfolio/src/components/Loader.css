@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /* =========================
    OVERLAY (BLUR WEBSITE)
@@ -46,11 +46,11 @@
    TEXT STROKE ANIMATION
 ========================= */
 .mac-welcome-text-path {
-  font-family: 'Sacramento', cursive;
-  font-size: 6rem;
+  font-family: 'Pacifico', cursive;
+  font-size: 5rem;
   fill: transparent;
   stroke: #ffffff;
-  stroke-width: 2px;
+  stroke-width: 1.5px;
   stroke-linecap: round;
   stroke-linejoin: round;
   
