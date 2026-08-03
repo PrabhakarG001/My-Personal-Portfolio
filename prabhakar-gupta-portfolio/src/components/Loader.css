@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+
 /* =========================
    OVERLAY (BLUR WEBSITE)
 ========================= */
@@ -26,50 +28,32 @@
 ========================= */
 .mac-loader-container {
   position: relative;
-  width: min(150px, 40vw);
-  height: auto;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.mac-hello-svg {
-  width: 100%;
-  height: auto;
-  color: #ffffff;
+  padding: 0 20px;
 }
 
 /* =========================
-   PATH ANIMATION
+   TEXT ANIMATION
 ========================= */
-.mac-hello-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: drawHello 2s ease-in-out forwards;
+.mac-welcome-text {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: #ffffff;
+  white-space: nowrap;
+  
+  /* Reveal animation using clip-path */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  animation: revealText 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.mac-hello-path-1 {
-  /* First part of hello */
-  animation-delay: 0s;
-}
-
-.mac-hello-path-2 {
-  /* Second part of hello, starts slightly after */
-  animation-delay: 0.1s;
-}
-
-@keyframes drawHello {
+@keyframes revealText {
   0% {
-    stroke-dashoffset: 1;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   }
   100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* MOBILE SCALE */
-@media (max-width: 480px) {
-  .mac-loader-container {
-    width: min(120px, 35vw);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 }
