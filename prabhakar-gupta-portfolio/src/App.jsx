@@ -136,7 +136,7 @@ function App() {
           viewport={{ once: true, amount: 0.45 }}
         >
           <div className="hero-panel">
-            <Typewriter />
+            <Typewriter canStart={!showLoader} />
 
             <GradientText
               colors={["#40ffaa", "#2dd4bf", "#38bdf8", "#3b82f6", "#40ffaa"]}
@@ -155,6 +155,7 @@ function App() {
               animateBy="words"
               direction="top"
               className="hero-blur-text"
+              canStart={!showLoader}
             />
 
             <div className="hero-actions">

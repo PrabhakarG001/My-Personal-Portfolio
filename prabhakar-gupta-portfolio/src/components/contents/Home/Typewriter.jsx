@@ -6,12 +6,14 @@ const Typewriter = ({
   typingSpeed = 100,
   deletingSpeed = 60,
   delay = 1500,
+  canStart = true,
 }) => {
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (!canStart) return;
     const currentWord = words[wordIndex % words.length];
 
     const timeout = setTimeout(() => {
@@ -30,7 +32,7 @@ const Typewriter = ({
     }, isDeleting ? deletingSpeed : typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, delay]);
+  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, delay, canStart]);
 
   return (
     <div className="typewriter-wrapper" data-scroll="fade" style={{ "--scroll-delay": "140ms" }}>
