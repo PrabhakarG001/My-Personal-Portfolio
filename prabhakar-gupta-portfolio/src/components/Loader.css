@@ -28,32 +28,57 @@
 ========================= */
 .mac-loader-container {
   position: relative;
-  width: auto;
+  width: 100%;
+  max-width: 800px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 20px;
 }
 
-/* =========================
-   TEXT ANIMATION
-========================= */
-.mac-welcome-text {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  color: #ffffff;
-  white-space: nowrap;
-  
-  /* Reveal animation using clip-path */
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  animation: revealText 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.mac-welcome-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-@keyframes revealText {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+/* =========================
+   TEXT STROKE ANIMATION
+========================= */
+.mac-welcome-text-path {
+  font-family: 'Caveat', cursive;
+  font-size: 5rem;
+  fill: transparent;
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  
+  /* SVG line drawing effect */
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawText 2.5s ease-in-out forwards, fillText 0.5s ease-in-out 2s forwards;
+}
+
+@keyframes drawText {
+  0% { stroke-dashoffset: 2000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fillText {
+  0% { fill: transparent; stroke-width: 1.5px; }
+  100% { fill: #ffffff; stroke-width: 0px; }
+}
+
+/* MOBILE SCALE */
+@media (max-width: 768px) {
+  .mac-welcome-text-path {
+    font-size: 3.5rem;
   }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@media (max-width: 480px) {
+  .mac-welcome-text-path {
+    font-size: 2.5rem;
   }
 }
