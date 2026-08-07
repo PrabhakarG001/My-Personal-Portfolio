@@ -47,10 +47,7 @@ const Achievementcard = ({ delay = 0 }) => {
       <div className="card-option">
         <FaAward className="icon gradient" />
         <p className="text">
-          Smart India Hackathon
-          <br />
-          <span>Cleared Internal Round 1 & 2</span>
-          <br />
+          <strong>Smart India Hackathon</strong> • <span>Cleared Internal Round 1 & 2</span>{" "}
           <a
             href="https://drive.google.com/file/d/1GxtyxuaYWuZKiRPKckke1EG8uhQDaC8U/view?usp=drivesdk"
             target="_blank"
