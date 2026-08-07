@@ -54,6 +54,21 @@ const CertificateCard = ({ delay = 0 }) => {
           </a>
         </p>
       </div>
+      <div className="card-option">
+        <FaAward className="icon blue" style={{ color: "#3b82f6" }} />
+        <p className="text">
+          IBM Skillbuild AI Certification
+          <br />
+          <a
+            href="https://drive.google.com/file/d/1xaZQHVB0WnUFa_WuzG9zFjIjPdQ_lkcP/view?usp=drivesdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#3b82f6", textDecoration: "underline", textUnderlineOffset: "3px" }}
+          >
+            [Link]
+          </a>
+        </p>
+      </div>
     </InteractiveCard>
   );
 };
