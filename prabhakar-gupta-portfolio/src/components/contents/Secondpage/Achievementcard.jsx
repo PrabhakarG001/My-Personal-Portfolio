@@ -49,7 +49,7 @@ const Achievementcard = ({ delay = 0 }) => {
         <p className="text">
           Smart India Hackathon
           <br />
-          <span>September 2025 • Cleared Internal Round 1 & 2</span>
+          <span>Cleared Internal Round 1 & 2</span>
           <br />
           <a
             href="https://drive.google.com/file/d/1GxtyxuaYWuZKiRPKckke1EG8uhQDaC8U/view?usp=drivesdk"
