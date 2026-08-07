@@ -1,5 +1,5 @@
 import "./Achievementcard.css";
-import { FaTrophy, FaLaptopCode, FaMedal } from "react-icons/fa";
+import { FaTrophy, FaLaptopCode, FaMedal, FaAward } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
 
 const Achievementcard = ({ delay = 0 }) => {
@@ -42,6 +42,23 @@ const Achievementcard = ({ delay = 0 }) => {
         <FaLaptopCode className="icon green" />
         <p className="text">
           <strong>Solved 150+</strong> problems on LeetCode across diverse topics including arrays, trees and graphs.
+        </p>
+      </div>
+      <div className="card-option">
+        <FaAward className="icon gradient" />
+        <p className="text">
+          Smart India Hackathon
+          <br />
+          <span>September 2025 • Cleared Internal Round 1 & 2</span>
+          <br />
+          <a
+            href="https://drive.google.com/file/d/1GxtyxuaYWuZKiRPKckke1EG8uhQDaC8U/view?usp=drivesdk"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#3b82f6", textDecoration: "underline", textUnderlineOffset: "3px" }}
+          >
+            [Link]
+          </a>
         </p>
       </div>
     </InteractiveCard>
