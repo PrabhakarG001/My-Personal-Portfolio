@@ -263,7 +263,7 @@ const CodingProfiles = () => {
           {/* Primary stat */}
           {loading.lc
             ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat">{lcData?.solvedProblem} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>solved</span></div>
+            : <div className="primary-stat">{lcData?.solvedProblem} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>Problems Solved</span></div>
           }
 
           {/* 3-col sub grid */}
