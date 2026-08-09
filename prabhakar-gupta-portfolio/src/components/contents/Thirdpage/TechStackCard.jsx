@@ -20,6 +20,8 @@ import tailwindcss from "../../../assets/tailwindcss.svg";
 import firebase from "../../../assets/firebase.svg";
 import vite from "../../../assets/vite.svg";
 import npm from "../../../assets/npm.svg";
+import figma from "../../../assets/figma.svg";
+import c from "../../../assets/c.svg";
 
 
 const techStack1 = [
@@ -31,6 +33,7 @@ const techStack1 = [
   { name: "", logo: reactjs, type: "" },
   { name: "", logo: nodejs, type: "" },
   { name: "", logo: cpp, type: "" },
+  { name: "", logo: c, type: "" },
   { name: "", logo: python, type: "" },
   { name: "", logo: tailwindcss, type: "" },
   { name: "", logo: firebase, type: "" },
@@ -44,6 +47,7 @@ const techStack2 = [
   { name: "", logo: mysql },
   { name: "", logo: vite },
   { name: "", logo: npm },
+  { name: "", logo: figma },
 ];
 
 const techCardReveal = {
