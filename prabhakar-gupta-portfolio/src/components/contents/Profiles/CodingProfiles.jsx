@@ -55,6 +55,10 @@ const CodingProfiles = () => {
         const contestRes = await fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/contest?t=${timestamp}`).catch(() => null);
         const contestData = await safeJson(contestRes);
 
+        // Calendar API for streak and active days
+        const calendarRes = await fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/calendar?t=${timestamp}`).catch(() => null);
+        const calendarData = await safeJson(calendarRes);
+
         // Fallback if primary API is down, rate limited, or returning 0
         if (!mainData || !mainData.totalSolved) {
            const [solvedRes, profileRes, acRes] = await Promise.all([
@@ -82,12 +86,16 @@ const CodingProfiles = () => {
 
         let acceptance = "N/A";
         let recentAC = mainData?.recentSubmissions?.length || 0;
-        
-        if (mainData && mainData.totalSubmissions && mainData.totalSubmissions[0]) {
-           const allDiff = mainData.totalSubmissions[0];
-           if (allDiff.submissions > 0) {
-              acceptance = ((allDiff.count / allDiff.submissions) * 100).toFixed(1) + "%";
-           }
+
+        // Use acSubmissionNum for correct acceptance rate (accepted problems / unique AC submissions)
+        const acStats = mainData?.matchedUserStats?.acSubmissionNum || mainData?.acSubmissionNum;
+        const totalStats = mainData?.matchedUserStats?.totalSubmissionNum || mainData?.totalSubmissions;
+        if (acStats && acStats[0] && totalStats && totalStats[0]) {
+          const acAll = acStats[0];
+          const totalAll = totalStats[0];
+          if (totalAll.submissions > 0) {
+            acceptance = ((acAll.submissions / totalAll.submissions) * 100).toFixed(1) + "%";
+          }
         }
 
         setLcData({
@@ -99,7 +107,9 @@ const CodingProfiles = () => {
           contestRating: contestData?.contestRating ? Math.round(contestData.contestRating) : "-",
           totalContests: contestData?.contestAttend || 0,
           acceptance,
-          recentAC
+          recentAC,
+          maxStreak: calendarData?.streak ?? "-",
+          totalActiveDays: calendarData?.totalActiveDays ?? "-",
         });
       } catch (err) {
         console.error("Error fetching LeetCode:", err);
@@ -223,7 +233,8 @@ const CodingProfiles = () => {
               <>
                 <p>Global rank: <strong>#{lcData?.globalRank}</strong></p>
                 <p>Contest rating: <strong>{lcData?.contestRating}</strong> | Contests: <strong>{lcData?.totalContests}</strong></p>
-                <p>Acceptance: <strong>{lcData?.acceptance}</strong> | Recent AC: <strong>{lcData?.recentAC}</strong></p>
+                <p>Acceptance rate: <strong>{lcData?.acceptance}</strong></p>
+                <p>Max streak: <strong>{lcData?.maxStreak} days</strong> | Active days: <strong>{lcData?.totalActiveDays}</strong></p>
               </>
             )}
           </div>
