@@ -40,6 +40,23 @@
   pointer-events: none;
 }
 
+.github-card::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.github-sub-grid {
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+
+
 .card-content-new {
   position: relative;
   z-index: 1;

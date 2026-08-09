@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaArrowRight } from "react-icons/fa";
+import { FaGithub, FaArrowRight, FaStar, FaCodeBranch, FaMapMarkerAlt } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
 import InteractiveCard from "../../InteractiveCard.jsx";
 import AuroraHero, { AuroraButton } from "../../background/AuroraHero.jsx";
@@ -25,10 +25,12 @@ const formatDate = (timestamp) => {
 const CodingProfiles = () => {
   const [lcData, setLcData] = useState(null);
   const [cfData, setCfData] = useState(null);
+  const [ghData, setGhData] = useState(null);
 
   const [loading, setLoading] = useState({
     lc: true,
     cf: true,
+    gh: true,
   });
 
   const USERNAME = "PrabhakarG001"; // Unified username
@@ -141,12 +143,65 @@ const CodingProfiles = () => {
       }
     };
 
+    const fetchGitHub = async () => {
+      try {
+        const timestamp = Date.now();
+        const [profileRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${USERNAME}?t=${timestamp}`).catch(() => null),
+          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&t=${timestamp}`).catch(() => null),
+        ]);
+
+        const profile = await safeJson(profileRes);
+        const repos = reposRes?.ok ? await reposRes.json().catch(() => []) : [];
+
+        // Aggregate stats from repos
+        const totalStars = repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
+        const totalForks = repos.reduce((acc, r) => acc + (r.forks_count || 0), 0);
+
+        // Top languages by repo count
+        const langMap = {};
+        repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
+        const topLangs = Object.entries(langMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([lang]) => lang);
+
+        // Most recently pushed repo
+        const sortedRepos = [...repos].filter(r => !r.fork).sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+        const latestRepo = sortedRepos[0];
+
+        const joinedDate = profile.created_at
+          ? new Date(profile.created_at).toLocaleString('default', { month: 'short', year: 'numeric' })
+          : 'N/A';
+
+        setGhData({
+          name: profile.name || USERNAME,
+          bio: profile.bio || '',
+          location: profile.location || 'N/A',
+          publicRepos: profile.public_repos || 0,
+          followers: profile.followers || 0,
+          following: profile.following || 0,
+          totalStars,
+          totalForks,
+          topLangs,
+          latestRepo: latestRepo ? { name: latestRepo.name, url: latestRepo.html_url, lang: latestRepo.language } : null,
+          joinedDate,
+        });
+      } catch (err) {
+        console.error('Error fetching GitHub:', err);
+      } finally {
+        setLoading(prev => ({ ...prev, gh: false }));
+      }
+    };
+
     fetchLeetCode();
     fetchCodeforces();
+    fetchGitHub();
 
     const interval = setInterval(() => {
       fetchLeetCode();
       fetchCodeforces();
+      fetchGitHub();
     }, 300000); // Poll every 5 minutes
 
     return () => clearInterval(interval);
@@ -338,6 +393,110 @@ const CodingProfiles = () => {
         </div>
       </InteractiveCard>
 
+
+      {/* GitHub Card - full width */}
+      <InteractiveCard
+        className="profile-card-new github-card"
+        variants={profileReveal}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.22 }}
+        custom={3}
+        style={{ gridColumn: '1 / -1' }}
+      >
+        <div className="card-content-new">
+          <div className="profile-header-new" style={{ marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(139, 92, 246, 0.3)' }}>
+                <FaGithub style={{ color: '#a78bfa' }} />
+              </div>
+              <div className="profile-titles" style={{ marginBottom: 0 }}>
+                <h2>GitHub</h2>
+                <p>@{USERNAME}</p>
+              </div>
+            </div>
+            <span className="live-badge">LIVE NOW</span>
+          </div>
+
+          {/* Primary stat */}
+          {loading.gh ? (
+            <div className="skeleton-primary skeleton-box"></div>
+          ) : (
+            <div className="primary-stat" style={{ color: '#a78bfa' }}>{ghData?.publicRepos} public repos</div>
+          )}
+
+          {/* Sub stats grid */}
+          {loading.gh ? (
+            <div className="sub-stats-grid github-sub-grid">
+              <div className="skeleton-box" style={{height: 50}}></div>
+              <div className="skeleton-box" style={{height: 50}}></div>
+              <div className="skeleton-box" style={{height: 50}}></div>
+              <div className="skeleton-box" style={{height: 50}}></div>
+            </div>
+          ) : (
+            <div className="sub-stats-grid github-sub-grid">
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(250, 204, 21, 0.5)' }}>
+                <span className="sub-stat-label">STARS</span>
+                <span className="sub-stat-value" style={{ color: '#facc15' }}>{ghData?.totalStars}</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139, 92, 246, 0.5)' }}>
+                <span className="sub-stat-label">FORKS</span>
+                <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.totalForks}</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52, 211, 153, 0.5)' }}>
+                <span className="sub-stat-label">FOLLOWERS</span>
+                <span className="sub-stat-value" style={{ color: '#34d399' }}>{ghData?.followers}</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(251, 146, 60, 0.5)' }}>
+                <span className="sub-stat-label">FOLLOWING</span>
+                <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.following}</span>
+              </div>
+            </div>
+          )}
+
+          <p className="desc-text">
+            Open-source projects, contributions, and dev activity — all in one place.
+          </p>
+
+          {/* Top languages tags */}
+          {!loading.gh && ghData?.topLangs?.length > 0 && (
+            <div className="skills-tags" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
+              {ghData.topLangs.map(lang => (
+                <span key={lang} style={{ padding: '4px 10px', background: 'rgba(139, 92, 246, 0.1)', color: '#a78bfa', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(139, 92, 246, 0.2)' }}>{lang}</span>
+              ))}
+            </div>
+          )}
+
+          <div className="divider-container">
+            <div className="divider-dots">
+              <div className="dot" style={{ background: '#a78bfa' }}></div>
+              <div className="dot" style={{ background: '#a78bfa', opacity: 0.6 }}></div>
+              <div className="dot" style={{ background: '#a78bfa', opacity: 0.3 }}></div>
+            </div>
+            <span className="divider-label">PROFILE STATS SYNCED</span>
+          </div>
+
+          <div className="details-box">
+            {loading.gh ? (
+              <div className="skeleton-box" style={{height: 80}}></div>
+            ) : (
+              <>
+                <p><FaMapMarkerAlt style={{ marginRight: 6, color: '#a78bfa', verticalAlign: 'middle' }} />{ghData?.location}</p>
+                <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
+                {ghData?.latestRepo && (
+                  <p>Latest repo: <strong><a href={ghData.latestRepo.url} target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'none' }}>{ghData.latestRepo.name}</a></strong>{ghData.latestRepo.lang ? <span style={{ marginLeft: 8, fontSize: '0.78rem', color: '#9ca3af' }}>({ghData.latestRepo.lang})</span> : null}</p>
+                )}
+              </>
+            )}
+          </div>
+
+          <div className="card-footer-new">
+            <AuroraButton href={`https://github.com/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
+              Open Profile
+            </AuroraButton>
+          </div>
+        </div>
+      </InteractiveCard>
 
     </div>
   );
