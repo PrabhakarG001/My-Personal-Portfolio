@@ -146,29 +146,51 @@ const CodingProfiles = () => {
     const fetchGitHub = async () => {
       try {
         const timestamp = Date.now();
-        const [profileRes, reposRes] = await Promise.all([
+        const thisYear = new Date().getFullYear();
+
+        const [profileRes, reposRes, contribRes] = await Promise.all([
           fetch(`https://api.github.com/users/${USERNAME}?t=${timestamp}`).catch(() => null),
           fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&t=${timestamp}`).catch(() => null),
+          fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?t=${timestamp}`).catch(() => null),
         ]);
 
         const profile = await safeJson(profileRes);
         const repos = reposRes?.ok ? await reposRes.json().catch(() => []) : [];
+        const contribData = await safeJson(contribRes);
+
+        // Contribution totals
+        const contribByYear = contribData?.total || {};
+        const thisYearContribs = contribByYear[thisYear] || 0;
+        const totalContribs = Object.values(contribByYear).reduce((a, b) => a + b, 0);
 
         // Aggregate stats from repos
         const totalStars = repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
         const totalForks = repos.reduce((acc, r) => acc + (r.forks_count || 0), 0);
+
+        // This year repos (created in current year)
+        const thisYearRepos = repos.filter(r => new Date(r.created_at).getFullYear() === thisYear);
 
         // Top languages by repo count
         const langMap = {};
         repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
         const topLangs = Object.entries(langMap)
           .sort((a, b) => b[1] - a[1])
-          .slice(0, 3)
+          .slice(0, 4)
           .map(([lang]) => lang);
 
-        // Most recently pushed repo
-        const sortedRepos = [...repos].filter(r => !r.fork).sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-        const latestRepo = sortedRepos[0];
+        // Best projects — top 3 non-fork repos sorted by size + recent activity
+        const bestProjects = [...repos]
+          .filter(r => !r.fork && r.name !== USERNAME)
+          .sort((a, b) => (b.size + b.stargazers_count * 100) - (a.size + a.stargazers_count * 100))
+          .slice(0, 3)
+          .map(r => ({ name: r.name, url: r.html_url, lang: r.language, desc: r.description, stars: r.stargazers_count }));
+
+        // Achievements
+        const achievements = [];
+        if (totalContribs >= 300) achievements.push({ label: '300+ Contributions', icon: '🔥' });
+        if (profile.public_repos >= 5) achievements.push({ label: `${profile.public_repos} Public Repos`, icon: '📦' });
+        if (thisYearRepos.length >= 3) achievements.push({ label: `${thisYearRepos.length} Repos in ${thisYear}`, icon: '🚀' });
+        if (topLangs.includes('JavaScript')) achievements.push({ label: 'JS Developer', icon: '⚡' });
 
         const joinedDate = profile.created_at
           ? new Date(profile.created_at).toLocaleString('default', { month: 'short', year: 'numeric' })
@@ -176,7 +198,6 @@ const CodingProfiles = () => {
 
         setGhData({
           name: profile.name || USERNAME,
-          bio: profile.bio || '',
           location: profile.location || 'N/A',
           publicRepos: profile.public_repos || 0,
           followers: profile.followers || 0,
@@ -184,7 +205,11 @@ const CodingProfiles = () => {
           totalStars,
           totalForks,
           topLangs,
-          latestRepo: latestRepo ? { name: latestRepo.name, url: latestRepo.html_url, lang: latestRepo.language } : null,
+          thisYearRepos: thisYearRepos.length,
+          totalContribs,
+          thisYearContribs,
+          bestProjects,
+          achievements,
           joinedDate,
         });
       } catch (err) {
@@ -394,7 +419,7 @@ const CodingProfiles = () => {
       </InteractiveCard>
 
 
-      {/* GitHub Card - full width */}
+      {/* GitHub Card */}
       <InteractiveCard
         className="profile-card-new github-card"
         variants={profileReveal}
@@ -404,6 +429,8 @@ const CodingProfiles = () => {
         custom={3}
       >
         <div className="card-content-new">
+
+          {/* Header */}
           <div className="profile-header-new" style={{ marginBottom: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <div className="header-icon-wrapper" style={{ borderColor: 'rgba(139, 92, 246, 0.3)' }}>
@@ -411,80 +438,111 @@ const CodingProfiles = () => {
               </div>
               <div className="profile-titles" style={{ marginBottom: 0 }}>
                 <h2>GitHub</h2>
-                <p>@{USERNAME}</p>
+                <p>@{USERNAME} &nbsp;<FaMapMarkerAlt style={{ verticalAlign: 'middle', fontSize: '0.8rem' }} /> {ghData?.location || '...'}</p>
               </div>
             </div>
             <span className="live-badge">LIVE NOW</span>
           </div>
 
-          {/* Primary stat */}
+          {/* Primary stat — total contributions */}
           {loading.gh ? (
             <div className="skeleton-primary skeleton-box"></div>
           ) : (
-            <div className="primary-stat" style={{ color: '#a78bfa' }}>{ghData?.publicRepos} public repos</div>
+            <div className="primary-stat" style={{ color: '#a78bfa' }}>
+              {ghData?.totalContribs} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d8b4fe' }}>total contributions</span>
+            </div>
           )}
 
-          {/* Sub stats grid */}
+          {/* 4-col stat grid */}
           {loading.gh ? (
             <div className="sub-stats-grid github-sub-grid">
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
+              {[...Array(4)].map((_, i) => <div key={i} className="skeleton-box" style={{height: 50}}></div>)}
             </div>
           ) : (
             <div className="sub-stats-grid github-sub-grid">
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(250, 204, 21, 0.5)' }}>
-                <span className="sub-stat-label">STARS</span>
-                <span className="sub-stat-value" style={{ color: '#facc15' }}>{ghData?.totalStars}</span>
-              </div>
               <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139, 92, 246, 0.5)' }}>
-                <span className="sub-stat-label">FORKS</span>
-                <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.totalForks}</span>
+                <span className="sub-stat-label">THIS YEAR</span>
+                <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.thisYearContribs}</span>
               </div>
               <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52, 211, 153, 0.5)' }}>
+                <span className="sub-stat-label">{new Date().getFullYear()} REPOS</span>
+                <span className="sub-stat-value" style={{ color: '#34d399' }}>{ghData?.thisYearRepos}</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(250, 204, 21, 0.5)' }}>
                 <span className="sub-stat-label">FOLLOWERS</span>
-                <span className="sub-stat-value" style={{ color: '#34d399' }}>{ghData?.followers}</span>
+                <span className="sub-stat-value" style={{ color: '#facc15' }}>{ghData?.followers}</span>
               </div>
               <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(251, 146, 60, 0.5)' }}>
-                <span className="sub-stat-label">FOLLOWING</span>
-                <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.following}</span>
+                <span className="sub-stat-label">PUBLIC REPOS</span>
+                <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.publicRepos}</span>
               </div>
             </div>
           )}
 
-          <p className="desc-text">
-            Open-source projects, contributions, and dev activity — all in one place.
-          </p>
-
-          {/* Top languages tags */}
+          {/* Top Languages */}
           {!loading.gh && ghData?.topLangs?.length > 0 && (
-            <div className="skills-tags" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-              {ghData.topLangs.map(lang => (
-                <span key={lang} style={{ padding: '4px 10px', background: 'rgba(139, 92, 246, 0.1)', color: '#a78bfa', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(139, 92, 246, 0.2)' }}>{lang}</span>
-              ))}
+            <div style={{ marginBottom: '16px' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Top Languages</p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {ghData.topLangs.map(lang => (
+                  <span key={lang} style={{ padding: '4px 10px', background: 'rgba(139, 92, 246, 0.1)', color: '#a78bfa', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(139, 92, 246, 0.2)' }}>{lang}</span>
+                ))}
+              </div>
             </div>
           )}
 
-          <div className="divider-container">
+          {/* Best Projects */}
+          {!loading.gh && ghData?.bestProjects?.length > 0 && (
+            <div style={{ marginBottom: '16px' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Best Projects</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {ghData.bestProjects.map(p => (
+                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'rgba(139, 92, 246, 0.06)', border: '1px solid rgba(139, 92, 246, 0.15)', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.2s' }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(139, 92, 246, 0.14)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(139, 92, 246, 0.06)'}
+                  >
+                    <span style={{ color: '#e9d5ff', fontWeight: 600, fontSize: '0.85rem' }}>{p.name}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      {p.lang && <span style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{p.lang}</span>}
+                      <span style={{ fontSize: '0.72rem', color: '#facc15', display: 'flex', alignItems: 'center', gap: '3px' }}><FaStar />{p.stars}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Achievements */}
+          {!loading.gh && ghData?.achievements?.length > 0 && (
+            <div style={{ marginBottom: '16px' }}>
+              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Achievements</p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {ghData.achievements.map(a => (
+                  <span key={a.label} style={{ padding: '5px 11px', background: 'rgba(52, 211, 153, 0.08)', color: '#34d399', borderRadius: '20px', fontSize: '0.75rem', border: '1px solid rgba(52, 211, 153, 0.2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span>{a.icon}</span>{a.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="divider-container" style={{ marginTop: 'auto' }}>
             <div className="divider-dots">
               <div className="dot" style={{ background: '#a78bfa' }}></div>
               <div className="dot" style={{ background: '#a78bfa', opacity: 0.6 }}></div>
               <div className="dot" style={{ background: '#a78bfa', opacity: 0.3 }}></div>
             </div>
-            <span className="divider-label">PROFILE STATS SYNCED</span>
+            <span className="divider-label">STATS LIVE SYNCED</span>
           </div>
 
           <div className="details-box">
             {loading.gh ? (
-              <div className="skeleton-box" style={{height: 80}}></div>
+              <div className="skeleton-box" style={{height: 60}}></div>
             ) : (
               <>
-                <p><FaMapMarkerAlt style={{ marginRight: 6, color: '#a78bfa', verticalAlign: 'middle' }} />{ghData?.location}</p>
+                <p>Total stars: <strong>{ghData?.totalStars}</strong> &nbsp;·&nbsp; Total forks: <strong>{ghData?.totalForks}</strong></p>
                 <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
-                {ghData?.latestRepo && (
-                  <p>Latest repo: <strong><a href={ghData.latestRepo.url} target="_blank" rel="noopener noreferrer" style={{ color: '#a78bfa', textDecoration: 'none' }}>{ghData.latestRepo.name}</a></strong>{ghData.latestRepo.lang ? <span style={{ marginLeft: 8, fontSize: '0.78rem', color: '#9ca3af' }}>({ghData.latestRepo.lang})</span> : null}</p>
-                )}
               </>
             )}
           </div>
