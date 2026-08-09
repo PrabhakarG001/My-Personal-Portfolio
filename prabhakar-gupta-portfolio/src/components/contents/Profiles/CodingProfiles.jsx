@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaArrowRight, FaStar, FaCodeBranch, FaMapMarkerAlt } from "react-icons/fa";
+import { FaGithub, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
 import InteractiveCard from "../../InteractiveCard.jsx";
 import AuroraHero, { AuroraButton } from "../../background/AuroraHero.jsx";
@@ -235,7 +235,7 @@ const CodingProfiles = () => {
   return (
     <div className="coding-profiles-wrapper">
 
-      {/* LeetCode Card */}
+      {/* ── LeetCode Card ── */}
       <InteractiveCard
         className="profile-card-new leetcode-card"
         variants={profileReveal}
@@ -245,9 +245,11 @@ const CodingProfiles = () => {
         custom={1}
       >
         <div className="card-content-new">
-          <div className="profile-header-new" style={{ marginBottom: '24px' }}>
+
+          {/* Header */}
+          <div className="profile-header-new">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(234, 179, 8, 0.3)' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(234,179,8,0.3)' }}>
                 <SiLeetcode style={{ color: '#eab308' }} />
               </div>
               <div className="profile-titles" style={{ marginBottom: 0 }}>
@@ -258,67 +260,63 @@ const CodingProfiles = () => {
             <span className="live-badge">LIVE NOW</span>
           </div>
 
-          {loading.lc ? (
-            <div className="skeleton-primary skeleton-box"></div>
-          ) : (
-            <div className="primary-stat">{lcData?.solvedProblem} solved</div>
-          )}
+          {/* Primary stat */}
+          {loading.lc
+            ? <div className="skeleton-primary skeleton-box" />
+            : <div className="primary-stat">{lcData?.solvedProblem} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>solved</span></div>
+          }
 
-          {loading.lc ? (
-            <div className="sub-stats-grid">
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-            </div>
-          ) : (
-            <div className="sub-stats-grid">
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34, 197, 94, 0.5)' }}>
-                <span className="sub-stat-label">EASY</span>
-                <span className="sub-stat-value" style={{ color: '#22c55e' }}>{lcData?.easySolved}</span>
+          {/* 3-col sub grid */}
+          {loading.lc
+            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
+            : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.5)' }}>
+                  <span className="sub-stat-label">EASY</span>
+                  <span className="sub-stat-value" style={{ color: '#22c55e' }}>{lcData?.easySolved}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(234,179,8,0.5)' }}>
+                  <span className="sub-stat-label">MEDIUM</span>
+                  <span className="sub-stat-value" style={{ color: '#eab308' }}>{lcData?.mediumSolved}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(239,68,68,0.5)' }}>
+                  <span className="sub-stat-label">HARD</span>
+                  <span className="sub-stat-value" style={{ color: '#ef4444' }}>{lcData?.hardSolved}</span>
+                </div>
               </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(234, 179, 8, 0.5)' }}>
-                <span className="sub-stat-label">MEDIUM</span>
-                <span className="sub-stat-value" style={{ color: '#eab308' }}>{lcData?.mediumSolved}</span>
-              </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(239, 68, 68, 0.5)' }}>
-                <span className="sub-stat-label">HARD</span>
-                <span className="sub-stat-value" style={{ color: '#ef4444' }}>{lcData?.hardSolved}</span>
-              </div>
-            </div>
-          )}
+          }
 
-          <p className="desc-text">
-            DSA practice snapshot with ranking and contest context.
-          </p>
+          {/* Desc */}
+          <p className="desc-text">DSA practice with ranking, streaks and contest context.</p>
 
-          <div className="skills-tags" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-            <span style={{ padding: '4px 10px', background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(234, 179, 8, 0.2)' }}>Algorithms</span>
-            <span style={{ padding: '4px 10px', background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(234, 179, 8, 0.2)' }}>Data Structures</span>
-            <span style={{ padding: '4px 10px', background: 'rgba(234, 179, 8, 0.1)', color: '#eab308', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(234, 179, 8, 0.2)' }}>Dynamic Programming</span>
+          {/* Tags */}
+          <div className="card-tags">
+            {['Algorithms', 'Data Structures', 'Dynamic Programming'].map(t => (
+              <span key={t} className="card-tag" style={{ background: 'rgba(234,179,8,0.1)', color: '#eab308', borderColor: 'rgba(234,179,8,0.2)' }}>{t}</span>
+            ))}
           </div>
 
+          {/* Divider */}
           <div className="divider-container">
             <div className="divider-dots">
-              <div className="dot green"></div>
-              <div className="dot yellow"></div>
-              <div className="dot red"></div>
+              <div className="dot green" /><div className="dot yellow" /><div className="dot red" />
             </div>
             <span className="divider-label">DIFFICULTY SPLIT SYNCED</span>
           </div>
 
+          {/* Details */}
           <div className="details-box">
-             {loading.lc ? (
-              <div className="skeleton-box" style={{height: 60}}></div>
-            ) : (
-              <>
-                <p>Global rank: <strong>#{lcData?.globalRank}</strong></p>
-                <p>Contest rating: <strong>{lcData?.contestRating}</strong> | Contests: <strong>{lcData?.totalContests}</strong></p>
-                <p>Acceptance rate: <strong>{lcData?.acceptance}</strong></p>
-                <p>Max streak: <strong>{lcData?.maxStreak} days</strong> | Active days: <strong>{lcData?.totalActiveDays}</strong></p>
-              </>
-            )}
+            {loading.lc
+              ? <div className="skeleton-box" style={{height:80}} />
+              : <>
+                  <p>Global rank: <strong>#{lcData?.globalRank}</strong></p>
+                  <p>Contest rating: <strong>{lcData?.contestRating}</strong> &nbsp;·&nbsp; Contests: <strong>{lcData?.totalContests}</strong></p>
+                  <p>Acceptance rate: <strong>{lcData?.acceptance}</strong></p>
+                  <p>Max streak: <strong>{lcData?.maxStreak} days</strong> &nbsp;·&nbsp; Active days: <strong>{lcData?.totalActiveDays}</strong></p>
+                </>
+            }
           </div>
 
+          {/* Footer */}
           <div className="card-footer-new">
             <AuroraButton href={`https://leetcode.com/${USERNAME}/`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
               Open Profile
@@ -327,7 +325,7 @@ const CodingProfiles = () => {
         </div>
       </InteractiveCard>
 
-      {/* Codeforces Card */}
+      {/* ── Codeforces Card ── */}
       <InteractiveCard
         className="profile-card-new codeforces-card"
         variants={profileReveal}
@@ -337,9 +335,11 @@ const CodingProfiles = () => {
         custom={2}
       >
         <div className="card-content-new">
-          <div className="profile-header-new" style={{ marginBottom: '24px' }}>
+
+          {/* Header */}
+          <div className="profile-header-new">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(59,130,246,0.3)' }}>
                 <SiCodeforces style={{ color: '#3b82f6' }} />
               </div>
               <div className="profile-titles" style={{ marginBottom: 0 }}>
@@ -350,66 +350,66 @@ const CodingProfiles = () => {
             <span className="live-badge">LIVE NOW</span>
           </div>
 
-          {loading.cf ? (
-            <div className="skeleton-primary skeleton-box"></div>
-          ) : (
-            <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.8rem' }}>{cfData?.rating > 0 ? `${cfData.rating} Rating` : "Starting Soon..."}</div>
-          )}
-
-          {loading.cf ? (
-            <div className="sub-stats-grid">
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-              <div className="skeleton-box" style={{height: 50}}></div>
-            </div>
-          ) : (
-            <div className="sub-stats-grid">
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59, 130, 246, 0.5)' }}>
-                <span className="sub-stat-label">RANK</span>
-                <span className="sub-stat-value" style={{ textTransform: 'capitalize', color: '#3b82f6' }}>{cfData?.rank || "N/A"}</span>
+          {/* Primary stat */}
+          {loading.cf
+            ? <div className="skeleton-primary skeleton-box" />
+            : <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.6rem' }}>
+                {cfData?.rating > 0 ? cfData.rating : 'Starting Soon'}
+                {cfData?.rating > 0 && <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#93c5fd' }}> rating</span>}
               </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168, 85, 247, 0.5)' }}>
-                <span className="sub-stat-label">PEAK</span>
-                <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || "N/A"}</span>
-              </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(236, 72, 153, 0.5)' }}>
-                <span className="sub-stat-label">FRIENDS</span>
-                <span className="sub-stat-value" style={{ color: '#ec4899' }}>{cfData?.friendOfCount || 0}</span>
-              </div>
-            </div>
-          )}
+          }
 
-          <p className="desc-text">
-            Competitive programming presence and account activity.
-          </p>
+          {/* 3-col sub grid */}
+          {loading.cf
+            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
+            : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
+                  <span className="sub-stat-label">RANK</span>
+                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '1rem' }}>{cfData?.rank || 'N/A'}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
+                  <span className="sub-stat-label">PEAK</span>
+                  <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(236,72,153,0.5)' }}>
+                  <span className="sub-stat-label">FRIENDS</span>
+                  <span className="sub-stat-value" style={{ color: '#ec4899' }}>{cfData?.friendOfCount || 0}</span>
+                </div>
+              </div>
+          }
 
-          <div className="skills-tags" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
-            <span style={{ padding: '4px 10px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>Competitive Programming</span>
-            <span style={{ padding: '4px 10px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>Math</span>
-            <span style={{ padding: '4px 10px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>Graph Theory</span>
+          {/* Desc */}
+          <p className="desc-text">Competitive programming presence and contest activity.</p>
+
+          {/* Tags */}
+          <div className="card-tags">
+            {['Competitive Programming', 'Math', 'Graph Theory'].map(t => (
+              <span key={t} className="card-tag" style={{ background: 'rgba(59,130,246,0.1)', color: '#3b82f6', borderColor: 'rgba(59,130,246,0.2)' }}>{t}</span>
+            ))}
           </div>
 
+          {/* Divider */}
           <div className="divider-container">
             <div className="divider-dots">
-              <div className="dot red"></div>
-              <div className="dot red"></div>
-              <div className="dot red"></div>
+              <div className="dot red" /><div className="dot red" /><div className="dot red" />
             </div>
             <span className="divider-label">CONTEST TRACE AVAILABLE</span>
           </div>
 
+          {/* Details */}
           <div className="details-box">
-            {loading.cf ? (
-              <div className="skeleton-box" style={{height: 40}}></div>
-            ) : (
-              <>
-                <p>Status: <strong>{cfData?.rank !== 'unrated' ? 'Active' : 'Practice Mode'}</strong></p>
-                <p>Member since: <strong>{cfData?.joined}</strong></p>
-                <p>Last seen: <strong>{cfData?.lastActive}</strong></p>
-              </>
-            )}
+            {loading.cf
+              ? <div className="skeleton-box" style={{height:80}} />
+              : <>
+                  <p>Status: <strong>{cfData?.rank !== 'unrated' ? 'Active' : 'Practice Mode'}</strong></p>
+                  <p>Member since: <strong>{cfData?.joined}</strong></p>
+                  <p>Last seen: <strong>{cfData?.lastActive}</strong></p>
+                  <p>Friend of: <strong>{cfData?.friendOfCount} users</strong></p>
+                </>
+            }
           </div>
 
+          {/* Footer */}
           <div className="card-footer-new">
             <AuroraButton href={`https://codeforces.com/profile/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
               Open Profile
@@ -418,8 +418,7 @@ const CodingProfiles = () => {
         </div>
       </InteractiveCard>
 
-
-      {/* GitHub Card */}
+      {/* ── GitHub Card ── */}
       <InteractiveCard
         className="profile-card-new github-card"
         variants={profileReveal}
@@ -431,122 +430,80 @@ const CodingProfiles = () => {
         <div className="card-content-new">
 
           {/* Header */}
-          <div className="profile-header-new" style={{ marginBottom: '24px' }}>
+          <div className="profile-header-new">
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(139, 92, 246, 0.3)' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(139,92,246,0.3)' }}>
                 <FaGithub style={{ color: '#a78bfa' }} />
               </div>
               <div className="profile-titles" style={{ marginBottom: 0 }}>
                 <h2>GitHub</h2>
-                <p>@{USERNAME} &nbsp;<FaMapMarkerAlt style={{ verticalAlign: 'middle', fontSize: '0.8rem' }} /> {ghData?.location || '...'}</p>
+                <p>@{USERNAME}</p>
               </div>
             </div>
             <span className="live-badge">LIVE NOW</span>
           </div>
 
-          {/* Primary stat — total contributions */}
-          {loading.gh ? (
-            <div className="skeleton-primary skeleton-box"></div>
-          ) : (
-            <div className="primary-stat" style={{ color: '#a78bfa' }}>
-              {ghData?.totalContribs} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d8b4fe' }}>total contributions</span>
-            </div>
-          )}
+          {/* Primary stat */}
+          {loading.gh
+            ? <div className="skeleton-primary skeleton-box" />
+            : <div className="primary-stat" style={{ color: '#a78bfa' }}>
+                {ghData?.totalContribs} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d8b4fe' }}>contributions</span>
+              </div>
+          }
 
-          {/* 4-col stat grid */}
-          {loading.gh ? (
-            <div className="sub-stats-grid github-sub-grid">
-              {[...Array(4)].map((_, i) => <div key={i} className="skeleton-box" style={{height: 50}}></div>)}
-            </div>
-          ) : (
-            <div className="sub-stats-grid github-sub-grid">
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139, 92, 246, 0.5)' }}>
-                <span className="sub-stat-label">THIS YEAR</span>
-                <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.thisYearContribs}</span>
+          {/* 3-col sub grid */}
+          {loading.gh
+            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
+            : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139,92,246,0.5)' }}>
+                  <span className="sub-stat-label">THIS YEAR</span>
+                  <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.thisYearContribs}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)' }}>
+                  <span className="sub-stat-label">{new Date().getFullYear()} REPOS</span>
+                  <span className="sub-stat-value" style={{ color: '#34d399' }}>{ghData?.thisYearRepos}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(251,146,60,0.5)' }}>
+                  <span className="sub-stat-label">PUBLIC REPOS</span>
+                  <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.publicRepos}</span>
+                </div>
               </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52, 211, 153, 0.5)' }}>
-                <span className="sub-stat-label">{new Date().getFullYear()} REPOS</span>
-                <span className="sub-stat-value" style={{ color: '#34d399' }}>{ghData?.thisYearRepos}</span>
-              </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(250, 204, 21, 0.5)' }}>
-                <span className="sub-stat-label">FOLLOWERS</span>
-                <span className="sub-stat-value" style={{ color: '#facc15' }}>{ghData?.followers}</span>
-              </div>
-              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(251, 146, 60, 0.5)' }}>
-                <span className="sub-stat-label">PUBLIC REPOS</span>
-                <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.publicRepos}</span>
-              </div>
-            </div>
-          )}
+          }
 
-          {/* Top Languages */}
-          {!loading.gh && ghData?.topLangs?.length > 0 && (
-            <div style={{ marginBottom: '16px' }}>
-              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Top Languages</p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {ghData.topLangs.map(lang => (
-                  <span key={lang} style={{ padding: '4px 10px', background: 'rgba(139, 92, 246, 0.1)', color: '#a78bfa', borderRadius: '12px', fontSize: '0.75rem', border: '1px solid rgba(139, 92, 246, 0.2)' }}>{lang}</span>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Desc */}
+          <p className="desc-text">Open-source projects, contributions and dev activity.</p>
 
-          {/* Best Projects */}
-          {!loading.gh && ghData?.bestProjects?.length > 0 && (
-            <div style={{ marginBottom: '16px' }}>
-              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Best Projects</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {ghData.bestProjects.map(p => (
-                  <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'rgba(139, 92, 246, 0.06)', border: '1px solid rgba(139, 92, 246, 0.15)', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.2s' }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(139, 92, 246, 0.14)'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(139, 92, 246, 0.06)'}
-                  >
-                    <span style={{ color: '#e9d5ff', fontWeight: 600, fontSize: '0.85rem' }}>{p.name}</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      {p.lang && <span style={{ fontSize: '0.72rem', color: '#9ca3af' }}>{p.lang}</span>}
-                      <span style={{ fontSize: '0.72rem', color: '#facc15', display: 'flex', alignItems: 'center', gap: '3px' }}><FaStar />{p.stars}</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Tags — top languages */}
+          <div className="card-tags">
+            {(ghData?.topLangs || ['JavaScript', 'CSS', 'EJS']).map(lang => (
+              <span key={lang} className="card-tag" style={{ background: 'rgba(139,92,246,0.1)', color: '#a78bfa', borderColor: 'rgba(139,92,246,0.2)' }}>{lang}</span>
+            ))}
+          </div>
 
-          {/* Achievements */}
-          {!loading.gh && ghData?.achievements?.length > 0 && (
-            <div style={{ marginBottom: '16px' }}>
-              <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>Achievements</p>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {ghData.achievements.map(a => (
-                  <span key={a.label} style={{ padding: '5px 11px', background: 'rgba(52, 211, 153, 0.08)', color: '#34d399', borderRadius: '20px', fontSize: '0.75rem', border: '1px solid rgba(52, 211, 153, 0.2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <span>{a.icon}</span>{a.label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="divider-container" style={{ marginTop: 'auto' }}>
+          {/* Divider */}
+          <div className="divider-container">
             <div className="divider-dots">
-              <div className="dot" style={{ background: '#a78bfa' }}></div>
-              <div className="dot" style={{ background: '#a78bfa', opacity: 0.6 }}></div>
-              <div className="dot" style={{ background: '#a78bfa', opacity: 0.3 }}></div>
+              <div className="dot" style={{ background: '#a78bfa' }} />
+              <div className="dot" style={{ background: '#a78bfa', opacity: 0.6 }} />
+              <div className="dot" style={{ background: '#a78bfa', opacity: 0.3 }} />
             </div>
             <span className="divider-label">STATS LIVE SYNCED</span>
           </div>
 
+          {/* Details */}
           <div className="details-box">
-            {loading.gh ? (
-              <div className="skeleton-box" style={{height: 60}}></div>
-            ) : (
-              <>
-                <p>Total stars: <strong>{ghData?.totalStars}</strong> &nbsp;·&nbsp; Total forks: <strong>{ghData?.totalForks}</strong></p>
-                <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
-              </>
-            )}
+            {loading.gh
+              ? <div className="skeleton-box" style={{height:80}} />
+              : <>
+                  <p>Total stars: <strong>{ghData?.totalStars}</strong> &nbsp;·&nbsp; Forks: <strong>{ghData?.totalForks}</strong></p>
+                  <p>Followers: <strong>{ghData?.followers}</strong> &nbsp;·&nbsp; Following: <strong>{ghData?.following}</strong></p>
+                  <p>Location: <strong><FaMapMarkerAlt style={{ verticalAlign: 'middle', marginRight: 4 }} />{ghData?.location}</strong></p>
+                  <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
+                </>
+            }
           </div>
 
+          {/* Footer */}
           <div className="card-footer-new">
             <AuroraButton href={`https://github.com/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
               Open Profile
@@ -560,3 +517,4 @@ const CodingProfiles = () => {
 };
 
 export default CodingProfiles;
+

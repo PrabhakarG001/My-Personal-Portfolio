@@ -214,6 +214,21 @@
   margin-bottom: 0;
 }
 
+.card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.card-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
 .card-footer-new {
   margin-top: 24px;
   display: flex;
