@@ -402,7 +402,6 @@ const CodingProfiles = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.22 }}
         custom={3}
-        style={{ gridColumn: '1 / -1' }}
       >
         <div className="card-content-new">
           <div className="profile-header-new" style={{ marginBottom: '24px' }}>

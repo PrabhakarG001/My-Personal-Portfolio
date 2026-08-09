@@ -1,6 +1,6 @@
 .coding-profiles-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   width: 100%;
 }
@@ -253,5 +253,8 @@
   }
   .profile-card-new {
     min-height: auto;
+  }
+  .github-sub-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
