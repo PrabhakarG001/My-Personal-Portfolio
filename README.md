@@ -51,41 +51,31 @@ This portfolio is designed to showcase my journey as a developer, highlighting m
 ## 📂 Project Structure
 
 ```text
-prabhakar-gupta-portfolio/
-├── public/                     # Static assets (logo, resume, images)
-├── src/
-│   ├── assets/                 # Component-specific images & media
-│   ├── components/
-│   │   ├── background/         # Aurora animated background & hero buttons
-│   │   │   ├── AuroraHero.jsx
-│   │   │   └── AuroraHero.css
-│   │   ├── contents/           # Section-specific components
-│   │   │   ├── Home/           # Hero section (GradientText, Typewriter, BlurText)
-│   │   │   ├── Secondpage/     # About me, Certifications, Achievements, Availability
-│   │   │   ├── Thirdpage/      # Tech stack card & Soft skills
-│   │   │   ├── Fourthpage/     # Featured projects display
-│   │   │   ├── Profiles/       # Competitive coding profiles (LeetCode, GFG, CodeChef, etc.)
-│   │   │   ├── Fifthpage/      # Career roadmap & goals
-│   │   │   ├── Sixthpage/      # Resume preview & download
-│   │   │   └── Seventhpage/    # Contact cards & EmailJS form
-│   │   ├── layout/             # Navbar, Dock, Footer
-│   │   ├── splashcursor/       # WebGL Fluid Shader Cursor
-│   │   ├── CardNav.jsx         # Animated popup navigation menu
-│   │   ├── InteractiveCard.jsx # 3D Tilt interactive cards
-│   │   ├── Loader.jsx          # Intro preloader
-│   │   └── SectionShell.jsx    # Standardized section wrapper
-│   ├── hooks/                  # Custom React hooks
-│   ├── lib/                    # Helper utilities
-│   ├── App.jsx                 # Main layout & section assembly
-│   ├── App.css                 # Global application styles
-│   ├── index.css               # Design system tokens & Tailwind imports
-│   └── main.jsx                # React application entry point
-├── .env                        # Environment variables (EmailJS keys)
-├── index.html                  # HTML entry point
-├── package.json                # Project dependencies & scripts
-├── tailwind.config.js          # Tailwind CSS configuration
-├── vite.config.js              # Vite configuration
-└── vercel.json                 # Vercel deployment configuration
+My-Personal-Portfolio/
+├── vercel.json                 # Root deployment config targeting subfolder build
+├── README.md                   # Root documentation
+└── prabhakar-gupta-portfolio/  # Main application source code
+    ├── public/                 # Static assets (logo, resume, images)
+    ├── src/
+    │   ├── assets/             # Component-specific media
+    │   ├── components/
+    │   │   ├── background/     # Aurora animated background & hero buttons
+    │   │   ├── contents/       # Section-specific components (Home, About, Skills, Projects, Profiles, Goals, Resume, Contact)
+    │   │   ├── layout/         # Navbar, Dock, Footer
+    │   │   ├── splashcursor/   # WebGL Fluid Shader Cursor
+    │   │   ├── CardNav.jsx     # Animated popup navigation menu
+    │   │   ├── InteractiveCard.jsx # 3D Tilt interactive cards
+    │   │   ├── Loader.jsx      # Intro preloader
+    │   │   └── SectionShell.jsx# Standardized section wrapper
+    │   ├── App.jsx             # Main layout & section assembly
+    │   ├── App.css             # Global application styles
+    │   ├── index.css           # Design system tokens & Tailwind imports
+    │   └── main.jsx            # React application entry point
+    ├── .env                    # Environment variables (EmailJS keys)
+    ├── index.html              # HTML entry point
+    ├── package.json            # Dependencies & scripts
+    ├── tailwind.config.js      # Tailwind configuration
+    └── vite.config.js          # Vite configuration
 ```
 
 ---
@@ -112,7 +102,7 @@ Ensure you have the following installed on your machine:
    ```
 
 3. **Configure Environment Variables**:
-   Create or verify the `.env` file in the `prabhakar-gupta-portfolio` directory:
+   Create or verify the `.env` file inside `prabhakar-gupta-portfolio`:
    ```env
    VITE_EMAILJS_SERVICE_ID=your_emailjs_service_id
    VITE_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
@@ -141,7 +131,7 @@ Ensure you have the following installed on your machine:
 
 ## ⚙️ Available Scripts
 
-In the project directory, you can run:
+Run these commands inside `prabhakar-gupta-portfolio`:
 
 | Command | Action |
 | :--- | :--- |
@@ -164,7 +154,7 @@ In the project directory, you can run:
 
 ## 🌐 Deployment
 
-This project is configured for seamless deployment on **Vercel**.
+This project is configured for automatic build & deployment on **Vercel**.
 
 Root `vercel.json` configuration:
 ```json
@@ -173,11 +163,6 @@ Root `vercel.json` configuration:
   "buildCommand": "cd prabhakar-gupta-portfolio && npx vite build",
   "outputDirectory": "prabhakar-gupta-portfolio/dist"
 }
-```
-
-To deploy manually using the Vercel CLI:
-```bash
-vercel
 ```
 
 ---
