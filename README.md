@@ -61,46 +61,6 @@ My-Personal-Portfolio/
 
 ---
 
-## 🚀 Running the Project
-
-### Prerequisites
-- **Node.js** (v18.x or higher)
-- **npm** (v9.x or higher)
-
-### Setup & Launch
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/PrabhakarG001/My-Personal-Portfolio.git
-   cd My-Personal-Portfolio/prabhakar-gupta-portfolio
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Set up Environment Variables**:
-   Create a `.env` file in `prabhakar-gupta-portfolio`:
-   ```env
-   VITE_EMAILJS_SERVICE_ID=service_xcpqxv3
-   VITE_EMAILJS_TEMPLATE_ID=template_z808bej
-   VITE_EMAILJS_PUBLIC_KEY=q0490FOTrP1srtpx1
-   VITE_CONTACT_TO_EMAIL=prabhakarg465@gmail.com
-   ```
-
-4. **Start Development Server**:
-   ```bash
-   npm run dev
-   ```
-
-5. **Build for Production**:
-   ```bash
-   npm run build
-   ```
-
----
-
 ## 👤 Author
 
 **Prabhakar Gupta**
