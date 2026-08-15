@@ -1,11 +1,11 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { GoArrowUpRight } from 'react-icons/go';
 import './CardNav.css';
 
 const CardNav = ({
   logo,
-  logoAlt = 'Logo',
+  logoAlt = 'Prabhakar Gupta',
   items,
   className = '',
   ease = 'power3.out',
@@ -16,6 +16,7 @@ const CardNav = ({
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const navRef = useRef(null);
   const cardsRef = useRef([]);
   const tlRef = useRef(null);
@@ -114,6 +115,64 @@ const CardNav = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpanded]);
 
+  // Scroll listener for active section tracking
+  useEffect(() => {
+    let ticking = false;
+    const allLinks = items?.flatMap(item => item.links || []) || [];
+    const ids = allLinks
+      .map(lnk => (lnk.href?.startsWith('#') ? lnk.href.substring(1) : lnk.href))
+      .filter(Boolean);
+
+    const updateActiveFromScroll = () => {
+      const sections = ids
+        .map(id => ({ id, element: document.getElementById(id) }))
+        .filter(section => section.element);
+
+      if (!sections.length) return;
+
+      const scrollY = window.scrollY || window.pageYOffset;
+      const viewportHeight = window.innerHeight || 0;
+      const docHeight = document.documentElement.scrollHeight;
+
+      if (scrollY <= 10) {
+        setActiveSection(sections[0].id);
+        return;
+      }
+
+      if (scrollY + viewportHeight >= docHeight - 10) {
+        setActiveSection(sections[sections.length - 1].id);
+        return;
+      }
+
+      const probeY = scrollY + Math.max(120, viewportHeight * 0.3);
+      let currentActive = sections[0].id;
+
+      sections.forEach(({ id, element }) => {
+        const sectionTop = element.getBoundingClientRect().top + scrollY;
+        if (sectionTop <= probeY) {
+          currentActive = id;
+        }
+      });
+
+      setActiveSection(currentActive);
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateActiveFromScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateActiveFromScroll();
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [items]);
+
   const toggleMenu = () => {
     const tl = tlRef.current;
     if (!tl) return;
@@ -149,18 +208,20 @@ const CardNav = ({
             aria-label={isExpanded ? 'Close menu' : 'Open menu'}
             aria-expanded={isExpanded}
             tabIndex={0}
-            style={{ color: menuColor || '#000' }}
+            style={{ color: menuColor || '#fff' }}
           >
             <div className="hamburger-line" />
             <div className="hamburger-line" />
           </div>
 
-          <div className="logo-container">
-            {logo ? (
-              <img src={logo} alt={logoAlt} className="logo" />
-            ) : (
-              <span className="brand-text">{logoAlt}</span>
-            )}
+          <div
+            className="logo-container"
+            onClick={() => {
+              const homeEl = document.getElementById('typewriter');
+              if (homeEl) homeEl.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            <span className="brand-text">{logoAlt || 'Prabhakar Gupta'}</span>
           </div>
 
           <button
@@ -182,30 +243,35 @@ const CardNav = ({
             >
               <div className="nav-card-label">{item.label}</div>
               <div className="nav-card-links">
-                {item.links?.map((lnk, i) => (
-                  <a
-                    key={`${lnk.label}-${i}`}
-                    className="nav-card-link"
-                    href={lnk.href}
-                    aria-label={lnk.ariaLabel}
-                    onClick={(e) => {
-                      if (lnk.href?.startsWith('#')) {
-                        e.preventDefault();
-                        const targetId = lnk.href.substring(1);
-                        const el = document.getElementById(targetId);
-                        if (el) {
-                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                {item.links?.map((lnk, i) => {
+                  const targetId = lnk.href?.startsWith('#') ? lnk.href.substring(1) : lnk.href;
+                  const isActive = activeSection === targetId;
+
+                  return (
+                    <a
+                      key={`${lnk.label}-${i}`}
+                      className={`nav-card-link ${isActive ? 'active' : ''}`}
+                      href={lnk.href}
+                      aria-label={lnk.ariaLabel}
+                      onClick={e => {
+                        if (lnk.href?.startsWith('#')) {
+                          e.preventDefault();
+                          const el = document.getElementById(targetId);
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            setActiveSection(targetId);
+                          }
+                          if (isExpanded) {
+                            toggleMenu();
+                          }
                         }
-                        if (isExpanded) {
-                          toggleMenu();
-                        }
-                      }
-                    }}
-                  >
-                    <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
-                    {lnk.label}
-                  </a>
-                ))}
+                      }}
+                    >
+                      <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
+                      {lnk.label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           ))}

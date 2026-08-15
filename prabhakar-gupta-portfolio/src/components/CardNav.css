@@ -118,15 +118,22 @@
 }
 
 .brand-text {
-  color: transparent;
-  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3));
-  background-size: 230% 100%;
-  -webkit-background-clip: text;
-  font-family: var(--font-display);
+  font-family: var(--font-display, sans-serif);
   font-weight: 700;
-  font-size: clamp(1rem, 2vw, 1.22rem);
-  animation: brandShift 7s linear infinite;
+  font-size: clamp(1.1rem, 4vw, 1.35rem);
+  background-image: linear-gradient(90deg, #40ffaa, #2dd4bf, #38bdf8, #40ffaa);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #40ffaa;
+  animation: brandShift 6s linear infinite;
   white-space: nowrap;
+}
+
+@keyframes brandShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ─── CTA button ────────────────────────────────────────── */
@@ -225,45 +232,37 @@
   gap: 2px;
 }
 
+/* Active menu link indicator */
 .nav-card-link {
   font-size: 16px;
   cursor: pointer;
   text-decoration: none;
-  transition: opacity 0.3s ease;
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding-block: 0.5rem;
+  gap: 8px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .nav-card-link:hover {
-  opacity: 0.75;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-@media (max-width: 760px) {
-  .card-nav-container {
-    max-width: none;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 1em;
-  }
-  .card-nav-top {
-    padding: 0.3rem 1.5rem; /* Gap on left and right */
-    justify-content: space-between;
-    gap: 0;
-  }
-}
-
-
-/* Aurora gradient on the currently-active menu link */
 .nav-card-link.active {
-  color: transparent !important;
-  background-image: linear-gradient(90deg, var(--brand-1), var(--brand-2), var(--brand-3));
-  background-size: 230% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: brandShift 7s linear infinite;
+  color: #2dd4bf !important;
+  -webkit-text-fill-color: #2dd4bf !important;
   font-weight: 600;
+  background: rgba(45, 212, 191, 0.14);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.2);
+}
+
+.nav-card-link.active .nav-card-link-icon {
+  color: #2dd4bf;
+  transform: translateX(3px);
 }
 
 /* Arrow icon nudge on hover */
