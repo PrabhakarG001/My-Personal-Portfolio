@@ -89,28 +89,18 @@
   transform: translateY(-4px) rotate(-45deg);
 }
 
-@media (max-width: 940px) {
-  .hamburger-menu {
-    order: 2;
-  }
-}
-
 /* ─── Logo / Brand ──────────────────────────────────────── */
 .logo-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-
-@media (max-width: 940px) {
-  .logo-container {
-    position: static;
-    transform: none;
-    order: 1;
-  }
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 3;
 }
 
 .logo {
