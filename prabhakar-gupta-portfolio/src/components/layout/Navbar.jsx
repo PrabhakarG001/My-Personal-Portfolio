@@ -111,21 +111,29 @@ const Navbar = () => {
       <nav className={`site-nav ${scrolled ? "scrolled" : ""}`}>
         
         {/* Brand logo */}
-        <div className="brand-wrapper" onClick={() => scrollToSection("typewriter")}>
+        <motion.div
+          className="brand-wrapper"
+          onClick={() => scrollToSection("typewriter")}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
           <span className="brand-text">Prabhakar Gupta</span>
-        </div>
+        </motion.div>
 
-        {/* Desktop menu */}
+        {/* Desktop menu with Framer Motion layoutId smooth transitions */}
         <ul className="desktop-nav">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <li key={item.id}>
-                <button
+                <motion.button
                   type="button"
                   className={`nav-link ${isActive ? "active" : ""}`}
                   onClick={() => scrollToSection(item.id)}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.96 }}
                 >
+                  {/* Scrolled State: Animated Sliding Pill Background */}
                   {isActive && scrolled && (
                     <motion.div
                       layoutId="active-nav-pill"
@@ -133,8 +141,18 @@ const Navbar = () => {
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
+
+                  {/* Unscrolled Home State: Animated Sliding Underline Bar */}
+                  {isActive && !scrolled && (
+                    <motion.div
+                      layoutId="active-underline"
+                      className="active-underline-bar"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+
                   <span className="nav-link-text">{item.label}</span>
-                </button>
+                </motion.button>
               </li>
             );
           })}

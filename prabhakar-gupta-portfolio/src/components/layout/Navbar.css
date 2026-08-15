@@ -141,8 +141,8 @@
   animation: gradient 8s linear infinite;
 }
 
-.nav-link.active::after {
-  content: "";
+/* Animated Sliding Underline in Home State */
+.active-underline-bar {
   position: absolute;
   bottom: -4px;
   left: 0;
@@ -152,12 +152,8 @@
   background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff);
   background-size: 300% 100%;
   animation: gradient 8s linear infinite;
-  box-shadow: 0 0 10px rgba(64, 255, 170, 0.6);
-  transition: all 0.3s ease;
-}
-
-.site-nav.scrolled .nav-link.active::after {
-  display: none;
+  box-shadow: 0 0 12px rgba(64, 255, 170, 0.6);
+  z-index: 2;
 }
 
 /* Active Pill in Scrolled State */
