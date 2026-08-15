@@ -121,13 +121,30 @@ canvas {
   background: transparent !important;
   border: 1px solid rgba(0, 255, 200, 0.25) !important;
   border-radius: 16px !important;
-  transition: all 0.4s ease !important;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
   position: relative !important;
   overflow: hidden !important;
-  /* Reset previous glass styles */
+  will-change: transform, opacity;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   box-shadow: 0 8px 25px rgba(0, 255, 200, 0.15) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .universal-card:hover {
+    transform: translateY(-6px) scale(1.012) !important;
+    box-shadow: 0 16px 36px -8px rgba(0, 255, 200, 0.25), 0 0 25px rgba(168, 85, 247, 0.18) !important;
+    border-color: rgba(64, 255, 170, 0.5) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .universal-card {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 /* Shine Effect */

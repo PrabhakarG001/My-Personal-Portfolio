@@ -7,9 +7,9 @@ const Meabout = ({ delay = 0 }) => {
   return (
     <motion.div
       className="universal-card meabout-container"
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.28 }}
+      initial={{ opacity: 0, y: 28, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: false, amount: 0.18 }}
       transition={{ duration: 0.62, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="meabout-card">
@@ -17,7 +17,7 @@ const Meabout = ({ delay = 0 }) => {
           className="meabout-text"
           initial={{ opacity: 0, x: -24 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.56, delay: delay + 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           <p>
@@ -77,7 +77,7 @@ const Meabout = ({ delay = 0 }) => {
           className="meabout-image"
           initial={{ opacity: 0, x: 24, scale: 0.97 }}
           whileInView={{ opacity: 1, x: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.35 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.58, delay: delay + 0.14, ease: [0.22, 1, 0.36, 1] }}
         >
           <img src={devImage} alt="Developer" />

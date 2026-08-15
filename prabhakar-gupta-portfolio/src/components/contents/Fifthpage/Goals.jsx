@@ -25,12 +25,12 @@ const goals = [
 ];
 
 const goalReveal = {
-  hidden: { opacity: 0, y: 32, scale: 0.98 },
-  show: (index) => ({
+  hidden: { opacity: 0, y: 36, scale: 0.96 },
+  show: (index = 0) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.62, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, delay: (index % 3) * 0.12, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -44,7 +44,7 @@ const Goals = () => {
           variants={goalReveal}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.22 }}
+          viewport={{ once: false, amount: 0.18, margin: "-20px" }}
           custom={index}
         >
           <div className="goal-title-row">

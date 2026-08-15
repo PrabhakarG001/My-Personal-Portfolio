@@ -6,9 +6,9 @@ const Touchcard = ({ delay = 0 }) => {
   return (
     <InteractiveCard
       className="card"
-      initial={{ opacity: 0, x: -24 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={{ opacity: 0, x: -24, scale: 0.98 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+      viewport={{ once: false, amount: 0.18 }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.img
@@ -17,14 +17,14 @@ const Touchcard = ({ delay = 0 }) => {
         className="image"
         initial={{ opacity: 0, y: 12, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.52, delay: delay + 0.08, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.div
         className="heading"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.44, delay: delay + 0.14, ease: [0.22, 1, 0.36, 1] }}
       >
         Connect with Me
@@ -33,7 +33,7 @@ const Touchcard = ({ delay = 0 }) => {
         className="subtext"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.44, delay: delay + 0.2, ease: [0.22, 1, 0.36, 1] }}
       >
         Open to collaborations, internships, and exciting product ideas.
@@ -43,7 +43,7 @@ const Touchcard = ({ delay = 0 }) => {
         className="icons"
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.45, delay: delay + 0.26, ease: [0.22, 1, 0.36, 1] }}
       >
         <motion.a
@@ -54,7 +54,7 @@ const Touchcard = ({ delay = 0 }) => {
           aria-label="LinkedIn"
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.35, delay: delay + 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ const Touchcard = ({ delay = 0 }) => {
           aria-label="GitHub"
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.35, delay: delay + 0.34, ease: [0.22, 1, 0.36, 1] }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -86,7 +86,7 @@ const Touchcard = ({ delay = 0 }) => {
           aria-label="Email"
           initial={{ opacity: 0, scale: 0.92 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.35, delay: delay + 0.38, ease: [0.22, 1, 0.36, 1] }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

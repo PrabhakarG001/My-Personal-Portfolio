@@ -51,12 +51,12 @@ const techStack2 = [
 ];
 
 const techCardReveal = {
-  hidden: { opacity: 0, y: 20, scale: 0.97 },
-  show: (index) => ({
+  hidden: { opacity: 0, y: 24, scale: 0.95 },
+  show: (index = 0) => ({
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, delay: index * 0.035, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.52, delay: (index % 6) * 0.045, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -67,7 +67,7 @@ const TechCard = ({ logo, name, type, index = 0 }) => {
       variants={techCardReveal}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.35 }}
+      viewport={{ once: false, amount: 0.18, margin: "-10px" }}
       custom={index}
       whileTap={{ scale: 0.98 }}
     >
@@ -85,7 +85,7 @@ const TechStackCard = () => {
         className="techstack-section"
         initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.26 }}
+        viewport={{ once: false, amount: 0.18 }}
         transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
       >
         <h3 className="techstack-title">Core Stack</h3>
@@ -100,7 +100,7 @@ const TechStackCard = () => {
         className="techstack-section"
         initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.26 }}
+        viewport={{ once: false, amount: 0.18 }}
         transition={{ duration: 0.58, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
       >
         <h3 className="techstack-title">Tools I Use</h3>

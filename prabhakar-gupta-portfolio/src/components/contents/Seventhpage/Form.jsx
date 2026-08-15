@@ -158,9 +158,9 @@ const Form = ({ delay = 0 }) => {
   return (
     <motion.div
       className="universal-card contact-form-shell"
-      initial={{ opacity: 0, x: 24 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={{ opacity: 0, x: 24, scale: 0.98 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+      viewport={{ once: false, amount: 0.18 }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       <form className="contact-form" onSubmit={handleSubmit}>
@@ -170,7 +170,7 @@ const Form = ({ delay = 0 }) => {
           className="form-field"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.42, delay: delay + 0.08, ease: [0.22, 1, 0.36, 1] }}
         >
           <input
@@ -188,7 +188,7 @@ const Form = ({ delay = 0 }) => {
           className="form-field"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.42, delay: delay + 0.13, ease: [0.22, 1, 0.36, 1] }}
         >
           <input
@@ -206,7 +206,7 @@ const Form = ({ delay = 0 }) => {
           className="form-field"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.42, delay: delay + 0.18, ease: [0.22, 1, 0.36, 1] }}
         >
           <input
@@ -224,7 +224,7 @@ const Form = ({ delay = 0 }) => {
           className="form-field"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.42, delay: delay + 0.23, ease: [0.22, 1, 0.36, 1] }}
         >
           <textarea
@@ -243,7 +243,7 @@ const Form = ({ delay = 0 }) => {
           className="sendMessage-btn"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.44, delay: delay + 0.3, ease: [0.22, 1, 0.36, 1] }}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.97 }}

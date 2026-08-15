@@ -8,7 +8,7 @@ const Availablecard = ({ delay = 0 }) => {
       className="available-card"
       initial={{ opacity: 0, y: 28, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.35 }}
+      viewport={{ once: false, amount: 0.18 }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="header">
