@@ -107,7 +107,24 @@
 }
 
 .nav-link:hover {
-  color: #ffffff;
+  color: #40ffaa;
+}
+
+.nav-link:hover .nav-link-text {
+  color: #40ffaa;
+  text-shadow: 0 0 12px rgba(64, 255, 170, 0.5);
+}
+
+.nav-link:not(.active):hover::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(64, 255, 170, 0.6);
+  box-shadow: 0 0 8px rgba(64, 255, 170, 0.6);
 }
 
 /* Active Indicator in Unscrolled Home State */
