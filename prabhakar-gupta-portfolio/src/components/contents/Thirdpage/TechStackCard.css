@@ -44,7 +44,7 @@
 .techstack-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1.2rem, 3.5vw, 2.5rem);
+  gap: clamp(0.9rem, 2.2vw, 1.6rem);
   width: 100%;
   align-content: start;
 }
@@ -60,31 +60,31 @@
 .tech-card {
   width: 100%;
   max-width: none;
-  min-height: 136px;
+  min-height: 106px;
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 0.75rem;
-  padding: 1.25rem 1rem;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
   margin: 0;
 }
 
 .tech-logo {
-  width: 96px;
-  height: 96px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
 }
 
 .tech-name {
   color: var(--text-primary);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-align: center;
 }
 
 .tech-type {
   color: var(--text-muted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
