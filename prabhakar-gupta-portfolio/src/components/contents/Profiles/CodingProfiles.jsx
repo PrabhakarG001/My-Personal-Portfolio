@@ -265,40 +265,47 @@ const CodingProfiles = () => {
                 <p>@{USERNAME}</p>
               </div>
             </div>
-            <span className="live-badge" style={{ borderColor: 'rgba(6,182,212,0.3)', color: '#67e8f9' }}>PORTFOLIO HUB</span>
+            <span className="live-badge" style={{ borderColor: 'rgba(6,182,212,0.3)', color: '#67e8f9' }}>VERIFIED PROFILE</span>
           </div>
 
           {/* Primary stat */}
           <div className="primary-stat" style={{ color: '#38bdf8' }}>
-            Unified Developer <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Card</span>
+            170 <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Questions Solved</span>
           </div>
 
           {/* 3-col sub grid */}
           <div className="sub-stats-grid">
-            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
-              <span className="sub-stat-label">PLATFORMS</span>
-              <span className="sub-stat-value" style={{ color: '#22d3ee' }}>5+ Linked</span>
+            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)' }}>
+              <span className="sub-stat-label">ACTIVE DAYS</span>
+              <span className="sub-stat-value" style={{ color: '#22c55e' }}>168</span>
             </div>
-            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(99,102,241,0.6)' }}>
-              <span className="sub-stat-label">PROBLEMS</span>
-              <span className="sub-stat-value" style={{ color: '#818cf8' }}>
-                {loading.lc ? '...' : (lcData?.solvedProblem || 0) > 0 ? `${lcData.solvedProblem}+` : '500+'}
-              </span>
+            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
+              <span className="sub-stat-label">SUBMISSIONS</span>
+              <span className="sub-stat-value" style={{ color: '#38bdf8' }}>272</span>
             </div>
             <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
-              <span className="sub-stat-label">STATUS</span>
-              <span className="sub-stat-value" style={{ color: '#c084fc', fontSize: '1rem', textTransform: 'capitalize' }}>Verified</span>
+              <span className="sub-stat-label">MAX STREAK</span>
+              <span className="sub-stat-value" style={{ color: '#c084fc' }}>106 days</span>
             </div>
           </div>
 
           {/* Desc */}
-          <p className="desc-text">Unified developer portfolio consolidating coding stats, contest rankings, and open-source contributions.</p>
+          <p className="desc-text">Codolio aggregated profile analytics: DSA, Competitive Programming & Streaks.</p>
 
-          {/* Tags */}
+          {/* Question Distribution Tags */}
           <div className="card-tags">
-            {['Portfolio Hub', 'Unified Analytics', 'Multi-Platform', 'Developer Card'].map(t => (
-              <span key={t} className="card-tag" style={{ background: 'rgba(6,182,212,0.1)', color: '#38bdf8', borderColor: 'rgba(6,182,212,0.25)' }}>{t}</span>
-            ))}
+            <span className="card-tag" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80', borderColor: 'rgba(34,197,94,0.3)' }}>
+              Easy: 68
+            </span>
+            <span className="card-tag" style={{ background: 'rgba(234,179,8,0.12)', color: '#facc15', borderColor: 'rgba(234,179,8,0.3)' }}>
+              Medium: 75
+            </span>
+            <span className="card-tag" style={{ background: 'rgba(239,68,68,0.12)', color: '#f87171', borderColor: 'rgba(239,68,68,0.3)' }}>
+              Hard: 24
+            </span>
+            <span className="card-tag" style={{ background: 'rgba(59,130,246,0.12)', color: '#60a5fa', borderColor: 'rgba(59,130,246,0.3)' }}>
+              Codeforces: 3
+            </span>
           </div>
 
           {/* Divider */}
@@ -308,15 +315,15 @@ const CodingProfiles = () => {
               <div className="dot" style={{ background: '#6366f1' }} />
               <div className="dot" style={{ background: '#a855f7' }} />
             </div>
-            <span className="divider-label">LIVE PORTFOLIO SYNC</span>
+            <span className="divider-label">DSA TOPICS & AWARDS SYNCED</span>
           </div>
 
-          {/* Details */}
+          {/* Details Box */}
           <div className="details-box">
-            <p>Platforms: <strong>LeetCode, Codeforces, GitHub, GFG</strong></p>
-            <p>Aggregated Stats: <strong>DSA, CP & Open Source</strong></p>
-            <p>Developer Identity: <strong>Full-Stack & CP Portfolio</strong></p>
-            <p>Profile Handle: <strong>@{USERNAME}</strong></p>
+            <p>Awards: <strong>2 Badges (50 & 100 Days Streaks)</strong></p>
+            <p>Top DSA Topics: <strong>Arrays (97), Math (33), HashMap (32)</strong></p>
+            <p>Pointers & Strings: <strong>Two Pointers (30), String (30)</strong></p>
+            <p>Current Streak: <strong>106 Days</strong> &nbsp;·&nbsp; Profile: <strong>@{USERNAME}</strong></p>
           </div>
 
           {/* Footer */}
