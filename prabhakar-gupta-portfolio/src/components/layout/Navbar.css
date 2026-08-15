@@ -30,7 +30,7 @@
 .site-nav.scrolled {
   width: min(1180px, 94%);
   padding: 0.45rem 1rem;
-  border-radius: 999px;
+  border-radius: 16px;
   background: rgba(6, 11, 24, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(168, 85, 247, 0.15);
@@ -79,7 +79,7 @@
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
+  border-radius: 12px;
   padding: 3px;
 }
 
@@ -103,7 +103,7 @@
 .site-nav.scrolled .nav-link {
   padding: 0.48rem 0.88rem;
   font-size: 0.9rem;
-  border-radius: 999px;
+  border-radius: 10px;
 }
 
 .nav-link:hover {
@@ -164,7 +164,7 @@
 .active-pill-bg {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: 10px;
   background: linear-gradient(135deg, rgba(64, 255, 170, 0.18) 0%, rgba(64, 121, 255, 0.22) 100%);
   border: 1px solid rgba(64, 255, 170, 0.45);
   box-shadow: 0 0 16px rgba(64, 255, 170, 0.25);
@@ -181,7 +181,7 @@
   align-items: center;
   gap: 6px;
   padding: 0.58rem 1.4rem;
-  border-radius: 999px;
+  border-radius: 12px;
   background: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.9);
   color: #090d16;
