@@ -77,7 +77,7 @@ function App() {
       textColor: "#fff",
       links: [
         { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
-        { label: "Profiles", href: "#coding-profiles", ariaLabel: "Coding Profiles" },
+        { label: "Coding Profiles", href: "#coding-profiles", ariaLabel: "Coding Profiles" },
         { label: "Goals", href: "#goals", ariaLabel: "Career Goals" },
       ],
     },

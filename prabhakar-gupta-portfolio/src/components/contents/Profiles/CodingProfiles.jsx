@@ -22,6 +22,14 @@ const formatDate = (timestamp) => {
   return date.toLocaleString("default", { month: "short", year: "numeric" });
 };
 
+const CodolioIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#06b6d4" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M2 17L12 22L22 17" stroke="#6366f1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M2 12L12 17L22 12" stroke="#a855f7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 const CodingProfiles = () => {
   const [lcData, setLcData] = useState(null);
   const [cfData, setCfData] = useState(null);
@@ -235,14 +243,99 @@ const CodingProfiles = () => {
   return (
     <div className="coding-profiles-wrapper">
 
-      {/* ── LeetCode Card ── */}
+      {/* ── 1. Codolio Card (Row 1, Left) ── */}
+      <InteractiveCard
+        className="profile-card-new codolio-card"
+        variants={profileReveal}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.22 }}
+        custom={1}
+      >
+        <div className="card-content-new">
+
+          {/* Header */}
+          <div className="profile-header-new">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(6,182,212,0.4)', background: 'rgba(6,182,212,0.1)' }}>
+                <CodolioIcon />
+              </div>
+              <div className="profile-titles" style={{ marginBottom: 0 }}>
+                <h2>Codolio</h2>
+                <p>@{USERNAME}</p>
+              </div>
+            </div>
+            <span className="live-badge" style={{ borderColor: 'rgba(6,182,212,0.3)', color: '#67e8f9' }}>PORTFOLIO HUB</span>
+          </div>
+
+          {/* Primary stat */}
+          <div className="primary-stat" style={{ color: '#38bdf8' }}>
+            Unified Developer <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Card</span>
+          </div>
+
+          {/* 3-col sub grid */}
+          <div className="sub-stats-grid">
+            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
+              <span className="sub-stat-label">PLATFORMS</span>
+              <span className="sub-stat-value" style={{ color: '#22d3ee' }}>5+ Linked</span>
+            </div>
+            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(99,102,241,0.6)' }}>
+              <span className="sub-stat-label">PROBLEMS</span>
+              <span className="sub-stat-value" style={{ color: '#818cf8' }}>
+                {loading.lc ? '...' : (lcData?.solvedProblem || 0) > 0 ? `${lcData.solvedProblem}+` : '500+'}
+              </span>
+            </div>
+            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
+              <span className="sub-stat-label">STATUS</span>
+              <span className="sub-stat-value" style={{ color: '#c084fc', fontSize: '1rem', textTransform: 'capitalize' }}>Verified</span>
+            </div>
+          </div>
+
+          {/* Desc */}
+          <p className="desc-text">Unified developer portfolio consolidating coding stats, contest rankings, and open-source contributions.</p>
+
+          {/* Tags */}
+          <div className="card-tags">
+            {['Portfolio Hub', 'Unified Analytics', 'Multi-Platform', 'Developer Card'].map(t => (
+              <span key={t} className="card-tag" style={{ background: 'rgba(6,182,212,0.1)', color: '#38bdf8', borderColor: 'rgba(6,182,212,0.25)' }}>{t}</span>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="divider-container">
+            <div className="divider-dots">
+              <div className="dot" style={{ background: '#06b6d4' }} />
+              <div className="dot" style={{ background: '#6366f1' }} />
+              <div className="dot" style={{ background: '#a855f7' }} />
+            </div>
+            <span className="divider-label">LIVE PORTFOLIO SYNC</span>
+          </div>
+
+          {/* Details */}
+          <div className="details-box">
+            <p>Platforms: <strong>LeetCode, Codeforces, GitHub, GFG</strong></p>
+            <p>Aggregated Stats: <strong>DSA, CP & Open Source</strong></p>
+            <p>Developer Identity: <strong>Full-Stack & CP Portfolio</strong></p>
+            <p>Profile Handle: <strong>@{USERNAME}</strong></p>
+          </div>
+
+          {/* Footer */}
+          <div className="card-footer-new">
+            <AuroraButton href={`https://codolio.com/profile/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
+              Open Profile
+            </AuroraButton>
+          </div>
+        </div>
+      </InteractiveCard>
+
+      {/* ── 2. LeetCode Card (Row 1, Right) ── */}
       <InteractiveCard
         className="profile-card-new leetcode-card"
         variants={profileReveal}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.22 }}
-        custom={1}
+        custom={2}
       >
         <div className="card-content-new">
 
@@ -325,100 +418,7 @@ const CodingProfiles = () => {
         </div>
       </InteractiveCard>
 
-      {/* ── Codeforces Card ── */}
-      <InteractiveCard
-        className="profile-card-new codeforces-card"
-        variants={profileReveal}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.22 }}
-        custom={2}
-      >
-        <div className="card-content-new">
-
-          {/* Header */}
-          <div className="profile-header-new">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(59,130,246,0.3)' }}>
-                <SiCodeforces style={{ color: '#3b82f6' }} />
-              </div>
-              <div className="profile-titles" style={{ marginBottom: 0 }}>
-                <h2>Codeforces</h2>
-                <p>@{USERNAME}</p>
-              </div>
-            </div>
-            <span className="live-badge">LIVE NOW</span>
-          </div>
-
-          {/* Primary stat */}
-          {loading.cf
-            ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.6rem' }}>
-                {cfData?.rating > 0 ? cfData.rating : 'Starting Soon'}
-                {cfData?.rating > 0 && <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#93c5fd' }}> rating</span>}
-              </div>
-          }
-
-          {/* 3-col sub grid */}
-          {loading.cf
-            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
-            : <div className="sub-stats-grid">
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
-                  <span className="sub-stat-label">RANK</span>
-                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '1rem' }}>{cfData?.rank || 'N/A'}</span>
-                </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
-                  <span className="sub-stat-label">PEAK</span>
-                  <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
-                </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(236,72,153,0.5)' }}>
-                  <span className="sub-stat-label">FRIENDS</span>
-                  <span className="sub-stat-value" style={{ color: '#ec4899' }}>{cfData?.friendOfCount || 0}</span>
-                </div>
-              </div>
-          }
-
-          {/* Desc */}
-          <p className="desc-text">Competitive programming presence and contest activity.</p>
-
-          {/* Tags */}
-          <div className="card-tags">
-            {['Competitive Programming', 'Math', 'Graph Theory'].map(t => (
-              <span key={t} className="card-tag" style={{ background: 'rgba(59,130,246,0.1)', color: '#3b82f6', borderColor: 'rgba(59,130,246,0.2)' }}>{t}</span>
-            ))}
-          </div>
-
-          {/* Divider */}
-          <div className="divider-container">
-            <div className="divider-dots">
-              <div className="dot red" /><div className="dot red" /><div className="dot red" />
-            </div>
-            <span className="divider-label">CONTEST TRACE AVAILABLE</span>
-          </div>
-
-          {/* Details */}
-          <div className="details-box">
-            {loading.cf
-              ? <div className="skeleton-box" style={{height:80}} />
-              : <>
-                  <p>Status: <strong>{cfData?.rank !== 'unrated' ? 'Active' : 'Practice Mode'}</strong></p>
-                  <p>Member since: <strong>{cfData?.joined}</strong></p>
-                  <p>Last seen: <strong>{cfData?.lastActive}</strong></p>
-                  <p>Friend of: <strong>{cfData?.friendOfCount} users</strong></p>
-                </>
-            }
-          </div>
-
-          {/* Footer */}
-          <div className="card-footer-new">
-            <AuroraButton href={`https://codeforces.com/profile/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
-              Open Profile
-            </AuroraButton>
-          </div>
-        </div>
-      </InteractiveCard>
-
-      {/* ── GitHub Card ── */}
+      {/* ── 3. GitHub Card (Row 2, Left) ── */}
       <InteractiveCard
         className="profile-card-new github-card"
         variants={profileReveal}
@@ -512,9 +512,101 @@ const CodingProfiles = () => {
         </div>
       </InteractiveCard>
 
+      {/* ── 4. Codeforces Card (Row 2, Right) ── */}
+      <InteractiveCard
+        className="profile-card-new codeforces-card"
+        variants={profileReveal}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.22 }}
+        custom={4}
+      >
+        <div className="card-content-new">
+
+          {/* Header */}
+          <div className="profile-header-new">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div className="header-icon-wrapper" style={{ borderColor: 'rgba(59,130,246,0.3)' }}>
+                <SiCodeforces style={{ color: '#3b82f6' }} />
+              </div>
+              <div className="profile-titles" style={{ marginBottom: 0 }}>
+                <h2>Codeforces</h2>
+                <p>@{USERNAME}</p>
+              </div>
+            </div>
+            <span className="live-badge">LIVE NOW</span>
+          </div>
+
+          {/* Primary stat */}
+          {loading.cf
+            ? <div className="skeleton-primary skeleton-box" />
+            : <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.6rem' }}>
+                {cfData?.rating > 0 ? cfData.rating : 'Starting Soon'}
+                {cfData?.rating > 0 && <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#93c5fd' }}> rating</span>}
+              </div>
+          }
+
+          {/* 3-col sub grid */}
+          {loading.cf
+            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
+            : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
+                  <span className="sub-stat-label">RANK</span>
+                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '1rem' }}>{cfData?.rank || 'N/A'}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
+                  <span className="sub-stat-label">PEAK</span>
+                  <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(236,72,153,0.5)' }}>
+                  <span className="sub-stat-label">FRIENDS</span>
+                  <span className="sub-stat-value" style={{ color: '#ec4899' }}>{cfData?.friendOfCount || 0}</span>
+                </div>
+              </div>
+          }
+
+          {/* Desc */}
+          <p className="desc-text">Competitive programming presence and contest activity.</p>
+
+          {/* Tags */}
+          <div className="card-tags">
+            {['Competitive Programming', 'Math', 'Graph Theory'].map(t => (
+              <span key={t} className="card-tag" style={{ background: 'rgba(59,130,246,0.1)', color: '#3b82f6', borderColor: 'rgba(59,130,246,0.2)' }}>{t}</span>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="divider-container">
+            <div className="divider-dots">
+              <div className="dot red" /><div className="dot red" /><div className="dot red" />
+            </div>
+            <span className="divider-label">CONTEST TRACE AVAILABLE</span>
+          </div>
+
+          {/* Details */}
+          <div className="details-box">
+            {loading.cf
+              ? <div className="skeleton-box" style={{height:80}} />
+              : <>
+                  <p>Status: <strong>{cfData?.rank !== 'unrated' ? 'Active' : 'Practice Mode'}</strong></p>
+                  <p>Member since: <strong>{cfData?.joined}</strong></p>
+                  <p>Last seen: <strong>{cfData?.lastActive}</strong></p>
+                  <p>Friend of: <strong>{cfData?.friendOfCount} users</strong></p>
+                </>
+            }
+          </div>
+
+          {/* Footer */}
+          <div className="card-footer-new">
+            <AuroraButton href={`https://codeforces.com/profile/${USERNAME}`} target="_blank" rel="noopener noreferrer" icon={FaArrowRight} className="profile-aurora-btn">
+              Open Profile
+            </AuroraButton>
+          </div>
+        </div>
+      </InteractiveCard>
+
     </div>
   );
 };
 
 export default CodingProfiles;
-
