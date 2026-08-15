@@ -110,9 +110,8 @@ const Navbar = () => {
     <header className="site-header">
       <nav className={`site-nav ${scrolled ? "scrolled" : ""}`}>
         
-        {/* Brand logo & status dot */}
+        {/* Brand logo */}
         <div className="brand-wrapper" onClick={() => scrollToSection("typewriter")}>
-          <div className="brand-dot-pulse" title="Available for opportunities" />
           <span className="brand-text">Prabhakar Gupta</span>
         </div>
 
