@@ -60,7 +60,7 @@
 .tech-card {
   width: 100%;
   max-width: none;
-  min-height: 136px;
+  min-height: 142px;
   display: grid;
   justify-items: center;
   align-content: center;
@@ -70,8 +70,8 @@
 }
 
 .tech-logo {
-  width: 58px;
-  height: 58px;
+  width: 76px;
+  height: 76px;
   object-fit: contain;
 }
 
