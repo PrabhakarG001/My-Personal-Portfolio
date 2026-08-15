@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./Navbar.css";
 
@@ -139,20 +139,6 @@ const Navbar = () => {
             );
           })}
         </ul>
-
-        {/* Desktop CTA */}
-        <div className="desktop-cta-wrapper">
-          <motion.button
-            type="button"
-            className="nav-cta-btn"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => scrollToSection("contact")}
-          >
-            <Sparkles size={14} className="cta-icon" />
-            <span>Connect</span>
-          </motion.button>
-        </div>
 
         {/* Mobile menu toggle */}
         <motion.button
