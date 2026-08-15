@@ -260,6 +260,9 @@
 }
 
 @media (max-width: 940px) {
+  .site-header {
+    padding: 0.8rem 1rem;
+  }
   .desktop-nav,
   .desktop-cta-wrapper {
     display: none;
@@ -267,8 +270,14 @@
   .mobile-toggle {
     display: flex;
   }
-  .site-nav {
+  .site-nav,
+  .site-nav.scrolled {
     width: 100%;
     border-radius: 16px;
+    padding: 0.6rem 0.9rem;
+    background: rgba(8, 16, 32, 0.82);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(12px);
   }
 }
