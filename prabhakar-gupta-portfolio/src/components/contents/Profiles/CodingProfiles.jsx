@@ -131,10 +131,29 @@ const CodingProfiles = () => {
     const fetchCodeforces = async () => {
       try {
         const timestamp = Date.now();
-        const res = await fetch(`https://codeforces.com/api/user.info?handles=${USERNAME}&t=${timestamp}`);
-        const data = await safeJson(res);
-        if (data.status === "OK" && data.result?.length > 0) {
-          const user = data.result[0];
+        const [infoRes, statusRes] = await Promise.all([
+          fetch(`https://codeforces.com/api/user.info?handles=${USERNAME}&t=${timestamp}`).catch(() => null),
+          fetch(`https://codeforces.com/api/user.status?handle=${USERNAME}&t=${timestamp}`).catch(() => null),
+        ]);
+
+        const infoData = await safeJson(infoRes);
+        const statusData = await safeJson(statusRes);
+
+        let solvedCount = 3;
+        if (statusData.status === "OK" && Array.isArray(statusData.result)) {
+          const uniqueSolved = new Set();
+          statusData.result.forEach((sub) => {
+            if (sub.verdict === "OK" && sub.problem) {
+              uniqueSolved.add(`${sub.problem.contestId}-${sub.problem.index}`);
+            }
+          });
+          if (uniqueSolved.size > 0) {
+            solvedCount = uniqueSolved.size;
+          }
+        }
+
+        if (infoData.status === "OK" && infoData.result?.length > 0) {
+          const user = infoData.result[0];
           setCfData({
             rating: user.rating || 0,
             maxRating: user.maxRating || 0,
@@ -142,6 +161,7 @@ const CodingProfiles = () => {
             friendOfCount: user.friendOfCount || 0,
             joined: formatDate(user.registrationTimeSeconds),
             lastActive: formatDate(user.lastOnlineTimeSeconds),
+            solvedCount,
           });
         }
       } catch (err) {
@@ -557,17 +577,17 @@ const CodingProfiles = () => {
           {loading.cf
             ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
             : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)' }}>
+                  <span className="sub-stat-label">SOLVED</span>
+                  <span className="sub-stat-value" style={{ color: '#34d399' }}>{cfData?.solvedCount ?? 3}</span>
+                </div>
                 <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
                   <span className="sub-stat-label">RANK</span>
-                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '1rem' }}>{cfData?.rank || 'N/A'}</span>
+                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '0.95rem' }}>{cfData?.rank || 'N/A'}</span>
                 </div>
                 <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
                   <span className="sub-stat-label">PEAK</span>
                   <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
-                </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(236,72,153,0.5)' }}>
-                  <span className="sub-stat-label">FRIENDS</span>
-                  <span className="sub-stat-value" style={{ color: '#ec4899' }}>{cfData?.friendOfCount || 0}</span>
                 </div>
               </div>
           }
@@ -595,10 +615,10 @@ const CodingProfiles = () => {
             {loading.cf
               ? <div className="skeleton-box" style={{height:80}} />
               : <>
+                  <p>Questions Solved: <strong>{cfData?.solvedCount ?? 3} Problems</strong></p>
                   <p>Status: <strong>{cfData?.rank !== 'unrated' ? 'Active' : 'Practice Mode'}</strong></p>
                   <p>Member since: <strong>{cfData?.joined}</strong></p>
-                  <p>Last seen: <strong>{cfData?.lastActive}</strong></p>
-                  <p>Friend of: <strong>{cfData?.friendOfCount} users</strong></p>
+                  <p>Last seen: <strong>{cfData?.lastActive}</strong> &nbsp;·&nbsp; Friends: <strong>{cfData?.friendOfCount}</strong></p>
                 </>
             }
           </div>
