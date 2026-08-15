@@ -108,7 +108,7 @@ const Navbar = () => {
 
   return (
     <header className="site-header">
-      <nav className={`site-nav glass-nav ${scrolled ? "scrolled" : ""}`}>
+      <nav className={`site-nav ${scrolled ? "scrolled" : ""}`}>
         
         {/* Brand logo & status dot */}
         <div className="brand-wrapper" onClick={() => scrollToSection("typewriter")}>
@@ -116,7 +116,7 @@ const Navbar = () => {
           <span className="brand-text">Prabhakar Gupta</span>
         </div>
 
-        {/* Desktop floating pill menu */}
+        {/* Desktop menu */}
         <ul className="desktop-nav">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
@@ -127,7 +127,7 @@ const Navbar = () => {
                   className={`nav-link ${isActive ? "active" : ""}`}
                   onClick={() => scrollToSection(item.id)}
                 >
-                  {isActive && (
+                  {isActive && scrolled && (
                     <motion.div
                       layoutId="active-nav-pill"
                       className="active-pill-bg"
@@ -146,8 +146,8 @@ const Navbar = () => {
           <motion.button
             type="button"
             className="nav-cta-btn"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => scrollToSection("contact")}
           >
             <Sparkles size={14} className="cta-icon" />

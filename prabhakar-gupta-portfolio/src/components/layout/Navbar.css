@@ -4,44 +4,46 @@
   left: 0;
   right: 0;
   z-index: 1200;
-  padding: 0.85rem clamp(0.7rem, 3vw, 1.6rem);
+  padding: 1.2rem clamp(1rem, 4vw, 3rem);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .site-nav {
   position: relative;
-  width: min(1180px, 94%);
+  width: min(1320px, 98%);
   margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.5rem 0.95rem;
-  border-radius: 999px;
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.glass-nav {
+/* Scrolled State: Floating Transparent Glassmorphism Navbar */
+.site-nav.scrolled {
+  width: min(1180px, 94%);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: rgba(6, 11, 24, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(6, 11, 24, 0.72);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(168, 85, 247, 0.15);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-}
-
-.site-nav.scrolled {
-  padding: 0.38rem 0.85rem;
-  background: rgba(4, 8, 18, 0.88);
-  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.22);
 }
 
 .brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
+  padding: 0.25rem 0.4rem;
   user-select: none;
   transition: transform 0.2s ease;
 }
@@ -68,10 +70,8 @@
 .brand-text {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.05rem;
-  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 55%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.18rem;
+  color: #ffffff;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
@@ -80,9 +80,14 @@
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 1.6rem;
   margin: 0;
   padding: 0;
+  transition: all 0.3s ease;
+}
+
+.site-nav.scrolled .desktop-nav {
+  gap: 0.3rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 999px;
@@ -93,10 +98,9 @@
   position: relative;
   border: none;
   background: transparent;
-  color: var(--text-secondary);
-  border-radius: 999px;
-  padding: 0.45rem 0.72rem;
-  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 0.5rem 0.2rem;
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -107,24 +111,48 @@
   white-space: nowrap;
 }
 
+.site-nav.scrolled .nav-link {
+  padding: 0.45rem 0.75rem;
+  font-size: 0.84rem;
+  border-radius: 999px;
+}
+
 .nav-link:hover {
   color: #ffffff;
 }
 
+/* Active Indicator in Unscrolled Home State (Bottom Underline like Ravynx) */
+.nav-link.active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c084fc, #a855f7, #38bdf8);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+  transition: all 0.3s ease;
+}
+
+.site-nav.scrolled .nav-link.active::after {
+  display: none;
+}
+
+/* Active Pill in Scrolled State */
 .active-pill-bg {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22) 0%, rgba(139, 92, 246, 0.25) 100%);
-  border: 1px solid rgba(56, 189, 248, 0.45);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
   z-index: -1;
-}
-
-.nav-link.active {
-  color: #ffffff;
-  font-weight: 700;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
 }
 
 .desktop-cta-wrapper {
@@ -136,28 +164,35 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0.42rem 0.95rem;
+  padding: 0.52rem 1.25rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(139, 92, 246, 0.25) 100%);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #38bdf8;
-  font-size: 0.8rem;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: #090d16;
+  font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   white-space: nowrap;
 }
 
 .nav-cta-btn:hover {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.35) 0%, rgba(139, 92, 246, 0.4) 100%);
-  border-color: rgba(56, 189, 248, 0.7);
+  background: #f3e8ff;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  transform: translateY(-1px);
+}
+
+.site-nav.scrolled .nav-cta-btn {
+  padding: 0.42rem 0.95rem;
+  font-size: 0.82rem;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.45);
   color: #ffffff;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
 }
 
 .cta-icon {
-  color: #38bdf8;
+  color: currentColor;
 }
 
 .mobile-toggle {
@@ -193,6 +228,13 @@
   border-radius: 14px;
 }
 
+.glass-nav {
+  border: 1px solid var(--border-soft);
+  background: rgba(8, 16, 32, 0.82);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
 .mobile-link {
   border: 1px solid var(--border-soft);
   border-radius: 10px;
@@ -213,8 +255,8 @@
 
 .mobile-link.active {
   color: #ffffff;
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
-  border-color: rgba(56, 189, 248, 0.4);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%);
+  border-color: rgba(168, 85, 247, 0.4);
 }
 
 @media (max-width: 940px) {
