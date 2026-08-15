@@ -16,7 +16,6 @@ const CardNav = ({
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
   const navRef = useRef(null);
   const cardsRef = useRef([]);
   const tlRef = useRef(null);
@@ -25,12 +24,12 @@ const CardNav = ({
     const navEl = navRef.current;
     if (!navEl) return 260;
 
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isMobile = window.matchMedia('(max-width: 1024px)').matches;
     if (isMobile) {
       const contentEl = navEl.querySelector('.card-nav-content');
       if (contentEl) {
-        const wasVisibility = contentEl.style.visibility;
-        const wasPointer = contentEl.style.pointerEvents;
+        const wasVisible = contentEl.style.visibility;
+        const wasPointerEvents = contentEl.style.pointerEvents;
         const wasPosition = contentEl.style.position;
         const wasHeight = contentEl.style.height;
 
@@ -39,15 +38,14 @@ const CardNav = ({
         contentEl.style.position = 'static';
         contentEl.style.height = 'auto';
 
-        // Force reflow
         contentEl.offsetHeight;
 
         const topBar = 60;
-        const padding = -2;
+        const padding = 16;
         const contentHeight = contentEl.scrollHeight;
 
-        contentEl.style.visibility = wasVisibility;
-        contentEl.style.pointerEvents = wasPointer;
+        contentEl.style.visibility = wasVisible;
+        contentEl.style.pointerEvents = wasPointerEvents;
         contentEl.style.position = wasPosition;
         contentEl.style.height = wasHeight;
 
@@ -80,6 +78,7 @@ const CardNav = ({
   useLayoutEffect(() => {
     const tl = createTimeline();
     tlRef.current = tl;
+
     return () => {
       tl?.kill();
       tlRef.current = null;
@@ -90,9 +89,11 @@ const CardNav = ({
   useLayoutEffect(() => {
     const handleResize = () => {
       if (!tlRef.current) return;
+
       if (isExpanded) {
         const newHeight = calculateHeight();
         gsap.set(navRef.current, { height: newHeight });
+
         tlRef.current.kill();
         const newTl = createTimeline();
         if (newTl) {
@@ -107,65 +108,11 @@ const CardNav = ({
         }
       }
     };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isExpanded]);
-
-  useLayoutEffect(() => {
-    let ticking = false;
-    const allLinks = items?.flatMap(item => item.links || []) || [];
-    const ids = allLinks.map(lnk => lnk.href.startsWith('#') ? lnk.href.substring(1) : lnk.href);
-
-    const updateActiveFromScroll = () => {
-      const sections = ids
-        .map(id => ({ id, element: document.getElementById(id) }))
-        .filter(section => section.element);
-
-      if (!sections.length) return;
-
-      const scrollY = window.scrollY || window.pageYOffset;
-      const viewportHeight = window.innerHeight || 0;
-      const docHeight = document.documentElement.scrollHeight;
-
-      if (scrollY <= 2) {
-        setActiveSection(sections[0].id);
-        return;
-      }
-
-      if (scrollY + viewportHeight >= docHeight - 2) {
-        setActiveSection(sections[sections.length - 1].id);
-        return;
-      }
-
-      const probeY = scrollY + Math.max(120, viewportHeight * 0.28);
-      let currentActive = sections[0].id;
-
-      sections.forEach(({ id, element }) => {
-        const sectionTop = element.getBoundingClientRect().top + scrollY;
-        if (sectionTop <= probeY) {
-          currentActive = id;
-        }
-      });
-      
-      setActiveSection(currentActive);
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateActiveFromScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateActiveFromScroll();
-    
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [items]);
 
   const toggleMenu = () => {
     const tl = tlRef.current;
@@ -187,11 +134,7 @@ const CardNav = ({
 
   return (
     <div className={`card-nav-container ${className}`}>
-      <nav
-        ref={navRef}
-        className={`card-nav ${isExpanded ? 'open' : ''}`}
-        style={{ backgroundColor: baseColor }}
-      >
+      <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''}`} style={{ backgroundColor: baseColor }}>
         <div className="card-nav-top">
           <div
             className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''}`}
@@ -213,7 +156,11 @@ const CardNav = ({
           </div>
 
           <div className="logo-container">
-            <span className="brand-text">Prabhakar Gupta</span>
+            {logo ? (
+              <img src={logo} alt={logoAlt} className="logo" />
+            ) : (
+              <span className="brand-text">{logoAlt}</span>
+            )}
           </div>
 
           <button
@@ -235,29 +182,30 @@ const CardNav = ({
             >
               <div className="nav-card-label">{item.label}</div>
               <div className="nav-card-links">
-                {item.links?.map((lnk, i) => {
-                  const targetId = lnk.href.startsWith('#') ? lnk.href.substring(1) : lnk.href;
-                  return (
-                    <a
-                      key={`${lnk.label}-${i}`}
-                      className={`nav-card-link ${activeSection === targetId ? 'active' : ''}`}
-                      href={lnk.href}
-                      aria-label={lnk.ariaLabel}
-                      onClick={(e) => {
+                {item.links?.map((lnk, i) => (
+                  <a
+                    key={`${lnk.label}-${i}`}
+                    className="nav-card-link"
+                    href={lnk.href}
+                    aria-label={lnk.ariaLabel}
+                    onClick={(e) => {
+                      if (lnk.href?.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = lnk.href.substring(1);
                         const el = document.getElementById(targetId);
                         if (el) {
-                          e.preventDefault();
                           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          setActiveSection(targetId);
-                          if (isExpanded) toggleMenu();
                         }
-                      }}
-                    >
-                      <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
-                      {lnk.label}
-                    </a>
-                  );
-                })}
+                        if (isExpanded) {
+                          toggleMenu();
+                        }
+                      }
+                    }}
+                  >
+                    <GoArrowUpRight className="nav-card-link-icon" aria-hidden="true" />
+                    {lnk.label}
+                  </a>
+                ))}
               </div>
             </div>
           ))}
@@ -268,3 +216,4 @@ const CardNav = ({
 };
 
 export default CardNav;
+
