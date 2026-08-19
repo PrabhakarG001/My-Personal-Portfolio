@@ -61,14 +61,21 @@ const CodingProfiles = () => {
         const res = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
           headers: {
             'Accept': 'application/json',
-          }
+          },
+          cache: 'no-store'
         }).catch(() => null);
 
         const json = await safeJson(res);
         const data = json?.data;
 
         if (data) {
-          const platforms = data.platformProfiles?.platformProfiles || [];
+          const rawProfiles = data.platformProfiles;
+          const platforms = Array.isArray(rawProfiles)
+            ? rawProfiles
+            : Array.isArray(rawProfiles?.platformProfiles)
+            ? rawProfiles.platformProfiles
+            : [];
+
           let totalSolved = 0;
           let easySolved = 0;
           let mediumSolved = 0;
@@ -94,10 +101,10 @@ const CodingProfiles = () => {
 
             const dailyStats = p.dailyActivityStatsResponse;
             if (dailyStats) {
-              if (dailyStats.maxStreak > maxStreak) maxStreak = dailyStats.maxStreak;
-              if (dailyStats.totalActiveDays > activeDays) activeDays = dailyStats.totalActiveDays;
+              if ((dailyStats.maxStreak || 0) > maxStreak) maxStreak = dailyStats.maxStreak;
+              if ((dailyStats.totalActiveDays || 0) > activeDays) activeDays = dailyStats.totalActiveDays;
               if (dailyStats.submissionCalendar) {
-                const subs = Object.values(dailyStats.submissionCalendar).reduce((a, b) => a + b, 0);
+                const subs = Object.values(dailyStats.submissionCalendar).reduce((a, b) => a + Number(b || 0), 0);
                 totalSubmissions += subs;
               }
             }
@@ -119,13 +126,13 @@ const CodingProfiles = () => {
             .map(([t, c]) => `${t} (${c})`);
 
           setCdData({
-            totalSolved: totalSolved || 170,
-            easySolved: easySolved || 68,
-            mediumSolved: mediumSolved || 75,
-            hardSolved: hardSolved || 24,
-            cfSolved: cfSolved || 3,
-            maxStreak: maxStreak || 105,
-            activeDays: activeDays || 165,
+            totalSolved: totalSolved ?? 170,
+            easySolved: easySolved ?? 68,
+            mediumSolved: mediumSolved ?? 75,
+            hardSolved: hardSolved ?? 24,
+            cfSolved: cfSolved ?? 3,
+            maxStreak: maxStreak ?? 105,
+            activeDays: activeDays ?? 165,
             totalSubmissions: totalSubmissions || 277,
             badgesCount: badgeNames.length || 2,
             badgeNames: badgeNames.length ? badgeNames : ['100 Days Badge', '50 Days Badge'],
