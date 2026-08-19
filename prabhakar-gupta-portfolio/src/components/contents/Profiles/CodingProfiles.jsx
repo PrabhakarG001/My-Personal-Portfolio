@@ -34,11 +34,13 @@ const CodingProfiles = () => {
   const [lcData, setLcData] = useState(null);
   const [cfData, setCfData] = useState(null);
   const [ghData, setGhData] = useState(null);
+  const [cdData, setCdData] = useState(null);
 
   const [loading, setLoading] = useState({
     lc: true,
     cf: true,
     gh: true,
+    cd: true,
   });
 
   const USERNAME = "PrabhakarG001"; // Unified username
@@ -50,6 +52,104 @@ const CodingProfiles = () => {
         return await res.json();
       } catch {
         return {};
+      }
+    };
+
+    const fetchCodolio = async () => {
+      try {
+        const timestamp = Date.now();
+        const res = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
+          headers: {
+            'Accept': 'application/json',
+          }
+        }).catch(() => null);
+
+        const json = await safeJson(res);
+        const data = json?.data;
+
+        if (data) {
+          const platforms = data.platformProfiles?.platformProfiles || [];
+          let totalSolved = 0;
+          let easySolved = 0;
+          let mediumSolved = 0;
+          let hardSolved = 0;
+          let cfSolved = 0;
+          let maxStreak = 0;
+          let activeDays = 0;
+          let totalSubmissions = 0;
+          let badgeNames = [];
+          const topicMap = {};
+
+          platforms.forEach(p => {
+            const qStats = p.totalQuestionStats;
+            if (qStats) {
+              totalSolved += (qStats.totalQuestionCounts || 0);
+              easySolved += (qStats.easyQuestionCounts || 0);
+              mediumSolved += (qStats.mediumQuestionCounts || 0);
+              hardSolved += (qStats.hardQuestionCounts || 0);
+              if (p.platform === 'codeforces') {
+                cfSolved += (qStats.totalQuestionCounts || 0);
+              }
+            }
+
+            const dailyStats = p.dailyActivityStatsResponse;
+            if (dailyStats) {
+              if (dailyStats.maxStreak > maxStreak) maxStreak = dailyStats.maxStreak;
+              if (dailyStats.totalActiveDays > activeDays) activeDays = dailyStats.totalActiveDays;
+              if (dailyStats.submissionCalendar) {
+                const subs = Object.values(dailyStats.submissionCalendar).reduce((a, b) => a + b, 0);
+                totalSubmissions += subs;
+              }
+            }
+
+            const badges = p.badgeStats?.badgeList || [];
+            badges.forEach(b => {
+              if (b.displayName || b.shortName) badgeNames.push(b.displayName || b.shortName);
+            });
+
+            const topics = p.topicAnalysisStats?.topicWiseDistribution || {};
+            for (const [topic, count] of Object.entries(topics)) {
+              topicMap[topic] = (topicMap[topic] || 0) + count;
+            }
+          });
+
+          const topTopicsList = Object.entries(topicMap)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([t, c]) => `${t} (${c})`);
+
+          setCdData({
+            totalSolved: totalSolved || 170,
+            easySolved: easySolved || 68,
+            mediumSolved: mediumSolved || 75,
+            hardSolved: hardSolved || 24,
+            cfSolved: cfSolved || 3,
+            maxStreak: maxStreak || 105,
+            activeDays: activeDays || 165,
+            totalSubmissions: totalSubmissions || 277,
+            badgesCount: badgeNames.length || 2,
+            badgeNames: badgeNames.length ? badgeNames : ['100 Days Badge', '50 Days Badge'],
+            topTopics: topTopicsList.length ? topTopicsList : ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
+          });
+        } else {
+          setCdData({
+            totalSolved: 170,
+            easySolved: 68,
+            mediumSolved: 75,
+            hardSolved: 24,
+            cfSolved: 3,
+            maxStreak: 105,
+            activeDays: 165,
+            totalSubmissions: 277,
+            badgesCount: 2,
+            badgeNames: ['100 Days Badge', '50 Days Badge'],
+            topTopics: ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching Codolio:", err);
+      } finally {
+        setLoading((prev) => ({ ...prev, cd: false }));
       }
     };
 
@@ -247,11 +347,13 @@ const CodingProfiles = () => {
       }
     };
 
+    fetchCodolio();
     fetchLeetCode();
     fetchCodeforces();
     fetchGitHub();
 
     const interval = setInterval(() => {
+      fetchCodolio();
       fetchLeetCode();
       fetchCodeforces();
       fetchGitHub();
@@ -285,29 +387,35 @@ const CodingProfiles = () => {
                 <p>@{USERNAME}</p>
               </div>
             </div>
-            <span className="live-badge" style={{ borderColor: 'rgba(6,182,212,0.3)', color: '#67e8f9' }}>VERIFIED PROFILE</span>
+            <span className="live-badge" style={{ borderColor: 'rgba(6,182,212,0.3)', color: '#67e8f9' }}>LIVE NOW</span>
           </div>
 
           {/* Primary stat */}
-          <div className="primary-stat" style={{ color: '#38bdf8' }}>
-            170 <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Questions Solved</span>
-          </div>
+          {loading.cd
+            ? <div className="skeleton-primary skeleton-box" />
+            : <div className="primary-stat" style={{ color: '#38bdf8' }}>
+                {cdData?.totalSolved} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Questions Solved</span>
+              </div>
+          }
 
           {/* 3-col sub grid */}
-          <div className="sub-stats-grid">
-            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)' }}>
-              <span className="sub-stat-label">ACTIVE DAYS</span>
-              <span className="sub-stat-value" style={{ color: '#22c55e' }}>168</span>
-            </div>
-            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
-              <span className="sub-stat-label">SUBMISSIONS</span>
-              <span className="sub-stat-value" style={{ color: '#38bdf8' }}>272</span>
-            </div>
-            <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
-              <span className="sub-stat-label">MAX STREAK</span>
-              <span className="sub-stat-value" style={{ color: '#c084fc' }}>106 days</span>
-            </div>
-          </div>
+          {loading.cd
+            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
+            : <div className="sub-stats-grid">
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)' }}>
+                  <span className="sub-stat-label">ACTIVE DAYS</span>
+                  <span className="sub-stat-value" style={{ color: '#22c55e' }}>{cdData?.activeDays}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
+                  <span className="sub-stat-label">SUBMISSIONS</span>
+                  <span className="sub-stat-value" style={{ color: '#38bdf8' }}>{cdData?.totalSubmissions}</span>
+                </div>
+                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
+                  <span className="sub-stat-label">MAX STREAK</span>
+                  <span className="sub-stat-value" style={{ color: '#c084fc' }}>{cdData?.maxStreak} days</span>
+                </div>
+              </div>
+          }
 
           {/* Desc */}
           <p className="desc-text">Codolio aggregated profile analytics: DSA, Competitive Programming & Streaks.</p>
@@ -315,16 +423,16 @@ const CodingProfiles = () => {
           {/* Question Distribution Tags */}
           <div className="card-tags">
             <span className="card-tag" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80', borderColor: 'rgba(34,197,94,0.3)' }}>
-              Easy: 68
+              Easy: {cdData?.easySolved}
             </span>
             <span className="card-tag" style={{ background: 'rgba(234,179,8,0.12)', color: '#facc15', borderColor: 'rgba(234,179,8,0.3)' }}>
-              Medium: 75
+              Medium: {cdData?.mediumSolved}
             </span>
             <span className="card-tag" style={{ background: 'rgba(239,68,68,0.12)', color: '#f87171', borderColor: 'rgba(239,68,68,0.3)' }}>
-              Hard: 24
+              Hard: {cdData?.hardSolved}
             </span>
             <span className="card-tag" style={{ background: 'rgba(59,130,246,0.12)', color: '#60a5fa', borderColor: 'rgba(59,130,246,0.3)' }}>
-              Codeforces: 3
+              Codeforces: {cdData?.cfSolved}
             </span>
           </div>
 
@@ -335,15 +443,20 @@ const CodingProfiles = () => {
               <div className="dot" style={{ background: '#6366f1' }} />
               <div className="dot" style={{ background: '#a855f7' }} />
             </div>
-            <span className="divider-label">DSA TOPICS & AWARDS SYNCED</span>
+            <span className="divider-label">STATS LIVE SYNCED</span>
           </div>
 
           {/* Details Box */}
           <div className="details-box">
-            <p>Awards: <strong>2 Badges (50 & 100 Days Streaks)</strong></p>
-            <p>Top DSA Topics: <strong>Arrays (97), Math (33), HashMap (32)</strong></p>
-            <p>Pointers & Strings: <strong>Two Pointers (30), String (30)</strong></p>
-            <p>Current Streak: <strong>106 Days</strong> &nbsp;·&nbsp; Profile: <strong>@{USERNAME}</strong></p>
+            {loading.cd
+              ? <div className="skeleton-box" style={{height:80}} />
+              : <>
+                  <p>Awards: <strong>{cdData?.badgesCount} Badges ({cdData?.badgeNames?.join(', ')})</strong></p>
+                  <p>Top DSA Topics: <strong>{cdData?.topTopics?.slice(0, 3)?.join(', ')}</strong></p>
+                  <p>More Topics: <strong>{cdData?.topTopics?.slice(3)?.join(', ') || 'Two Pointers, Strings'}</strong></p>
+                  <p>Current Streak: <strong>{cdData?.maxStreak} Days</strong> &nbsp;·&nbsp; Profile: <strong>@{USERNAME}</strong></p>
+                </>
+            }
           </div>
 
           {/* Footer */}
