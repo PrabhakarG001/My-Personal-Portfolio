@@ -41,7 +41,7 @@ const Achievementcard = ({ delay = 0 }) => {
       <div className="card-option">
         <FaLaptopCode className="icon green" />
         <p className="text">
-          <strong>Solved 150+</strong> problems on LeetCode across diverse topics including arrays, trees and graphs.
+          <strong>Solved 175+</strong> problems on LeetCode across diverse topics including arrays, trees and graphs.
         </p>
       </div>
       <div className="card-option">

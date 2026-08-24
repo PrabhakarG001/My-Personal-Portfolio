@@ -55,7 +55,131 @@ const CodingProfiles = () => {
       }
     };
 
-    const fetchCodolio = async () => {
+    const fetchLeetCode = async () => {
+      try {
+        const timestamp = Date.now();
+        let lcStats = null;
+
+        // 1. Primary Source: Alfa LeetCode API (real-time direct LeetCode stats)
+        const [profileRes, userRes, calRes] = await Promise.all([
+          fetch(`https://alfa-leetcode-api.onrender.com/userProfile/${USERNAME}?t=${timestamp}`).catch(() => null),
+          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}?t=${timestamp}`).catch(() => null),
+          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/calendar?t=${timestamp}`).catch(() => null),
+        ]);
+
+        const profileData = profileRes?.ok ? await profileRes.json().catch(() => null) : null;
+        const userData = userRes?.ok ? await userRes.json().catch(() => null) : null;
+        const calData = calRes?.ok ? await calRes.json().catch(() => null) : null;
+
+        if (profileData && profileData.totalSolved) {
+          let acceptance = "60.3%";
+          if (profileData.totalSubmissions) {
+            const allSub = profileData.totalSubmissions.find((s) => s.difficulty === "All");
+            if (allSub && allSub.submissions > 0) {
+              acceptance = ((allSub.count / allSub.submissions) * 100).toFixed(1) + "%";
+            }
+          }
+
+          const rankVal = userData?.ranking || profileData.ranking;
+          const rankStr = rankVal
+            ? rankVal >= 1000
+              ? Math.round(rankVal / 1000) + "K"
+              : rankVal.toString()
+            : "959K";
+
+          lcStats = {
+            solvedProblem: profileData.totalSolved,
+            easySolved: profileData.easySolved || 0,
+            mediumSolved: profileData.mediumSolved || 0,
+            hardSolved: profileData.hardSolved || 0,
+            globalRank: rankStr,
+            contestRating: "-",
+            totalContests: 0,
+            acceptance: acceptance,
+            recentAC: 20,
+            maxStreak: calData?.streak || 115,
+            totalActiveDays: calData?.totalActiveDays || 177,
+          };
+        }
+
+        // 2. Secondary Source: Codolio profile
+        if (!lcStats) {
+          const cdRes = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
+            headers: { 'Accept': 'application/json' },
+            cache: 'no-store'
+          }).catch(() => null);
+
+          const cdJson = await safeJson(cdRes);
+          const cdData = cdJson?.data;
+          if (cdData) {
+            const rawProfiles = cdData.platformProfiles;
+            const platforms = Array.isArray(rawProfiles)
+              ? rawProfiles
+              : Array.isArray(rawProfiles?.platformProfiles)
+              ? rawProfiles.platformProfiles
+              : [];
+
+            const leetcodeObj = platforms.find((p) => p.platform === "leetcode");
+            if (leetcodeObj) {
+              const qStats = leetcodeObj.totalQuestionStats || {};
+              const dailyStats = leetcodeObj.dailyActivityStatsResponse || {};
+              lcStats = {
+                solvedProblem: qStats.totalQuestionCounts || 178,
+                easySolved: qStats.easyQuestionCounts || 77,
+                mediumSolved: qStats.mediumQuestionCounts || 76,
+                hardSolved: qStats.hardQuestionCounts || 25,
+                globalRank: leetcodeObj.userStats?.rank || "959K",
+                contestRating: leetcodeObj.userStats?.currentRating ? Math.round(leetcodeObj.userStats.currentRating) : "-",
+                totalContests: leetcodeObj.contestActivityStats?.contestActivityList?.length || 0,
+                acceptance: "60.3%",
+                recentAC: 20,
+                maxStreak: dailyStats.maxStreak || 115,
+                totalActiveDays: dailyStats.totalActiveDays || 177,
+              };
+            }
+          }
+        }
+
+        // Default Fallback
+        const finalLcData = lcStats || {
+          solvedProblem: 178,
+          easySolved: 77,
+          mediumSolved: 76,
+          hardSolved: 25,
+          globalRank: "959K",
+          contestRating: "-",
+          totalContests: 0,
+          acceptance: "60.3%",
+          recentAC: 20,
+          maxStreak: 115,
+          totalActiveDays: 177,
+        };
+
+        setLcData(finalLcData);
+        return finalLcData;
+      } catch (err) {
+        console.error("Error fetching LeetCode:", err);
+        const fallbackData = {
+          solvedProblem: 178,
+          easySolved: 77,
+          mediumSolved: 76,
+          hardSolved: 25,
+          globalRank: "959K",
+          contestRating: "-",
+          totalContests: 0,
+          acceptance: "60.3%",
+          recentAC: 20,
+          maxStreak: 115,
+          totalActiveDays: 177,
+        };
+        setLcData(fallbackData);
+        return fallbackData;
+      } finally {
+        setLoading((prev) => ({ ...prev, lc: false }));
+      }
+    };
+
+    const fetchCodolio = async (liveLc = null) => {
       try {
         const timestamp = Date.now();
         const res = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
@@ -81,15 +205,21 @@ const CodingProfiles = () => {
           let mediumSolved = 0;
           let hardSolved = 0;
           let cfSolved = 0;
-          let maxStreak = 0;
-          let activeDays = 0;
+          let maxStreak = liveLc?.maxStreak || 115;
+          let activeDays = liveLc?.totalActiveDays || 177;
           let totalSubmissions = 0;
           let badgeNames = [];
           const topicMap = {};
 
-          platforms.forEach(p => {
+          platforms.forEach((p) => {
             const qStats = p.totalQuestionStats;
-            if (qStats) {
+            if (p.platform === 'leetcode' && liveLc) {
+              const lcSolved = Math.max(qStats?.totalQuestionCounts || 0, liveLc.solvedProblem || 0);
+              totalSolved += lcSolved;
+              easySolved += Math.max(qStats?.easyQuestionCounts || 0, liveLc.easySolved || 0);
+              mediumSolved += Math.max(qStats?.mediumQuestionCounts || 0, liveLc.mediumSolved || 0);
+              hardSolved += Math.max(qStats?.hardQuestionCounts || 0, liveLc.hardSolved || 0);
+            } else if (qStats) {
               totalSolved += (qStats.totalQuestionCounts || 0);
               easySolved += (qStats.easyQuestionCounts || 0);
               mediumSolved += (qStats.mediumQuestionCounts || 0);
@@ -110,7 +240,7 @@ const CodingProfiles = () => {
             }
 
             const badges = p.badgeStats?.badgeList || [];
-            badges.forEach(b => {
+            badges.forEach((b) => {
               if (b.displayName || b.shortName) badgeNames.push(b.displayName || b.shortName);
             });
 
@@ -126,30 +256,30 @@ const CodingProfiles = () => {
             .map(([t, c]) => `${t} (${c})`);
 
           setCdData({
-            totalSolved: totalSolved > 0 ? totalSolved : 170,
-            easySolved: easySolved > 0 ? easySolved : 68,
-            mediumSolved: mediumSolved > 0 ? mediumSolved : 75,
-            hardSolved: hardSolved > 0 ? hardSolved : 24,
+            totalSolved: totalSolved > 0 ? totalSolved : 181,
+            easySolved: easySolved > 0 ? easySolved : 77,
+            mediumSolved: mediumSolved > 0 ? mediumSolved : 76,
+            hardSolved: hardSolved > 0 ? hardSolved : 25,
             cfSolved: cfSolved > 0 ? cfSolved : 3,
-            maxStreak: maxStreak > 0 ? maxStreak : 105,
-            activeDays: activeDays > 0 ? activeDays : 165,
-            totalSubmissions: totalSubmissions > 0 ? totalSubmissions : 277,
+            maxStreak: maxStreak > 0 ? maxStreak : 115,
+            activeDays: activeDays > 0 ? activeDays : 177,
+            totalSubmissions: totalSubmissions > 0 ? totalSubmissions : 298,
             badgesCount: badgeNames.length || 2,
-            badgeNames: badgeNames.length ? badgeNames : ['100 Days Badge', '50 Days Badge'],
+            badgeNames: badgeNames.length ? badgeNames : ['100 Days Badge 2026', '50 Days Badge 2026'],
             topTopics: topTopicsList.length ? topTopicsList : ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
           });
         } else {
           setCdData({
-            totalSolved: 170,
-            easySolved: 68,
-            mediumSolved: 75,
-            hardSolved: 24,
+            totalSolved: 181,
+            easySolved: 77,
+            mediumSolved: 76,
+            hardSolved: 25,
             cfSolved: 3,
-            maxStreak: 105,
-            activeDays: 165,
-            totalSubmissions: 277,
+            maxStreak: 115,
+            activeDays: 177,
+            totalSubmissions: 298,
             badgesCount: 2,
-            badgeNames: ['100 Days Badge', '50 Days Badge'],
+            badgeNames: ['100 Days Badge 2026', '50 Days Badge 2026'],
             topTopics: ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
           });
         }
@@ -157,88 +287,6 @@ const CodingProfiles = () => {
         console.error("Error fetching Codolio:", err);
       } finally {
         setLoading((prev) => ({ ...prev, cd: false }));
-      }
-    };
-
-    const fetchLeetCode = async () => {
-      try {
-        const timestamp = Date.now();
-        let lcStats = null;
-
-        // 1. Primary Source: Codolio API (CORS enabled, 100% uptime, pre-synced LeetCode live data)
-        const cdRes = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
-          headers: { 'Accept': 'application/json' },
-          cache: 'no-store'
-        }).catch(() => null);
-        
-        const cdJson = await safeJson(cdRes);
-        const cdData = cdJson?.data;
-        if (cdData) {
-          const rawProfiles = cdData.platformProfiles;
-          const platforms = Array.isArray(rawProfiles)
-            ? rawProfiles
-            : Array.isArray(rawProfiles?.platformProfiles)
-            ? rawProfiles.platformProfiles
-            : [];
-          
-          const leetcodeObj = platforms.find(p => p.platform === 'leetcode');
-          if (leetcodeObj) {
-            const qStats = leetcodeObj.totalQuestionStats || {};
-            const dailyStats = leetcodeObj.dailyActivityStatsResponse || {};
-            lcStats = {
-              solvedProblem: qStats.totalQuestionCounts || 177,
-              easySolved: qStats.easyQuestionCounts || 77,
-              mediumSolved: qStats.mediumQuestionCounts || 75,
-              hardSolved: qStats.hardQuestionCounts || 25,
-              globalRank: leetcodeObj.userStats?.rank || "959K",
-              contestRating: leetcodeObj.userStats?.currentRating ? Math.round(leetcodeObj.userStats.currentRating) : "-",
-              totalContests: leetcodeObj.contestActivityStats?.contestActivityList?.length || 0,
-              acceptance: "84.0%",
-              recentAC: 20,
-              maxStreak: dailyStats.maxStreak || 105,
-              totalActiveDays: dailyStats.totalActiveDays || 165,
-            };
-          }
-        }
-
-        // 2. Secondary API Try (faisalshohag or alfa-leetcode if reachable)
-        const mainRes = await fetch(`https://leetcode-api-faisalshohag.vercel.app/${USERNAME}?t=${timestamp}`).catch(() => null);
-        let mainData = await safeJson(mainRes);
-        
-        if (mainData && mainData.totalSolved) {
-          lcStats = {
-            solvedProblem: mainData.totalSolved,
-            easySolved: mainData.easySolved || 0,
-            mediumSolved: mainData.mediumSolved || 0,
-            hardSolved: mainData.hardSolved || 0,
-            globalRank: mainData.ranking || lcStats?.globalRank || "N/A",
-            contestRating: lcStats?.contestRating || "-",
-            totalContests: lcStats?.totalContests || 0,
-            acceptance: lcStats?.acceptance || "84.0%",
-            recentAC: mainData.recentSubmissions?.length || 0,
-            maxStreak: lcStats?.maxStreak || 105,
-            totalActiveDays: lcStats?.totalActiveDays || 165,
-          };
-        }
-
-        // Default Fallback
-        setLcData(lcStats || {
-          solvedProblem: 177,
-          easySolved: 77,
-          mediumSolved: 75,
-          hardSolved: 25,
-          globalRank: "959K",
-          contestRating: "-",
-          totalContests: 0,
-          acceptance: "84.0%",
-          recentAC: 20,
-          maxStreak: 105,
-          totalActiveDays: 165,
-        });
-      } catch (err) {
-        console.error("Error fetching LeetCode:", err);
-      } finally {
-        setLoading((prev) => ({ ...prev, lc: false }));
       }
     };
 
@@ -361,17 +409,16 @@ const CodingProfiles = () => {
       }
     };
 
-    fetchCodolio();
-    fetchLeetCode();
-    fetchCodeforces();
-    fetchGitHub();
-
-    const interval = setInterval(() => {
-      fetchCodolio();
-      fetchLeetCode();
+    const loadAll = async () => {
+      const liveLc = await fetchLeetCode();
+      fetchCodolio(liveLc);
       fetchCodeforces();
       fetchGitHub();
-    }, 300000); // Poll every 5 minutes
+    };
+
+    loadAll();
+
+    const interval = setInterval(loadAll, 300000); // Poll every 5 minutes // Poll every 5 minutes
 
     return () => clearInterval(interval);
   }, []);
