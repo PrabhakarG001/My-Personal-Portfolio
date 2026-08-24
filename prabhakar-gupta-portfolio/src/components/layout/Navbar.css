@@ -32,7 +32,7 @@
   padding: 0.45rem 1rem;
   border-radius: 16px;
   background: rgba(6, 11, 24, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: none;
   box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.7), 0 0 20px rgba(168, 85, 247, 0.15);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -78,7 +78,7 @@
 .site-nav.scrolled .desktop-nav {
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: none;
   border-radius: 12px;
   padding: 3px;
 }
