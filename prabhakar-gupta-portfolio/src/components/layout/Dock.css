@@ -134,20 +134,28 @@
   transform: translateY(-50%) translateX(0);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .dock {
-    left: clamp(0.35rem, 1.4vw, 1rem);
-    right: auto;
+    left: 0.5rem;
+    padding: 0.45rem;
+    gap: 0.45rem;
+  }
+
+  .dock a {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 12px;
+  }
+
+  .icon1,
+  .icon2,
+  .icon3 {
+    width: 1.15rem;
+    height: 1.15rem;
   }
 
   .tooltip {
-    left: calc(100% + 0.72rem);
-    right: auto;
-    transform: translateY(-50%) translateX(-4px);
-  }
-
-  .dock a:hover .tooltip {
-    transform: translateY(-50%) translateX(0);
+    left: calc(100% + 0.6rem);
   }
 }
 

@@ -144,8 +144,8 @@ function App() {
               showBorder={false}
               className="hero-gradient"
             >
-              I Build Modern &amp; Intuitive
-              <br />
+              I Build Modern &amp; Intuitive{" "}
+              <br className="hero-br" />
               <span className="hero-gradient-line">Web Experiences.</span>
             </GradientText>
 

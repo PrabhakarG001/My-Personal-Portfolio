@@ -85,12 +85,10 @@
   }
 
   .hero-actions .aurora-action-button {
-    flex: 1;
-    min-width: 0;
-    max-width: 200px;
-    width: 100%;
-    padding: 0.35rem 0.8rem;
-    font-size: 0.8rem;
-    min-height: 2.2rem;
+    width: min(100%, 280px);
+    max-width: 100%;
+    padding: 0.65rem 1.1rem;
+    font-size: 0.88rem;
+    min-height: 2.75rem;
   }
 }

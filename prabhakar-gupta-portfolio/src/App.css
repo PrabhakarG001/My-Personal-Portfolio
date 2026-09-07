@@ -7,15 +7,14 @@
 .app-content {
   position: relative;
   z-index: 2;
-  width: 90%;
-  max-width: 1140px;
+  width: min(92%, 1140px);
   margin-inline: auto;
-  padding-top: clamp(5rem, 8.3vw, 6.1rem);
+  padding-top: clamp(5rem, 8vw, 6.2rem);
   padding-bottom: clamp(3rem, 7vw, 5rem);
 }
 
 .hero-shell {
-  padding-block: clamp(0.65rem, 1.9vw, 1.4rem);
+  padding-block: clamp(0.5rem, 1.5vw, 1.2rem);
 }
 
 .glass-panel {
@@ -27,31 +26,36 @@
 }
 
 .hero-panel {
-  min-height: min(78vh, 720px);
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: clamp(0.8rem, 2.1vw, 1.35rem);
-  padding: clamp(1.3rem, 3vw, 2.4rem);
+  min-height: clamp(420px, 70dvh, 700px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.8vw, 1.35rem);
+  padding: clamp(0.8rem, 2.5vw, 2rem);
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-gradient {
   width: min(100%, 920px);
-  margin-block: 0 clamp(0.45rem, 1.35vw, 1rem);
+  margin-block: 0 clamp(0.35rem, 1.1vw, 0.85rem);
 }
 
 .hero-gradient-line {
   display: inline-block;
-  margin-top: 0.34rem;
+  margin-top: 0.2rem;
 }
 
 .hero-actions {
-  margin-top: 0.35rem;
+  margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.7rem;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 1rem);
+  width: 100%;
 }
 
 .hero-blur-text {
@@ -225,45 +229,32 @@ body #contact .card {
 /* Tablet breakpoint */
 @media (max-width: 1024px) {
   .hero-panel {
-    min-height: min(70vh, 640px);
+    min-height: clamp(380px, 65dvh, 640px);
   }
 }
 
 @media (max-width: 760px) {
   .app-content {
-    padding-top: 4.6rem;
+    padding-top: 5.2rem;
   }
 
   .hero-panel {
-    min-height: min(80vh, 680px);
+    min-height: auto;
+    padding-inline: 0;
   }
 
   .hero-actions {
     width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    gap: 12px;
   }
 
   .motion-btn {
     width: 100%;
-    max-width: 200px;
+    max-width: 280px;
   }
 
   .about-cards-grid {
     grid-template-columns: minmax(0, 1fr);
-
-    /* Mobile text improvements */
-    .hero-panel, .section-shell, .section-title, .about-cards-grid, .meabout-container, .certificate-card, .achievement-card, .available-card, .techstack-group, .tech-card, .softskills-wrapper, .goal-card, .resume-shell, .contact-form-shell {
-      text-align: center;
-      padding-left: 16px;
-      padding-right: 16px;
-      max-width: 90%;
-      margin: 0 auto;
-      line-height: 1.7;
-      word-break: normal;
-      overflow-wrap: break-word;
-    }
   }
 }
 
