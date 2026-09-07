@@ -20,7 +20,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 5.8vw, 4.4rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   text-wrap: balance;
   background-size: 300% 100%;
@@ -30,6 +30,7 @@
   animation: gradient linear infinite;
   word-break: normal;
   overflow-wrap: break-word;
+  padding-inline: clamp(0.2rem, 2vw, 0.5rem);
 }
 
 .hero-br {
@@ -39,6 +40,13 @@
 @media (min-width: 640px) {
   .hero-br {
     display: inline;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-content {
+    font-size: clamp(1.35rem, 6.2vw, 2.1rem);
+    line-height: 1.18;
   }
 }
 

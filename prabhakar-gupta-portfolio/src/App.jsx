@@ -133,7 +133,7 @@ function App() {
           variants={sectionReveal}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.45 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           <div className="hero-panel">
             <Typewriter canStart={!showLoader} />

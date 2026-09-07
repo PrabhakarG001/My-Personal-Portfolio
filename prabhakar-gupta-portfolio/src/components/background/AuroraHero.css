@@ -92,3 +92,10 @@
     min-height: 2.75rem;
   }
 }
+
+@media (max-width: 480px) {
+  .hero-actions .aurora-action-button {
+    width: 100%;
+    max-width: 280px;
+  }
+}

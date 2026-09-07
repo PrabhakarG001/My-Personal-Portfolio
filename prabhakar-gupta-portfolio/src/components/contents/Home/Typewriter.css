@@ -58,32 +58,32 @@
 
 @media (max-width: 768px) {
   .typewriter-wrapper {
-    min-height: clamp(2.2rem, 6vw, 3.8rem);
+    min-height: 3.6rem;
   }
 
   .gradient-typewriter {
-    font-size: clamp(1.1rem, 5vw, 1.8rem);
+    font-size: clamp(1.05rem, 4.5vw, 1.6rem);
   }
 }
 
 @media (max-width: 480px) {
   .typewriter-wrapper {
-    min-height: clamp(2rem, 7vw, 3.4rem);
-    margin-bottom: 0.4rem;
+    min-height: 3.4rem;
+    margin-bottom: 0.5rem;
   }
 
   .gradient-typewriter {
-    font-size: clamp(1rem, 5.2vw, 1.5rem);
-    padding: 0 0.25rem;
+    font-size: clamp(0.95rem, 4.6vw, 1.32rem);
+    padding: 0 0.2rem;
   }
 }
 
 @media (max-width: 360px) {
   .typewriter-wrapper {
-    min-height: clamp(1.9rem, 7.5vw, 3.2rem);
+    min-height: 3.2rem;
   }
 
   .gradient-typewriter {
-    font-size: clamp(0.92rem, 5.4vw, 1.35rem);
+    font-size: clamp(0.88rem, 4.8vw, 1.18rem);
   }
 }

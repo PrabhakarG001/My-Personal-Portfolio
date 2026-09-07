@@ -235,12 +235,13 @@ body #contact .card {
 
 @media (max-width: 760px) {
   .app-content {
-    padding-top: 5.2rem;
+    padding-top: 4.8rem;
   }
 
   .hero-panel {
-    min-height: auto;
-    padding-inline: 0;
+    min-height: clamp(380px, 72dvh, 620px);
+    padding-inline: 0.25rem;
+    gap: clamp(0.75rem, 2.8vw, 1.25rem);
   }
 
   .hero-actions {
@@ -255,6 +256,14 @@ body #contact .card {
 
   .about-cards-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
   }
 }
 
