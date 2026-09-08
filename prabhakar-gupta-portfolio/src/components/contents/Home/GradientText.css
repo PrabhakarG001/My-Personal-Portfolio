@@ -43,10 +43,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  .text-content {
+    font-size: clamp(1.2rem, 3.8dvh, 2.2rem);
+    line-height: 1.15;
+  }
+}
+
 @media (max-width: 480px) {
   .text-content {
-    font-size: clamp(1.35rem, 6.2vw, 2.1rem);
-    line-height: 1.18;
+    font-size: clamp(1.15rem, 3.5dvh, 1.85rem);
+    line-height: 1.16;
   }
 }
 

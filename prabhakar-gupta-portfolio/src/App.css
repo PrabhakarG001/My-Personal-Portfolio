@@ -235,22 +235,42 @@ body #contact .card {
 
 @media (max-width: 760px) {
   .app-content {
-    padding-top: 4.8rem;
+    padding-top: calc(4.35rem + env(safe-area-inset-top, 0px));
+  }
+
+  .hero-shell {
+    height: calc(100dvh - 4.35rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    min-height: 0;
+    max-height: 100dvh;
+    padding-block: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .hero-panel {
-    min-height: clamp(380px, 72dvh, 620px);
-    padding-inline: 0.25rem;
-    gap: clamp(0.75rem, 2.8vw, 1.25rem);
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    padding: clamp(0.35rem, 1.5dvh, 1rem) 0.25rem;
+    gap: clamp(0.35rem, 1.6dvh, 1.1rem);
+    justify-content: space-evenly;
   }
 
   .hero-actions {
     width: 100%;
-    gap: 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.4rem, 1.5vw, 0.75rem);
+    margin-top: clamp(0.2rem, 1dvh, 0.5rem);
   }
 
   .motion-btn {
-    width: 100%;
+    width: auto;
     max-width: 280px;
   }
 
@@ -261,9 +281,26 @@ body #contact .card {
 
 @media (max-width: 480px) {
   .hero-actions {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    justify-content: center;
+    gap: clamp(0.35rem, 1.2vw, 0.6rem);
+  }
+}
+
+@media (max-width: 760px) and (max-height: 680px) {
+  .app-content {
+    padding-top: calc(3.8rem + env(safe-area-inset-top, 0px));
+  }
+
+  .hero-shell {
+    height: calc(100dvh - 3.8rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-panel {
+    padding: 0.2rem;
+    gap: clamp(0.2dvh, 1dvh, 0.5rem);
   }
 }
 

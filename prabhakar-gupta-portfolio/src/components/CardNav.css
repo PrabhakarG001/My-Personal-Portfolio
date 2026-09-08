@@ -2,7 +2,7 @@
 .card-nav-container {
   display: none; /* hidden on desktop (> 1024px) */
   position: fixed;
-  top: 0.8rem;
+  top: calc(0.6rem + env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
   width: min(92%, 1140px);
@@ -14,7 +14,7 @@
 @media (max-width: 1024px) {
   .card-nav-container {
     display: block;
-    top: 0.8rem;
+    top: calc(0.6rem + env(safe-area-inset-top, 0px));
   }
   .nav-card {
     border-radius: 0;
