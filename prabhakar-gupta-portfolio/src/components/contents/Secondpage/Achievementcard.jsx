@@ -1,8 +1,16 @@
 import "./Achievementcard.css";
 import { FaTrophy, FaLaptopCode, FaMedal, FaAward } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
+import { useProfileStats } from "../../../context/ProfileStatsContext.jsx";
 
 const Achievementcard = ({ delay = 0 }) => {
+  const { stats, loading } = useProfileStats();
+  const lcSolved = stats?.leetcode?.solvedProblem || 0;
+  const cdSolved = stats?.codolio?.totalSolved || 0;
+  
+  // Use the maximum of Codolio or LeetCode total, fallback to a loading placeholder
+  const solvedText = loading.leetcode ? "..." : Math.max(lcSolved, cdSolved);
+
   return (
     <InteractiveCard
       className="achievement-card"
@@ -41,7 +49,7 @@ const Achievementcard = ({ delay = 0 }) => {
       <div className="card-option">
         <FaLaptopCode className="icon green" />
         <p className="text">
-          <strong>200+ Problems Solved</strong> on LeetCode across diverse topics including arrays, trees and graphs.
+          <strong>{solvedText} Problems Solved</strong> on LeetCode across diverse topics including arrays, trees and graphs.
         </p>
       </div>
       <div className="card-option">

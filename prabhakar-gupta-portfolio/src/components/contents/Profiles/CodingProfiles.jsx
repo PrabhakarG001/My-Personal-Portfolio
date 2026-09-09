@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
+import { FaGithub, FaArrowRight, FaMapMarkerAlt, FaSyncAlt } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
 import InteractiveCard from "../../InteractiveCard.jsx";
 import AuroraHero, { AuroraButton } from "../../background/AuroraHero.jsx";
+import { useProfileStats } from "../../../context/ProfileStatsContext.jsx";
+import { profileConfig } from "../../../config/profileConfig.js";
 import "./CodingProfiles.css";
 
 const profileReveal = {
@@ -16,12 +18,6 @@ const profileReveal = {
   }),
 };
 
-const formatDate = (timestamp) => {
-  if (!timestamp) return "N/A";
-  const date = new Date(timestamp * 1000);
-  return date.toLocaleString("default", { month: "short", year: "numeric" });
-};
-
 const CodolioIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#06b6d4" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -31,391 +27,36 @@ const CodolioIcon = () => (
 );
 
 const CodingProfiles = () => {
-  const [lcData, setLcData] = useState(null);
-  const [cfData, setCfData] = useState(null);
-  const [ghData, setGhData] = useState(null);
-  const [cdData, setCdData] = useState(null);
+  const { stats, loading, lastUpdated, isRefreshing, refreshStats } = useProfileStats();
 
-  const [loading, setLoading] = useState({
-    lc: true,
-    cf: true,
-    gh: true,
-    cd: true,
-  });
+  const lcData = stats.leetcode;
+  const cfData = stats.codeforces;
+  const ghData = stats.github;
+  const cdData = stats.codolio;
 
-  const USERNAME = "PrabhakarG001"; // Unified username
+  const getRelativeTime = (date) => {
+    if (!date) return "Never";
+    const diff = Math.floor((new Date() - date) / 60000);
+    if (diff < 1) return "Just now";
+    if (diff < 60) return `${diff} min ago`;
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
 
-  useEffect(() => {
-    const safeJson = async (res) => {
-      if (!res || !res.ok) return {};
-      try {
-        return await res.json();
-      } catch {
-        return {};
-      }
-    };
-
-    const fetchLeetCode = async () => {
-      try {
-        const timestamp = Date.now();
-        let lcStats = null;
-
-        // 1. Primary Source: Alfa LeetCode API (real-time direct LeetCode stats)
-        const [profileRes, userRes, calRes] = await Promise.all([
-          fetch(`https://alfa-leetcode-api.onrender.com/userProfile/${USERNAME}?t=${timestamp}`).catch(() => null),
-          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}?t=${timestamp}`).catch(() => null),
-          fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/calendar?t=${timestamp}`).catch(() => null),
-        ]);
-
-        const profileData = profileRes?.ok ? await profileRes.json().catch(() => null) : null;
-        const userData = userRes?.ok ? await userRes.json().catch(() => null) : null;
-        const calData = calRes?.ok ? await calRes.json().catch(() => null) : null;
-
-        if (profileData && profileData.totalSolved) {
-          let acceptance = "60.3%";
-          if (profileData.totalSubmissions) {
-            const allSub = profileData.totalSubmissions.find((s) => s.difficulty === "All");
-            if (allSub && allSub.submissions > 0) {
-              acceptance = ((allSub.count / allSub.submissions) * 100).toFixed(1) + "%";
-            }
-          }
-
-          const rankVal = userData?.ranking || profileData.ranking;
-          const rankStr = rankVal
-            ? rankVal >= 1000
-              ? Math.round(rankVal / 1000) + "K"
-              : rankVal.toString()
-            : "959K";
-
-          lcStats = {
-            solvedProblem: profileData.totalSolved,
-            easySolved: profileData.easySolved || 0,
-            mediumSolved: profileData.mediumSolved || 0,
-            hardSolved: profileData.hardSolved || 0,
-            globalRank: rankStr,
-            contestRating: "-",
-            totalContests: 0,
-            acceptance: acceptance,
-            recentAC: 20,
-            maxStreak: calData?.streak || 115,
-            totalActiveDays: calData?.totalActiveDays || 177,
-          };
-        }
-
-        // 2. Secondary Source: Codolio profile
-        if (!lcStats) {
-          const cdRes = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
-            headers: { 'Accept': 'application/json' },
-            cache: 'no-store'
-          }).catch(() => null);
-
-          const cdJson = await safeJson(cdRes);
-          const cdData = cdJson?.data;
-          if (cdData) {
-            const rawProfiles = cdData.platformProfiles;
-            const platforms = Array.isArray(rawProfiles)
-              ? rawProfiles
-              : Array.isArray(rawProfiles?.platformProfiles)
-              ? rawProfiles.platformProfiles
-              : [];
-
-            const leetcodeObj = platforms.find((p) => p.platform === "leetcode");
-            if (leetcodeObj) {
-              const qStats = leetcodeObj.totalQuestionStats || {};
-              const dailyStats = leetcodeObj.dailyActivityStatsResponse || {};
-              lcStats = {
-                solvedProblem: qStats.totalQuestionCounts || 178,
-                easySolved: qStats.easyQuestionCounts || 77,
-                mediumSolved: qStats.mediumQuestionCounts || 76,
-                hardSolved: qStats.hardQuestionCounts || 25,
-                globalRank: leetcodeObj.userStats?.rank || "959K",
-                contestRating: leetcodeObj.userStats?.currentRating ? Math.round(leetcodeObj.userStats.currentRating) : "-",
-                totalContests: leetcodeObj.contestActivityStats?.contestActivityList?.length || 0,
-                acceptance: "60.3%",
-                recentAC: 20,
-                maxStreak: dailyStats.maxStreak || 115,
-                totalActiveDays: dailyStats.totalActiveDays || 177,
-              };
-            }
-          }
-        }
-
-        // Default Fallback
-        const finalLcData = lcStats || {
-          solvedProblem: 178,
-          easySolved: 77,
-          mediumSolved: 76,
-          hardSolved: 25,
-          globalRank: "959K",
-          contestRating: "-",
-          totalContests: 0,
-          acceptance: "60.3%",
-          recentAC: 20,
-          maxStreak: 115,
-          totalActiveDays: 177,
-        };
-
-        setLcData(finalLcData);
-        return finalLcData;
-      } catch (err) {
-        console.error("Error fetching LeetCode:", err);
-        const fallbackData = {
-          solvedProblem: 178,
-          easySolved: 77,
-          mediumSolved: 76,
-          hardSolved: 25,
-          globalRank: "959K",
-          contestRating: "-",
-          totalContests: 0,
-          acceptance: "60.3%",
-          recentAC: 20,
-          maxStreak: 115,
-          totalActiveDays: 177,
-        };
-        setLcData(fallbackData);
-        return fallbackData;
-      } finally {
-        setLoading((prev) => ({ ...prev, lc: false }));
-      }
-    };
-
-    const fetchCodolio = async (liveLc = null) => {
-      try {
-        const timestamp = Date.now();
-        const res = await fetch(`https://api.codolio.com/profile?userKey=${USERNAME}&t=${timestamp}`, {
-          headers: {
-            'Accept': 'application/json',
-          },
-          cache: 'no-store'
-        }).catch(() => null);
-
-        const json = await safeJson(res);
-        const data = json?.data;
-
-        if (data) {
-          const rawProfiles = data.platformProfiles;
-          const platforms = Array.isArray(rawProfiles)
-            ? rawProfiles
-            : Array.isArray(rawProfiles?.platformProfiles)
-            ? rawProfiles.platformProfiles
-            : [];
-
-          let totalSolved = 0;
-          let easySolved = 0;
-          let mediumSolved = 0;
-          let hardSolved = 0;
-          let cfSolved = 0;
-          let maxStreak = liveLc?.maxStreak || 115;
-          let activeDays = liveLc?.totalActiveDays || 177;
-          let totalSubmissions = 0;
-          let badgeNames = [];
-          const topicMap = {};
-
-          platforms.forEach((p) => {
-            const qStats = p.totalQuestionStats;
-            if (p.platform === 'leetcode' && liveLc) {
-              const lcSolved = Math.max(qStats?.totalQuestionCounts || 0, liveLc.solvedProblem || 0);
-              totalSolved += lcSolved;
-              easySolved += Math.max(qStats?.easyQuestionCounts || 0, liveLc.easySolved || 0);
-              mediumSolved += Math.max(qStats?.mediumQuestionCounts || 0, liveLc.mediumSolved || 0);
-              hardSolved += Math.max(qStats?.hardQuestionCounts || 0, liveLc.hardSolved || 0);
-            } else if (qStats) {
-              totalSolved += (qStats.totalQuestionCounts || 0);
-              easySolved += (qStats.easyQuestionCounts || 0);
-              mediumSolved += (qStats.mediumQuestionCounts || 0);
-              hardSolved += (qStats.hardQuestionCounts || 0);
-              if (p.platform === 'codeforces') {
-                cfSolved += (qStats.totalQuestionCounts || 0);
-              }
-            }
-
-            const dailyStats = p.dailyActivityStatsResponse;
-            if (dailyStats) {
-              if ((dailyStats.maxStreak || 0) > maxStreak) maxStreak = dailyStats.maxStreak;
-              if ((dailyStats.totalActiveDays || 0) > activeDays) activeDays = dailyStats.totalActiveDays;
-              if (dailyStats.submissionCalendar) {
-                const subs = Object.values(dailyStats.submissionCalendar).reduce((a, b) => a + Number(b || 0), 0);
-                totalSubmissions += subs;
-              }
-            }
-
-            const badges = p.badgeStats?.badgeList || [];
-            badges.forEach((b) => {
-              if (b.displayName || b.shortName) badgeNames.push(b.displayName || b.shortName);
-            });
-
-            const topics = p.topicAnalysisStats?.topicWiseDistribution || {};
-            for (const [topic, count] of Object.entries(topics)) {
-              topicMap[topic] = (topicMap[topic] || 0) + count;
-            }
-          });
-
-          const topTopicsList = Object.entries(topicMap)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 5)
-            .map(([t, c]) => `${t} (${c})`);
-
-          setCdData({
-            totalSolved: totalSolved > 0 ? totalSolved : 181,
-            easySolved: easySolved > 0 ? easySolved : 77,
-            mediumSolved: mediumSolved > 0 ? mediumSolved : 76,
-            hardSolved: hardSolved > 0 ? hardSolved : 25,
-            cfSolved: cfSolved > 0 ? cfSolved : 3,
-            maxStreak: maxStreak > 0 ? maxStreak : 115,
-            activeDays: activeDays > 0 ? activeDays : 177,
-            totalSubmissions: totalSubmissions > 0 ? totalSubmissions : 298,
-            badgesCount: badgeNames.length || 2,
-            badgeNames: badgeNames.length ? badgeNames : ['100 Days Badge 2026', '50 Days Badge 2026'],
-            topTopics: topTopicsList.length ? topTopicsList : ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
-          });
-        } else {
-          setCdData({
-            totalSolved: 181,
-            easySolved: 77,
-            mediumSolved: 76,
-            hardSolved: 25,
-            cfSolved: 3,
-            maxStreak: 115,
-            activeDays: 177,
-            totalSubmissions: 298,
-            badgesCount: 2,
-            badgeNames: ['100 Days Badge 2026', '50 Days Badge 2026'],
-            topTopics: ['Arrays (97)', 'Math (33)', 'HashMap and Set (32)'],
-          });
-        }
-      } catch (err) {
-        console.error("Error fetching Codolio:", err);
-      } finally {
-        setLoading((prev) => ({ ...prev, cd: false }));
-      }
-    };
-
-    const fetchCodeforces = async () => {
-      try {
-        const timestamp = Date.now();
-        const [infoRes, statusRes] = await Promise.all([
-          fetch(`https://codeforces.com/api/user.info?handles=${USERNAME}&t=${timestamp}`).catch(() => null),
-          fetch(`https://codeforces.com/api/user.status?handle=${USERNAME}&t=${timestamp}`).catch(() => null),
-        ]);
-
-        const infoData = await safeJson(infoRes);
-        const statusData = await safeJson(statusRes);
-
-        let solvedCount = 3;
-        if (statusData.status === "OK" && Array.isArray(statusData.result)) {
-          const uniqueSolved = new Set();
-          statusData.result.forEach((sub) => {
-            if (sub.verdict === "OK" && sub.problem) {
-              uniqueSolved.add(`${sub.problem.contestId}-${sub.problem.index}`);
-            }
-          });
-          if (uniqueSolved.size > 0) {
-            solvedCount = uniqueSolved.size;
-          }
-        }
-
-        if (infoData.status === "OK" && infoData.result?.length > 0) {
-          const user = infoData.result[0];
-          setCfData({
-            rating: user.rating || 0,
-            maxRating: user.maxRating || 0,
-            rank: user.rank || "unrated",
-            friendOfCount: user.friendOfCount || 0,
-            joined: formatDate(user.registrationTimeSeconds),
-            lastActive: formatDate(user.lastOnlineTimeSeconds),
-            solvedCount,
-          });
-        }
-      } catch (err) {
-        console.error("Error fetching Codeforces:", err);
-      } finally {
-        setLoading((prev) => ({ ...prev, cf: false }));
-      }
-    };
-
-    const fetchGitHub = async () => {
-      try {
-        const timestamp = Date.now();
-        const thisYear = new Date().getFullYear();
-
-        const [profileRes, reposRes, contribRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${USERNAME}?t=${timestamp}`).catch(() => null),
-          fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&t=${timestamp}`).catch(() => null),
-          fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?t=${timestamp}`).catch(() => null),
-        ]);
-
-        if (!profileRes || !profileRes.ok) {
-          setGhData({ error: true, rateLimited: profileRes?.status === 403 || profileRes?.status === 429 });
-          return;
-        }
-
-        const profile = await safeJson(profileRes);
-        const repos = reposRes?.ok ? await reposRes.json().catch(() => []) : [];
-        const contribData = await safeJson(contribRes);
-
-        // Contribution totals
-        const contribByYear = contribData?.total || {};
-        const thisYearContribs = contribByYear[thisYear] || 0;
-        const totalContribs = Object.values(contribByYear).reduce((a, b) => a + b, 0);
-
-        // Aggregate stats from repos
-        const totalStars = repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
-        const totalForks = repos.reduce((acc, r) => acc + (r.forks_count || 0), 0);
-
-        // This year repos (created in current year)
-        const thisYearRepos = repos.filter(r => new Date(r.created_at).getFullYear() === thisYear);
-
-        // Top languages by repo count
-        const langMap = {};
-        repos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
-        const topLangs = Object.entries(langMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 4)
-          .map(([lang]) => lang);
-
-        const joinedDate = profile.created_at
-          ? new Date(profile.created_at).toLocaleString('default', { month: 'short', year: 'numeric' })
-          : 'N/A';
-
-        setGhData({
-          error: false,
-          name: profile.name || USERNAME,
-          location: profile.location || 'N/A',
-          publicRepos: profile.public_repos || 0,
-          followers: profile.followers || 0,
-          following: profile.following || 0,
-          totalStars,
-          totalForks,
-          topLangs,
-          thisYearRepos: thisYearRepos.length,
-          totalContribs,
-          thisYearContribs,
-          joinedDate,
-        });
-      } catch (err) {
-        console.error('Error fetching GitHub:', err);
-        setGhData({ error: true });
-      } finally {
-        setLoading(prev => ({ ...prev, gh: false }));
-      }
-    };
-
-    const loadAll = async () => {
-      const liveLc = await fetchLeetCode();
-      fetchCodolio(liveLc);
-      fetchCodeforces();
-      fetchGitHub();
-    };
-
-    loadAll();
-
-    const interval = setInterval(loadAll, 300000); // Poll every 5 minutes // Poll every 5 minutes
-
-    return () => clearInterval(interval);
-  }, []);
+  const USERNAME = profileConfig.github.username;
 
   return (
     <div className="coding-profiles-wrapper">
+      <div className="profiles-header-controls" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '1.5rem', gap: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem', gridColumn: '1 / -1' }}>
+        <span>Last updated: {getRelativeTime(lastUpdated)}</span>
+        <button 
+          onClick={refreshStats} 
+          disabled={isRefreshing}
+          style={{ background: 'transparent', border: '1px solid var(--border-soft)', padding: '6px 12px', borderRadius: '8px', color: 'var(--text-primary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+        >
+          <FaSyncAlt className={isRefreshing ? "spinning" : ""} /> {isRefreshing ? "Refreshing..." : "Refresh"}
+        </button>
+      </div>
+
 
       {/* ── 1. Codolio Card (Row 1, Left) ── */}
       <InteractiveCard
@@ -445,28 +86,50 @@ const CodingProfiles = () => {
           {/* Primary stat */}
           {loading.cd
             ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat" style={{ color: '#38bdf8' }}>
-                200+ <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Problems Solved</span>
-              </div>
+            : cdData?.error
+              ? <div className="primary-stat" style={{ color: '#ef4444', fontSize: '1.2rem' }}>
+                  Data Unavailable
+                  <span style={{ display: 'block', fontSize: '0.9rem', color: '#fca5a5', fontWeight: 400, marginTop: '4px' }}>
+                    Failed to fetch Codolio stats.
+                  </span>
+                </div>
+              : <div className="primary-stat" style={{ color: '#38bdf8' }}>
+                  {cdData?.totalSolved ?? 0} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Problems Solved</span>
+                </div>
           }
 
           {/* 3-col sub grid */}
           {loading.cd
             ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
-            : <div className="sub-stats-grid">
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)' }}>
-                  <span className="sub-stat-label">ACTIVE DAYS</span>
-                  <span className="sub-stat-value" style={{ color: '#22c55e' }}>{cdData?.activeDays}</span>
+            : cdData?.error
+              ? <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">ACTIVE DAYS</span>
+                    <span className="sub-stat-value" style={{ color: '#22c55e' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">SUBMISSIONS</span>
+                    <span className="sub-stat-value" style={{ color: '#38bdf8' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">MAX STREAK</span>
+                    <span className="sub-stat-value" style={{ color: '#c084fc' }}>-</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
-                  <span className="sub-stat-label">SUBMISSIONS</span>
-                  <span className="sub-stat-value" style={{ color: '#38bdf8' }}>{cdData?.totalSubmissions}</span>
+              : <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.6)' }}>
+                    <span className="sub-stat-label">ACTIVE DAYS</span>
+                    <span className="sub-stat-value" style={{ color: '#22c55e' }}>{cdData?.activeDays}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(6,182,212,0.6)' }}>
+                    <span className="sub-stat-label">SUBMISSIONS</span>
+                    <span className="sub-stat-value" style={{ color: '#38bdf8' }}>{cdData?.totalSubmissions}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
+                    <span className="sub-stat-label">MAX STREAK</span>
+                    <span className="sub-stat-value" style={{ color: '#c084fc' }}>{cdData?.maxStreak} days</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.6)' }}>
-                  <span className="sub-stat-label">MAX STREAK</span>
-                  <span className="sub-stat-value" style={{ color: '#c084fc' }}>{cdData?.maxStreak} days</span>
-                </div>
-              </div>
           }
 
           {/* Desc */}
@@ -548,26 +211,48 @@ const CodingProfiles = () => {
           {/* Primary stat */}
           {loading.lc
             ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat">200+ <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>Problems Solved</span></div>
+            : lcData?.error 
+              ? <div className="primary-stat" style={{ color: '#ef4444', fontSize: '1.2rem' }}>
+                  Data Unavailable
+                  <span style={{ display: 'block', fontSize: '0.9rem', color: '#fca5a5', fontWeight: 400, marginTop: '4px' }}>
+                    Failed to fetch LeetCode stats.
+                  </span>
+                </div>
+              : <div className="primary-stat">{lcData?.solvedProblem ?? 0} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>Problems Solved</span></div>
           }
 
           {/* 3-col sub grid */}
           {loading.lc
             ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
-            : <div className="sub-stats-grid">
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.5)' }}>
-                  <span className="sub-stat-label">EASY</span>
-                  <span className="sub-stat-value" style={{ color: '#22c55e' }}>{lcData?.easySolved}</span>
+            : lcData?.error
+              ? <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">EASY</span>
+                    <span className="sub-stat-value" style={{ color: '#22c55e' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(234,179,8,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">MEDIUM</span>
+                    <span className="sub-stat-value" style={{ color: '#eab308' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(239,68,68,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">HARD</span>
+                    <span className="sub-stat-value" style={{ color: '#ef4444' }}>-</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(234,179,8,0.5)' }}>
-                  <span className="sub-stat-label">MEDIUM</span>
-                  <span className="sub-stat-value" style={{ color: '#eab308' }}>{lcData?.mediumSolved}</span>
+              : <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(34,197,94,0.5)' }}>
+                    <span className="sub-stat-label">EASY</span>
+                    <span className="sub-stat-value" style={{ color: '#22c55e' }}>{lcData?.easySolved}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(234,179,8,0.5)' }}>
+                    <span className="sub-stat-label">MEDIUM</span>
+                    <span className="sub-stat-value" style={{ color: '#eab308' }}>{lcData?.mediumSolved}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(239,68,68,0.5)' }}>
+                    <span className="sub-stat-label">HARD</span>
+                    <span className="sub-stat-value" style={{ color: '#ef4444' }}>{lcData?.hardSolved}</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(239,68,68,0.5)' }}>
-                  <span className="sub-stat-label">HARD</span>
-                  <span className="sub-stat-value" style={{ color: '#ef4444' }}>{lcData?.hardSolved}</span>
-                </div>
-              </div>
           }
 
           {/* Desc */}
@@ -763,29 +448,51 @@ const CodingProfiles = () => {
           {/* Primary stat */}
           {loading.cf
             ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.6rem' }}>
-                {cfData?.rating > 0 ? cfData.rating : 'Starting Soon'}
-                {cfData?.rating > 0 && <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#93c5fd' }}> rating</span>}
-              </div>
+            : cfData?.error
+              ? <div className="primary-stat" style={{ color: '#ef4444', fontSize: '1.2rem' }}>
+                  Data Unavailable
+                  <span style={{ display: 'block', fontSize: '0.9rem', color: '#fca5a5', fontWeight: 400, marginTop: '4px' }}>
+                    Failed to fetch Codeforces stats.
+                  </span>
+                </div>
+              : <div className="primary-stat" style={{ color: '#3b82f6', fontSize: cfData?.rating > 0 ? '2.2rem' : '1.6rem' }}>
+                  {cfData?.rating > 0 ? cfData.rating : 'Starting Soon'}
+                  {cfData?.rating > 0 && <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#93c5fd' }}> rating</span>}
+                </div>
           }
 
           {/* 3-col sub grid */}
           {loading.cf
             ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
-            : <div className="sub-stats-grid">
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)' }}>
-                  <span className="sub-stat-label">SOLVED</span>
-                  <span className="sub-stat-value" style={{ color: '#34d399' }}>{cfData?.solvedCount ?? 3}</span>
+            : cfData?.error
+              ? <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">SOLVED</span>
+                    <span className="sub-stat-value" style={{ color: '#34d399' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">RANK</span>
+                    <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '0.95rem' }}>-</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)', opacity: 0.5 }}>
+                    <span className="sub-stat-label">PEAK</span>
+                    <span className="sub-stat-value" style={{ color: '#a855f7' }}>-</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
-                  <span className="sub-stat-label">RANK</span>
-                  <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '0.95rem' }}>{cfData?.rank || 'N/A'}</span>
+              : <div className="sub-stats-grid">
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)' }}>
+                    <span className="sub-stat-label">SOLVED</span>
+                    <span className="sub-stat-value" style={{ color: '#34d399' }}>{cfData?.solvedCount ?? 3}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(59,130,246,0.5)' }}>
+                    <span className="sub-stat-label">RANK</span>
+                    <span className="sub-stat-value" style={{ color: '#3b82f6', textTransform: 'capitalize', fontSize: '0.95rem' }}>{cfData?.rank || 'N/A'}</span>
+                  </div>
+                  <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
+                    <span className="sub-stat-label">PEAK</span>
+                    <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
+                  </div>
                 </div>
-                <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(168,85,247,0.5)' }}>
-                  <span className="sub-stat-label">PEAK</span>
-                  <span className="sub-stat-value" style={{ color: '#a855f7' }}>{cfData?.maxRating || 'N/A'}</span>
-                </div>
-              </div>
           }
 
           {/* Desc */}
