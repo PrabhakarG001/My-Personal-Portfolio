@@ -344,6 +344,11 @@ const CodingProfiles = () => {
           fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?t=${timestamp}`).catch(() => null),
         ]);
 
+        if (!profileRes || !profileRes.ok) {
+          setGhData({ error: true, rateLimited: profileRes?.status === 403 || profileRes?.status === 429 });
+          return;
+        }
+
         const profile = await safeJson(profileRes);
         const repos = reposRes?.ok ? await reposRes.json().catch(() => []) : [];
         const contribData = await safeJson(contribRes);
@@ -368,25 +373,12 @@ const CodingProfiles = () => {
           .slice(0, 4)
           .map(([lang]) => lang);
 
-        // Best projects — top 3 non-fork repos sorted by size + recent activity
-        const bestProjects = [...repos]
-          .filter(r => !r.fork && r.name !== USERNAME)
-          .sort((a, b) => (b.size + b.stargazers_count * 100) - (a.size + a.stargazers_count * 100))
-          .slice(0, 3)
-          .map(r => ({ name: r.name, url: r.html_url, lang: r.language, desc: r.description, stars: r.stargazers_count }));
-
-        // Achievements
-        const achievements = [];
-        if (totalContribs >= 300) achievements.push({ label: '300+ Contributions', icon: '🔥' });
-        if (profile.public_repos >= 5) achievements.push({ label: `${profile.public_repos} Public Repos`, icon: '📦' });
-        if (thisYearRepos.length >= 3) achievements.push({ label: `${thisYearRepos.length} Repos in ${thisYear}`, icon: '🚀' });
-        if (topLangs.includes('JavaScript')) achievements.push({ label: 'JS Developer', icon: '⚡' });
-
         const joinedDate = profile.created_at
           ? new Date(profile.created_at).toLocaleString('default', { month: 'short', year: 'numeric' })
           : 'N/A';
 
         setGhData({
+          error: false,
           name: profile.name || USERNAME,
           location: profile.location || 'N/A',
           publicRepos: profile.public_repos || 0,
@@ -398,12 +390,11 @@ const CodingProfiles = () => {
           thisYearRepos: thisYearRepos.length,
           totalContribs,
           thisYearContribs,
-          bestProjects,
-          achievements,
           joinedDate,
         });
       } catch (err) {
         console.error('Error fetching GitHub:', err);
+        setGhData({ error: true });
       } finally {
         setLoading(prev => ({ ...prev, gh: false }));
       }
@@ -455,7 +446,7 @@ const CodingProfiles = () => {
           {loading.cd
             ? <div className="skeleton-primary skeleton-box" />
             : <div className="primary-stat" style={{ color: '#38bdf8' }}>
-                {cdData?.totalSolved} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Questions Solved</span>
+                200+ <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#bae6fd' }}>Problems Solved</span>
               </div>
           }
 
@@ -557,7 +548,7 @@ const CodingProfiles = () => {
           {/* Primary stat */}
           {loading.lc
             ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat">{lcData?.solvedProblem} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>Problems Solved</span></div>
+            : <div className="primary-stat">200+ <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d1d5db' }}>Problems Solved</span></div>
           }
 
           {/* 3-col sub grid */}
@@ -645,17 +636,41 @@ const CodingProfiles = () => {
           </div>
 
           {/* Primary stat */}
-          {loading.gh
-            ? <div className="skeleton-primary skeleton-box" />
-            : <div className="primary-stat" style={{ color: '#a78bfa' }}>
-                {ghData?.totalContribs} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d8b4fe' }}>contributions</span>
-              </div>
-          }
+          {loading.gh ? (
+            <div className="skeleton-primary skeleton-box" />
+          ) : ghData?.error ? (
+            <div className="primary-stat" style={{ color: '#ef4444', fontSize: '1.2rem' }}>
+              Data Unavailable
+              <span style={{ display: 'block', fontSize: '0.9rem', color: '#fca5a5', fontWeight: 400, marginTop: '4px' }}>
+                {ghData?.rateLimited ? 'Rate limit exceeded.' : 'Failed to fetch GitHub stats.'}
+              </span>
+            </div>
+          ) : (
+            <div className="primary-stat" style={{ color: '#a78bfa' }}>
+              {ghData?.totalContribs} <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#d8b4fe' }}>contributions</span>
+            </div>
+          )}
 
           {/* 3-col sub grid */}
-          {loading.gh
-            ? <div className="sub-stats-grid">{[0,1,2].map(i => <div key={i} className="skeleton-box" style={{height:50}} />)}</div>
-            : <div className="sub-stats-grid">
+          {loading.gh ? (
+            <div className="sub-stats-grid">{[0, 1, 2].map(i => <div key={i} className="skeleton-box" style={{ height: 50 }} />)}</div>
+          ) : ghData?.error ? (
+            <div className="sub-stats-grid">
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139,92,246,0.5)', opacity: 0.5 }}>
+                <span className="sub-stat-label">THIS YEAR</span>
+                <span className="sub-stat-value" style={{ color: '#a78bfa' }}>-</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(52,211,153,0.5)', opacity: 0.5 }}>
+                <span className="sub-stat-label">{new Date().getFullYear()} REPOS</span>
+                <span className="sub-stat-value" style={{ color: '#34d399' }}>-</span>
+              </div>
+              <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(251,146,60,0.5)', opacity: 0.5 }}>
+                <span className="sub-stat-label">PUBLIC REPOS</span>
+                <span className="sub-stat-value" style={{ color: '#fb923c' }}>-</span>
+              </div>
+            </div>
+          ) : (
+            <div className="sub-stats-grid">
                 <div className="sub-stat-box" style={{ borderBottom: '2px solid rgba(139,92,246,0.5)' }}>
                   <span className="sub-stat-label">THIS YEAR</span>
                   <span className="sub-stat-value" style={{ color: '#a78bfa' }}>{ghData?.thisYearContribs}</span>
@@ -669,7 +684,7 @@ const CodingProfiles = () => {
                   <span className="sub-stat-value" style={{ color: '#fb923c' }}>{ghData?.publicRepos}</span>
                 </div>
               </div>
-          }
+          )}
 
           {/* Desc */}
           <p className="desc-text">Open-source projects, contributions and dev activity.</p>
@@ -693,15 +708,22 @@ const CodingProfiles = () => {
 
           {/* Details */}
           <div className="details-box">
-            {loading.gh
-              ? <div className="skeleton-box" style={{height:80}} />
-              : <>
-                  <p>Total stars: <strong>{ghData?.totalStars}</strong> &nbsp;·&nbsp; Forks: <strong>{ghData?.totalForks}</strong></p>
-                  <p>Followers: <strong>{ghData?.followers}</strong> &nbsp;·&nbsp; Following: <strong>{ghData?.following}</strong></p>
-                  <p>Location: <strong><FaMapMarkerAlt style={{ verticalAlign: 'middle', marginRight: 4 }} />{ghData?.location}</strong></p>
-                  <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
-                </>
-            }
+            {loading.gh ? (
+              <div className="skeleton-box" style={{ height: 80 }} />
+            ) : ghData?.error ? (
+              <>
+                <p>Total stars: <strong>-</strong> &nbsp;·&nbsp; Forks: <strong>-</strong></p>
+                <p>Followers: <strong>-</strong> &nbsp;·&nbsp; Following: <strong>-</strong></p>
+                <p>Location: <strong><FaMapMarkerAlt style={{ verticalAlign: 'middle', marginRight: 4 }} />-</strong></p>
+              </>
+            ) : (
+              <>
+                <p>Total stars: <strong>{ghData?.totalStars}</strong> &nbsp;·&nbsp; Forks: <strong>{ghData?.totalForks}</strong></p>
+                <p>Followers: <strong>{ghData?.followers}</strong> &nbsp;·&nbsp; Following: <strong>{ghData?.following}</strong></p>
+                <p>Location: <strong><FaMapMarkerAlt style={{ verticalAlign: 'middle', marginRight: 4 }} />{ghData?.location}</strong></p>
+                <p>Member since: <strong>{ghData?.joinedDate}</strong></p>
+              </>
+            )}
           </div>
 
           {/* Footer */}

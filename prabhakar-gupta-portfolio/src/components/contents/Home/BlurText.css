@@ -17,17 +17,17 @@
 
 @media (max-width: 768px) {
   .hero-blur-text {
-    font-size: clamp(0.78rem, 2.2dvh, 0.95rem);
-    line-height: 1.45;
-    margin-block: 0 clamp(0.1rem, 0.6dvh, 0.4rem);
+    font-size: clamp(0.9rem, 2.5dvh, 1.05rem);
+    line-height: 1.55;
+    margin-block: 0 clamp(0.2rem, 1dvh, 0.6rem);
   }
 }
 
 @media (max-width: 480px) {
   .hero-blur-text {
-    font-size: clamp(0.75rem, 2dvh, 0.9rem);
-    line-height: 1.4;
-    row-gap: 0.15rem;
-    padding-inline: 0.2rem;
+    font-size: clamp(0.9rem, 2.8dvh, 1rem);
+    line-height: 1.5;
+    row-gap: 0.2rem;
+    padding-inline: 0.5rem;
   }
 }
