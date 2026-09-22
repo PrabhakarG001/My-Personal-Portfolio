@@ -1,22 +1,31 @@
-/* ── COBE globe shell (matches portfolio card styling) ─────── */
+
 .cobe-globe {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   max-width: 100%;
-  border-radius: 16px;
-  border: 1px solid var(--border-soft);
-  background:
-    radial-gradient(circle at 50% 46%, rgba(45, 212, 191, 0.1) 0%, rgba(45, 212, 191, 0.02) 42%, transparent 65%),
-    radial-gradient(circle at 50% 115%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
-    #04070f;
+  background: transparent;
+  border: none;
   overflow: hidden;
+  /* Draggable affordance; .is-dragging is toggled by CobeGlobe while dragging.
+     touch-action: pan-y keeps vertical page scrolling native on touch devices
+     while horizontal drags rotate the globe. */
+  cursor: grab;
+  touch-action: pan-y; /* horizontal drags rotate; vertical swipes still scroll */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cobe-globe.is-dragging {
+  cursor: grabbing;
 }
 
 .cobe-globe-canvas {
   display: block;
   width: 100%;
   height: 100%;
+  background: transparent;
   /* cobe's globe naturally spans ~81% of the box, leaving headroom for labels */
 }
 

@@ -3,12 +3,8 @@
   color: var(--text-primary);
 }
 
-/* Single-card layout: span every column of the about-cards-grid */
+/* Desktop layout: Achievement + Available share one grid row (no full-row span) */
 @media (min-width: 761px) {
-  .about-cards-grid .achievement-card {
-    grid-column: 1 / -1;
-  }
-
   .achievement-options {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

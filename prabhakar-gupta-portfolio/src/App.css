@@ -211,8 +211,10 @@ body #contact .card {
 .about-cards-grid {
   margin-top: clamp(1rem, 2.7vw, 1.7rem);
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Achievement + Available share one row on desktop/tablet */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2.2vw, 1.4rem);
+  align-items: stretch;
 }
 
 .contact-grid {

@@ -23,12 +23,14 @@ import vite from "../../../assets/vite.svg";
 import npm from "../../../assets/npm.svg";
 import figma from "../../../assets/figma.svg";
 import c from "../../../assets/c.svg";
+import typescript from "../../../assets/typescript.svg";
 
 
 const techStack1 = [
   { name: " ", logo: html, type: "" },
   { name: "", logo: css3, type: "" },
   { name: "", logo: javascript, type: "" },
+  { name: "", logo: typescript, type: "" },
   { name: "", logo: mongodb, type: "" },
   { name: "", logo: postgresql, type: "" },
   { name: "", logo: expressjs, type: "" },

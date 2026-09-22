@@ -7,6 +7,9 @@ import "./cobe-globe.css";
  *
  * - Auto-rotates via cobe's update() in a rAF loop; pauses when the globe is
  *   off-screen (IntersectionObserver) so it never burns GPU in the background.
+ * - Drag-to-rotate: pointer events (mouse + touch + pen). Horizontal drag
+ *   spins phi, vertical drag tilts theta (clamped), with gentle inertia on
+ *   release that hands back to the auto-spin. Cursor switches grab/grabbing.
  * - HTML labels are synced to markers/arcs every frame using the exact same
  *   projection math cobe uses internally (toVector / projectPoint /
  *   projectArc mirror cobe's U() / O() / X() helpers), positioned in % of
@@ -87,6 +90,9 @@ const CobeGlobe = ({
   const labelsRef = useRef(null);
   const containerRef = useRef(null);
 
+  // Latest rotation values shared between the spin loop and drag handlers
+  const rotationRef = useRef({ phi: 0, theta: 0 });
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -140,23 +146,120 @@ const CobeGlobe = ({
     const PHI_START = 3.37;
     const THETA = 0.24; // slight downward tilt; shared by paintLabels + globe
 
+    rotationRef.current.phi = PHI_START;
+    rotationRef.current.theta = THETA;
+
+    // Single place where rotation is pushed to the canvas + labels
+    const applyRotation = (phi, theta) => {
+      globe?.update({ phi, theta });
+      paintLabels(theta, phi);
+    };
+
+    // ── Drag-to-rotate (pointer events: mouse + touch + pen) ────────────
+    const PHI_PER_PX = 0.005; // rad per px ≈ 2× the auto-spin speed per frame
+    const THETA_PER_PX = 0.003;
+    const THETA_LIMIT = 1.1; // clamp so the globe can't flip over the poles
+
+    const drag = { active: false, pointerId: null, lastX: 0, lastY: 0, vx: 0, vy: 0 };
+    let inertiaRaf = 0;
+
+    const startAutoSpin = () => {
+      if (reduceMotion || drag.active || spinRaf) return;
+      const spin = () => {
+        if (destroyed || drag.active) return;
+        if (onScreen) {
+          const r = rotationRef.current;
+          r.phi += rotateSpeed;
+          applyRotation(r.phi, r.theta);
+        }
+        spinRaf = requestAnimationFrame(spin);
+      };
+      spinRaf = requestAnimationFrame(spin);
+    };
+
+    const onPointerDown = (e) => {
+      if (drag.active || e.button > 0) return; // primary button / touch only
+      drag.active = true;
+      drag.pointerId = e.pointerId;
+      drag.lastX = e.clientX;
+      drag.lastY = e.clientY;
+      drag.vx = 0;
+      drag.vy = 0;
+      cancelAnimationFrame(inertiaRaf); // stop any release glide
+      inertiaRaf = 0;
+      cancelAnimationFrame(spinRaf); // pause auto-spin while dragging
+      spinRaf = 0;
+      container.classList.add("is-dragging");
+      try {
+        // Keep move/up events flowing even when the pointer leaves the element
+        container.setPointerCapture(e.pointerId);
+      } catch {
+        /* pointer capture unsupported — drag still works inside the element */
+      }
+    };
+
+    const onPointerMove = (e) => {
+      if (!drag.active || e.pointerId !== drag.pointerId) return;
+      const dx = e.clientX - drag.lastX;
+      const dy = e.clientY - drag.lastY;
+      drag.lastX = e.clientX;
+      drag.lastY = e.clientY;
+      const r = rotationRef.current;
+      r.phi += dx * PHI_PER_PX;
+      r.theta = Math.max(-THETA_LIMIT, Math.min(THETA_LIMIT, r.theta - dy * THETA_PER_PX));
+      drag.vx = dx;
+      drag.vy = dy;
+      applyRotation(r.phi, r.theta);
+    };
+
+    const endDrag = () => {
+      if (!drag.active) return;
+      drag.active = false;
+      drag.pointerId = null;
+      container.classList.remove("is-dragging");
+      if (reduceMotion) return; // static globe: no glide, no auto-spin
+      // Gentle inertia glide that decays into the regular auto-spin
+      const vx0 = drag.vx * PHI_PER_PX;
+      const vy0 = drag.vy * THETA_PER_PX;
+      if (Math.abs(vx0) < 0.0001 && Math.abs(vy0) < 0.0001) {
+        startAutoSpin(); // plain click/tap — just resume the auto-spin
+        return;
+      }
+      let vx = vx0;
+      let vy = vy0;
+      const glide = () => {
+        if (destroyed || drag.active) return;
+        const r = rotationRef.current;
+        r.phi += vx;
+        r.theta = Math.max(-THETA_LIMIT, Math.min(THETA_LIMIT, r.theta - vy));
+        vx *= 0.94; // exponential decay
+        vy *= 0.94;
+        applyRotation(r.phi, r.theta);
+        if (Math.abs(vx) > 0.0001 || Math.abs(vy) > 0.0001) {
+          inertiaRaf = requestAnimationFrame(glide);
+        } else {
+          inertiaRaf = 0;
+          startAutoSpin(); // hand back to the normal rotation
+        }
+      };
+      glide();
+    };
+
+    const onPointerUp = () => endDrag();
+    const onPointerCancel = () => endDrag();
+
+    container.addEventListener("pointerdown", onPointerDown);
+    container.addEventListener("pointermove", onPointerMove);
+    container.addEventListener("pointerup", onPointerUp);
+    container.addEventListener("pointercancel", onPointerCancel);
+
     const startSpin = () => {
       if (reduceMotion) {
         // Static frame at a pleasant angle, India near the center
         paintLabels(THETA, PHI_START);
         return;
       }
-      let phi = PHI_START;
-      const spin = () => {
-        if (destroyed) return;
-        if (onScreen) {
-          phi += rotateSpeed;
-          globe?.update({ phi });
-          paintLabels(THETA, phi);
-        }
-        spinRaf = requestAnimationFrame(spin);
-      };
-      spinRaf = requestAnimationFrame(spin);
+      startAutoSpin();
     };
 
     const createGlobeInstance = () => {
@@ -230,6 +333,7 @@ const CobeGlobe = ({
         globe?.destroy();
         globe = null;
         cancelAnimationFrame(spinRaf);
+        spinRaf = 0;
         createGlobeInstance();
       }, 200);
     };
@@ -244,8 +348,13 @@ const CobeGlobe = ({
       destroyed = true;
       cancelAnimationFrame(initRaf);
       cancelAnimationFrame(spinRaf);
+      cancelAnimationFrame(inertiaRaf);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      container.removeEventListener("pointerdown", onPointerDown);
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerup", onPointerUp);
+      container.removeEventListener("pointercancel", onPointerCancel);
       resizeCleanup?.();
       globe?.destroy();
       globe = null;
