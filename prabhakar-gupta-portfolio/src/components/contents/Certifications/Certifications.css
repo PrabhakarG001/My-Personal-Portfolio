@@ -1,0 +1,208 @@
+/* ── Certifications grid ─────────────────────────────────── */
+/* Desktop: 3 per row · Tablet: 2 · Mobile: 1 */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.4rem);
+}
+
+@media (max-width: 1024px) {
+  .certifications-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .certifications-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── Card: flex column so footer buttons anchor to the bottom ── */
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.15rem 1.15rem;
+}
+
+.cert-card.coming-soon {
+  border-style: dashed;
+}
+
+/* ── Top: centered logo + provider ── */
+.cert-logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 108px;
+  justify-content: center;
+  margin-bottom: 0.9rem;
+}
+
+.cert-logo-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(15, 23, 42, 0.55);
+  overflow: hidden;
+}
+
+.cert-logo-icon {
+  font-size: 1.9rem;
+  z-index: 1;
+}
+
+.cert-logo-placeholder {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-2);
+  z-index: 1;
+}
+
+.cert-logo-glow {
+  position: absolute;
+  inset: auto -30% -60% -30%;
+  height: 80%;
+  filter: blur(18px);
+  opacity: 0.22;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cert-provider {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* ── Title ── */
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.32;
+  text-align: left;
+  margin-bottom: 0.45rem;
+}
+
+/* ── Description ── */
+.cert-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.62;
+  margin-bottom: 0.7rem;
+  flex: 1; /* pushes tags + footer down for consistent alignment */
+}
+
+/* ── Tags ── */
+.cert-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  margin-bottom: 0.9rem;
+}
+
+.cert-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.45);
+  border-radius: 999px;
+  padding: 0.16rem 0.55rem;
+  white-space: nowrap;
+}
+
+/* ── Footer: two equal side-by-side buttons ── */
+.cert-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin-top: auto;
+}
+
+.cert-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 40px;
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.24s ease,
+    border-color 0.24s ease,
+    box-shadow 0.24s ease,
+    color 0.24s ease;
+}
+
+.cert-btn.secondary {
+  border-color: var(--border-soft);
+  background: rgba(15, 23, 42, 0.54);
+  color: var(--text-secondary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cert-btn:hover:not(:disabled),
+  .cert-btn:focus-visible:not(:disabled) {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+    box-shadow:
+      0 10px 24px rgba(8, 145, 178, 0.3),
+      0 0 0 1px rgba(125, 211, 252, 0.3);
+  }
+
+  .cert-btn.secondary:hover:not(:disabled) {
+    background: rgba(56, 189, 248, 0.12);
+  }
+}
+
+.cert-btn:focus-visible {
+  outline: 2px solid rgba(125, 211, 252, 0.7);
+  outline-offset: 2px;
+}
+
+/* Coming Soon: non-actionable but visually consistent */
+.cert-btn:disabled,
+.cert-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.62;
+  border-style: dashed;
+  background: rgba(15, 23, 42, 0.4);
+  color: var(--text-muted);
+}
+
+.cert-btn svg {
+  flex-shrink: 0;
+}
+
+/* Prevent long provider names / titles from overflowing on tiny screens */
+@media (max-width: 400px) {
+  .cert-btn {
+    font-size: 0.72rem;
+    padding: 0.5rem 0.35rem;
+  }
+
+  .cert-btn span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

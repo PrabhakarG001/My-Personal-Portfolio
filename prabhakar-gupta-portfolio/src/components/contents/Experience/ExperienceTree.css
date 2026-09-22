@@ -1,0 +1,393 @@
+/* ── Experience career tree ──────────────────────────────── */
+/* Reuses global tokens: --font-display, --border-soft, --brand-1..3 */
+
+.experience-tree {
+  position: relative;
+  max-width: 980px;
+  margin-inline: auto;
+  padding-block: 0.5rem 1rem;
+}
+
+/* ── Main trunk ──
+   Centered via calc (not transform) so framer-motion's scaleY
+   animation never clobbers the centering. */
+.experience-trunk {
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 212, 191, 0.05),
+    rgba(45, 212, 191, 0.55) 18%,
+    rgba(56, 189, 248, 0.55) 82%,
+    rgba(56, 189, 248, 0.05)
+  );
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.25);
+}
+
+/* ── Rows: desktop two-sided layout ──
+   Grid: [card column] [gutter 72px] [card column]
+   The trunk runs down the center of the gutter; the branch is a
+   28px line inside the gutter that always meets the trunk exactly. */
+.experience-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  align-items: center;
+  margin-bottom: clamp(1.1rem, 3vw, 2rem);
+}
+
+.experience-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Node sits on the trunk (center of the gutter) —
+   positioned with calc so framer-motion's scale animation
+   never clobbers the centering transform. */
+.experience-node {
+  position: absolute;
+  left: calc(50% - 9px);
+  top: calc(50% - 9px);
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #030712;
+  border: 2px solid var(--brand-1);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.45);
+}
+
+.experience-node .node-core {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-1);
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.8);
+}
+
+/* Current entries get a gently pulsing node core */
+.experience-node.is-current .node-core {
+  animation: nodePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(45, 212, 191, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(45, 212, 191, 0.85);
+    transform: scale(1.18);
+  }
+}
+
+/* ── Branch: exactly spans trunk → gutter edge (28px) ── */
+.experience-branch {
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  height: 2px;
+  width: 28px;
+  background: linear-gradient(90deg, rgba(45, 212, 191, 0.55), rgba(56, 189, 248, 0.55));
+  border-radius: 999px;
+  z-index: 1;
+}
+
+/* Left branch: extends from trunk center leftwards */
+.experience-row.side-left .experience-branch {
+  left: 50%;
+  margin-left: -36px; /* -36px = 28px branch + 8px gap from node edge */
+  transform-origin: right;
+}
+
+/* Right branch: extends from trunk center rightwards */
+.experience-row.side-right .experience-branch {
+  left: 50%;
+  margin-left: 8px; /* 8px = node half-width + small gap */
+  transform-origin: left;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.55), rgba(45, 212, 191, 0.55));
+}
+
+/* ── Card placement ── */
+.experience-card-wrap {
+  min-width: 0;
+}
+
+.experience-row.side-left .experience-card-wrap {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  width: 100%;
+  max-width: 430px;
+  text-align: right;
+}
+
+.experience-row.side-right .experience-card-wrap {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+  width: 100%;
+  max-width: 430px;
+}
+
+.experience-row.side-left .experience-card-head {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.experience-row.side-left .experience-meta-row {
+  justify-content: flex-end;
+}
+
+.experience-row.side-left .experience-points li {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.experience-row.side-left .experience-points li::before {
+  left: auto;
+  right: 0;
+}
+
+/* ── Experience card visuals (extends universal-card) ── */
+.experience-card {
+  padding: 1.1rem 1.25rem;
+}
+
+.experience-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.experience-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.experience-org-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--brand-1);
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .experience-card:hover .experience-org-icon {
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(45, 212, 191, 0.35);
+  }
+
+  .experience-card:hover {
+    border-color: rgba(45, 212, 191, 0.5);
+  }
+}
+
+.experience-head-text {
+  min-width: 0;
+}
+
+.experience-org {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.experience-role {
+  font-size: 0.88rem;
+  color: var(--brand-2);
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+.experience-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.experience-date-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 999px;
+  padding: 0.22rem 0.66rem;
+  white-space: nowrap;
+}
+
+.experience-present {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #4ade80;
+}
+
+.present-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: presentPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes presentPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.82);
+  }
+}
+
+.experience-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.experience-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.experience-points li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.experience-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand-2);
+}
+
+/* ── Mobile: single-sided tree ── */
+@media (max-width: 860px) {
+  .experience-tree {
+    padding-inline: 0.25rem;
+  }
+
+  .experience-trunk {
+    left: 9px;
+  }
+
+  .experience-row {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    align-items: stretch;
+    margin-bottom: 1.4rem;
+  }
+
+  .experience-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .experience-node {
+    position: relative;
+    left: auto;
+    top: auto;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: start;
+    margin-top: 1.4rem;
+  }
+
+  .experience-branch {
+    display: none;
+  }
+
+  .experience-card-wrap,
+  .experience-row.side-left .experience-card-wrap,
+  .experience-row.side-right .experience-card-wrap {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: stretch;
+    max-width: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .experience-row.side-left .experience-card-head {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .experience-row.side-left .experience-meta-row {
+    justify-content: flex-start;
+  }
+
+  .experience-row.side-left .experience-points li {
+    padding-right: 0;
+    padding-left: 1rem;
+  }
+
+  .experience-row.side-left .experience-points li::before {
+    right: auto;
+    left: 0;
+  }
+
+  .experience-card {
+    padding: 1rem;
+  }
+
+  .experience-summary {
+    font-size: 0.88rem;
+  }
+}
+
+/* ── Reduced motion: clean static tree, everything visible ── */
+@media (prefers-reduced-motion: reduce) {
+  .experience-trunk,
+  .experience-node,
+  .experience-branch {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .experience-trunk {
+    left: calc(50% - 1px) !important;
+  }
+
+  .present-dot,
+  .experience-node.is-current .node-core {
+    animation: none !important;
+  }
+}

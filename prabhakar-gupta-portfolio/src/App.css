@@ -139,6 +139,16 @@
   box-shadow: 0 0 14px rgba(45, 212, 191, 0.54);
 }
 
+/* Supporting line under a section title (e.g. Experience) */
+.section-support-text {
+  margin: 0 auto clamp(1.3rem, 3vw, 2rem);
+  max-width: 620px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  line-height: 1.65;
+}
+
 body :is(
   .meabout-container,
   .certificate-card,

@@ -29,25 +29,27 @@ const Meabout = ({ delay = 0 }) => {
             <span className="highlight-gradient">Uttar Pradesh, India.</span>
           </p>
 
-          <p>I am thrilled to be enrolled in Software Engineering.</p>
           <p>
-            I am pursuing B.Tech (Computer Science and Engineering) from Dr. A.P.J Abdul Kalam
-            Technical University.
+            I am a <span className="highlight-gradient"><i>2nd-year B.Tech student</i></span> pursuing
+            <span className="highlight-gradient"><i> Computer Science &amp; Engineering</i></span> at Dr. A.P.J
+            Abdul Kalam Technical University.
           </p>
 
           <p>
-            I am a passionate <span className="highlight-gradient"><i>Aspiring Software Engineer</i></span>{" "}
-            skilled in <span className="highlight-gradient"><i>Full Stack Development</i></span> using the{" "}
+            I am a <span className="highlight-gradient"><i>Software Developer</i></span> who enjoys
+            building with <span className="highlight-gradient"><i>Full Stack Development</i></span> using the{" "}
             <span className="highlight-gradient"><i>MERN Stack.</i></span>
           </p>
           <p>
-            With a strong foundation in <span className="highlight-gradient"><i>C++, DSA, and both SQL</i></span>{" "}
-            and <span className="highlight-gradient"><i>MongoDB,</i></span> I enjoy crafting scalable web
-            solutions.
+            I work on <span className="highlight-gradient"><i>real projects</i></span> — from full stack web apps
+            to hackathon builds — while strengthening my foundation in{" "}
+            <span className="highlight-gradient"><i>C++, DSA, SQL, and MongoDB.</i></span>
           </p>
           <p>
-            I love turning ideas into <span className="highlight-gradient"><i>real-world products</i></span>{" "}
-            that are both <span className="highlight-gradient"><i>elegant</i></span> and{" "}
+            Right now I am exploring <span className="highlight-gradient"><i>AI/ML</i></span> and
+            <span className="highlight-gradient"><i> modern engineering practices</i></span> like DevOps and
+            cloud, turning ideas into <span className="highlight-gradient"><i>real-world products</i></span> that
+            are both <span className="highlight-gradient"><i>elegant</i></span> and{" "}
             <span className="highlight-gradient"><i>efficient.</i></span>
           </p>
 

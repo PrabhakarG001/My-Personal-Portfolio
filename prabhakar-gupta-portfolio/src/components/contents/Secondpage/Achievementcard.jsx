@@ -1,5 +1,5 @@
 import "./Achievementcard.css";
-import { FaTrophy, FaLaptopCode, FaMedal, FaAward } from "react-icons/fa";
+import { FaTrophy, FaLaptopCode, FaMedal, FaAward, FaGithub } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
 import { useProfileStats } from "../../../context/ProfileStatsContext.jsx";
 
@@ -7,7 +7,8 @@ const Achievementcard = ({ delay = 0 }) => {
   const { stats, loading } = useProfileStats();
   const lcSolved = stats?.leetcode?.solvedProblem || 0;
   const cdSolved = stats?.codolio?.totalSolved || 0;
-  
+  const ghData = stats?.github;
+
   // Use the maximum of Codolio or LeetCode total, fallback to a loading placeholder
   const solvedText = loading.leetcode ? "..." : Math.max(lcSolved, cdSolved);
 
@@ -66,6 +67,24 @@ const Achievementcard = ({ delay = 0 }) => {
           </a>
         </p>
       </div>
+
+      {/* GitHub activity badge — real numbers from the live GitHub API, no fabrication */}
+      {!ghData?.error && (
+        <div className="card-option">
+          <FaGithub className="icon" style={{ color: "#a78bfa" }} />
+          <p className="text">
+            {loading.github ? (
+              <strong>Loading GitHub activity...</strong>
+            ) : (
+              <>
+                <strong>{ghData?.totalContribs} Contributions</strong> and{" "}
+                <strong>{ghData?.publicRepos} public repos</strong> on GitHub
+                {ghData?.totalStars > 0 && <> • <strong>{ghData?.totalStars} stars</strong> earned</>}
+              </>
+            )}
+          </p>
+        </div>
+      )}
     </InteractiveCard>
   );
 };

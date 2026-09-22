@@ -22,6 +22,10 @@ import Certificatecard from "./components/contents/Secondpage/Certificatecard.js
 import Achievementcard from "./components/contents/Secondpage/Achievementcard.jsx";
 import Availablecard from "./components/contents/Secondpage/Availablecard.jsx";
 
+import ExperienceTree from "./components/contents/Experience/ExperienceTree.jsx";
+import RelevantCourses from "./components/contents/RelevantCourses/RelevantCourses.jsx";
+import Certifications from "./components/contents/Certifications/Certifications.jsx";
+
 import TechStackCard from "./components/contents/Thirdpage/TechStackCard.jsx";
 import SoftSkills from "./components/contents/Thirdpage/SoftSkills.jsx";
 
@@ -67,6 +71,7 @@ function App() {
       textColor: "#fff",
       links: [
         { label: "About Me", href: "#about", ariaLabel: "About Me" },
+        { label: "Experience", href: "#experience", ariaLabel: "Experience" },
         { label: "Skills", href: "#skills", ariaLabel: "Skills" },
         { label: "Resume", href: "#resume", ariaLabel: "Resume" },
       ],
@@ -78,6 +83,8 @@ function App() {
       links: [
         { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
         { label: "Coding Profiles", href: "#coding-profiles", ariaLabel: "Coding Profiles" },
+        { label: "Courses", href: "#courses", ariaLabel: "Relevant Courses" },
+        { label: "Certifications", href: "#certifications", ariaLabel: "Certifications" },
         { label: "Goals", href: "#goals", ariaLabel: "Career Goals" },
       ],
     },
@@ -180,6 +187,17 @@ function App() {
           </div>
         </SectionShell>
 
+        <SectionShell
+          id="experience"
+          chip="Where I've worked"
+          title="Experience"
+        >
+          <p className="section-support-text">
+            Building real-world experience through software, teamwork, and continuous learning.
+          </p>
+          <ExperienceTree />
+        </SectionShell>
+
         <SectionShell id="skills" chip="Tech Arsenal" title="My Skills">
           <TechStackCard />
         </SectionShell>
@@ -194,6 +212,14 @@ function App() {
 
         <SectionShell id="coding-profiles" chip="Competitive Programming" title="Coding Profiles">
           <CodingProfiles />
+        </SectionShell>
+
+        <SectionShell id="courses" chip="Learning Journey" title="Relevant Courses">
+          <RelevantCourses />
+        </SectionShell>
+
+        <SectionShell id="certifications" chip="Credentials" title="Certifications">
+          <Certifications />
         </SectionShell>
 
         <SectionShell id="goals" chip="My Roadmap" title="Career Goals">

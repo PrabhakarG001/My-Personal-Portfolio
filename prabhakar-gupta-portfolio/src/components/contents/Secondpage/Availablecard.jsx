@@ -14,6 +14,10 @@ const Availablecard = ({ delay = 0 }) => {
       <div className="header">
         <FaRocket className="icon aqua" style={{ color: "#f97316" }}/>
         <h2 className="title">Available for Hire</h2>
+        <span className="hire-status-pill" role="status" aria-label="Open to work">
+          <span className="hire-status-dot" aria-hidden="true" />
+          Open to work
+        </span>
       </div>
 
       <div className="card-option">

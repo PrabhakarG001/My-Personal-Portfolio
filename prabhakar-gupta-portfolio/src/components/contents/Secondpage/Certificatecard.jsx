@@ -1,8 +1,20 @@
 import "./Certificatecard.css";
-import { FaAward, FaCode, FaLaptopCode, FaTrophy } from "react-icons/fa";
+import { FaAward, FaRobot, FaPython, FaCloud } from "react-icons/fa";
 import InteractiveCard from "../../InteractiveCard.jsx";
+import { certifications } from "../../../config/certificationsConfig.js";
+
+// Compact featured-certificates card for the About grid.
+// Links come straight from the central certifications config — real ones open,
+// the rest show "Coming Soon" (no fake URLs).
+const CERT_ICONS = {
+  "aws-cloud-foundation": FaCloud,
+  "python-programming": FaPython,
+  "ai-certificate": FaRobot,
+};
 
 const CertificateCard = ({ delay = 0 }) => {
+  const featured = ["aws-cloud-foundation", "python-programming", "ai-certificate"];
+
   return (
     <InteractiveCard
       className="certificate-card"
@@ -13,48 +25,38 @@ const CertificateCard = ({ delay = 0 }) => {
     >
       <div className="header">
         <FaAward className="icon gradient" />
-        <h2 className="title">Certificates</h2>
+        <h2 className="title">Featured Certificates</h2>
       </div>
 
-      <div className="card-option">
-        <FaLaptopCode className="icon green" />
-        <p className="text">
-          Full Stack Web Development - Apna College
-          <br />
-          <span>Issued: October 2025</span>
-          <br />
-          <a href="#">Link: Coming Soon</a>
-        </p>
-      </div>
+      {featured.map((id) => {
+        const cert = certifications.find((c) => c.id === id);
+        const Icon = CERT_ICONS[id];
+        const shortTitle = cert.title
+          .replace(" Certificate", "")
+          .replace("AWS Academy Cloud Foundation Course", "AWS Cloud Foundation");
 
-      <div className="card-option">
-        <FaCode className="icon cyan" />
-        <p className="text">
-          Data Structures &amp; Algorithms - Apna College
-          <br />
-          <span>Issued: February 2026</span>
-          <br />
-          <a href="#">Link: Coming Soon</a>
-        </p>
-      </div>
-
-      <div className="card-option">
-        <FaAward className="icon blue" style={{ color: "#3b82f6" }} />
-        <p className="text">
-          IBM Skillbuild AI Certification
-          <br />
-          <span>Issued: August 2026</span>
-          <br />
-          <a
-            href="https://drive.google.com/file/d/1xaZQHVB0WnUFa_WuzG9zFjIjPdQ_lkcP/view?usp=drivesdk"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "#3b82f6", textDecoration: "underline", textUnderlineOffset: "3px" }}
-          >
-            [Link]
-          </a>
-        </p>
-      </div>
+        return (
+          <div className="card-option" key={id}>
+            <Icon className="icon cyan" aria-hidden="true" />
+            <p className="text">
+              {shortTitle} — {cert.provider.split(" / ")[0]}
+              <br />
+              {cert.link ? (
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "#3b82f6", textDecoration: "underline", textUnderlineOffset: "3px" }}
+                >
+                  [View]
+                </a>
+              ) : (
+                <span>Coming Soon</span>
+              )}
+            </p>
+          </div>
+        );
+      })}
     </InteractiveCard>
   );
 };

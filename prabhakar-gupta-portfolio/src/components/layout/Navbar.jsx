@@ -6,10 +6,13 @@ import "./Navbar.css";
 const navItems = [
   { id: "typewriter", label: "Home" },
   { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
   { id: "skills", label: "Skills" },
   { id: "edge", label: "Edge" },
   { id: "projects", label: "Projects" },
   { id: "coding-profiles", label: "Coding Profiles" },
+  { id: "courses", label: "Courses" },
+  { id: "certifications", label: "Certifications" },
   { id: "goals", label: "Goals" },
   { id: "resume", label: "Resume" },
   { id: "contact", label: "Contact" },

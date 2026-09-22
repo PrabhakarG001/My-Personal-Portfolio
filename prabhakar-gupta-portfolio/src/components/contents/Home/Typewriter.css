@@ -21,16 +21,42 @@
   display: inline-block;
   font-family: var(--font-display, sans-serif);
   position: relative;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0.3rem;
   font-size: clamp(1.15rem, 4.5vw, 2.4rem);
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.015em;
   white-space: normal;
   text-align: center;
   width: 100%;
   max-width: 100%;
-  line-height: 1.25;
+  line-height: 1.22;
   word-break: normal;
   overflow-wrap: break-word;
+  filter: drop-shadow(0 2px 14px rgba(45, 212, 191, 0.18));
+}
+
+/* Subtle underline accent beneath the animated role text */
+.gradient-typewriter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(72%, 260px);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(64, 255, 170, 0), rgba(64, 255, 170, 0.55), rgba(64, 121, 255, 0.55), rgba(64, 255, 170, 0));
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-typewriter {
+    animation: none;
+  }
+
+  .blinking-cursor {
+    animation: none;
+  }
 }
 
 .blinking-cursor {

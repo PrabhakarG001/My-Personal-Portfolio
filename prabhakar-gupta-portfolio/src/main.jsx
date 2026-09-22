@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
+import { ProfileStatsProvider } from "./context/ProfileStatsContext.jsx";
 import "./index.css";
 
 // Suppress THREE.Clock deprecation warning from libraries
@@ -16,7 +17,9 @@ console.warn = (...args) => {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ProfileStatsProvider>
+        <App />
+      </ProfileStatsProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
