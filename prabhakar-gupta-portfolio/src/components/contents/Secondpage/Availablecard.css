@@ -104,6 +104,36 @@
   flex: 1;
 }
 
+/* ── PC: one line per row + cap the globe so it never re-inflates the row ── */
+@media (min-width: 761px) {
+  .globe-mini-heading,
+  .globe-headline {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .globe-mini-heading {
+    margin-bottom: 0.2rem;
+  }
+
+  .globe-headline {
+    margin-bottom: 0.55rem;
+  }
+
+  .globe-stage {
+    min-height: 0;
+  }
+
+  .globe-stage .cobe-globe {
+    flex: 1;
+    max-height: 380px;
+    margin-inline: auto;
+    max-width: min(100%, 380px);
+  }
+}
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .available-card {

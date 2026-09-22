@@ -21,8 +21,8 @@
   max-width: 96vw;
   padding: 0.42rem 0.5rem 0.42rem 0.95rem;
   border-radius: 999px;
-  /* Fully transparent bar — only a very subtle faded blur so it blends with the page */
-  background: rgba(10, 16, 30, 0.06);
+  /* Fully transparent bar — only a barely-there faded blur so it blends with the page */
+  background: rgba(10, 16, 30, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: none;
   backdrop-filter: blur(8px) saturate(140%);
@@ -32,7 +32,7 @@
 
 .pillScrolled {
   /* Still subtle after scrolling: faint fade + blur, no heavy glass */
-  background: rgba(10, 16, 30, 0.34);
+  background: rgba(10, 16, 30, 0.2);
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 26px -14px rgba(2, 8, 23, 0.55);
 }

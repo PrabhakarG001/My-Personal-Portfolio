@@ -142,3 +142,24 @@
     text-align: left;
   }
 }
+
+/* ── Multi-column layouts: subgrid shares the head / desc / tags rows across
+   sibling cards, so titles, statuses, description starts and tag rows all sit
+   on the same baselines — at any width or content length, with no fixed floors.
+   (Card heights are still set by the grid stretch, not by this.) ── */
+@media (min-width: 641px) {
+  .course-card {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+  }
+}
+
+/* Graceful fallback where subgrid is unsupported: keep the previous floor. */
+@supports not (grid-template-rows: subgrid) {
+  @media (min-width: 641px) {
+    .course-head-text {
+      min-height: 4.05rem; /* two title lines + period + gap */
+    }
+  }
+}
