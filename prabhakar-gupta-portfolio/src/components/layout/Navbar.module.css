@@ -21,18 +21,20 @@
   max-width: 96vw;
   padding: 0.42rem 0.5rem 0.42rem 0.95rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 32px -12px rgba(2, 8, 23, 0.6);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  /* Fully transparent bar — only a very subtle faded blur so it blends with the page */
+  background: rgba(10, 16, 30, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .pillScrolled {
-  background: rgba(10, 16, 30, 0.55);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 14px 38px -12px rgba(2, 8, 23, 0.75);
+  /* Still subtle after scrolling: faint fade + blur, no heavy glass */
+  background: rgba(10, 16, 30, 0.34);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 26px -14px rgba(2, 8, 23, 0.55);
 }
 
 /* ── Logo ── */
@@ -360,6 +362,20 @@
     width: 100%;
     max-width: 100%;
     justify-content: space-between;
+    /* Keep the bar rectangular with only slightly rounded corners on mobile */
+    border-radius: 14px;
+  }
+}
+
+/* ── Desktop: name hidden, links carry the bar ── */
+@media (min-width: 1025px) {
+  .logo {
+    display: none;
+  }
+
+  .pill {
+    /* Balance padding now that the logo is gone */
+    padding: 0.42rem 0.5rem;
   }
 }
 

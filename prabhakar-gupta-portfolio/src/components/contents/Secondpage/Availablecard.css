@@ -95,121 +95,13 @@
   position: relative;
   flex: 1;
   min-height: 250px;
-  border-radius: 16px;
-  border: 1px solid var(--border-soft);
-  background:
-    radial-gradient(circle at 50% 46%, rgba(45, 212, 191, 0.1) 0%, rgba(45, 212, 191, 0.02) 42%, transparent 65%),
-    radial-gradient(circle at 50% 115%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
-    #04070f;
-  overflow: hidden;
+  display: flex;
+  margin-top: 0.25rem;
 }
 
-.globe-svg,
-.globe-lines {
-  position: absolute;
-  inset: 8% 12%;
-  width: 76%;
-  height: 84%;
-  overflow: visible;
-}
-
-.globe-lines {
-  inset: 8% 0;
-  width: 100%;
-  height: 84%;
-}
-
-.globe-outline {
-  fill: none;
-  stroke: rgba(148, 233, 220, 0.4);
-  stroke-width: 0.55;
-  vector-effect: non-scaling-stroke;
-}
-
-.globe-graticule {
-  fill: none;
-  stroke: rgba(148, 233, 220, 0.16);
-  stroke-width: 0.4;
-  vector-effect: non-scaling-stroke;
-}
-
-.globe-dot {
-  fill: #7dd3fc;
-}
-
-.globe-dot.home {
-  fill: #fbbf24;
-}
-
-.globe-hub {
-  fill: #fbbf24;
-  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.9));
-}
-
-.globe-hub-ring {
-  fill: none;
-  stroke: rgba(251, 191, 36, 0.55);
-  stroke-width: 0.4;
-  vector-effect: non-scaling-stroke;
-}
-
-.globe-line {
-  stroke: rgba(125, 211, 252, 0.28);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-  animation: lineFlow 2.6s linear infinite;
-}
-
-.globe-line.home {
-  stroke: rgba(251, 191, 36, 0.6);
-}
-
-@keyframes lineFlow {
-  to {
-    stroke-dashoffset: -12;
-  }
-}
-
-/* ── City tags ── */
-.globe-tag {
-  position: absolute;
-  z-index: 2;
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.09);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  padding: 0.16rem 0.48rem;
-  white-space: nowrap;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  animation: tagBreath 3.4s ease-in-out infinite;
-}
-
-.globe-tag.home {
-  color: #0f172a;
-  background: rgba(251, 191, 36, 0.92);
-  border-color: rgba(253, 230, 138, 0.8);
-  box-shadow: 0 0 14px rgba(251, 191, 36, 0.35);
-}
-
-.globe-tag:nth-child(odd) {
-  animation-delay: -1.7s;
-}
-
-@keyframes tagBreath {
-  0%,
-  100% {
-    opacity: 0.88;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
+/* COBE globe fills the stage; the card's flex:1 keeps it stable in the grid */
+.globe-stage .cobe-globe {
+  flex: 1;
 }
 
 /* ── Mobile ── */
@@ -222,25 +114,11 @@
   .globe-stage {
     min-height: 235px;
   }
-
-  .globe-tag {
-    font-size: 0.55rem;
-    padding: 0.14rem 0.42rem;
-  }
-
-  .globe-tag[style*="left: 2%"],
-  .globe-tag[style*="right: 2%"] {
-    max-width: 92px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .hire-status-dot,
-  .globe-line,
-  .globe-tag,
   .globe-headline {
     animation: none !important;
   }

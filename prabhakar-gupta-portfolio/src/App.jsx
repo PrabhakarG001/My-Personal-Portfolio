@@ -17,7 +17,6 @@ import Typewriter from "./components/contents/Home/Typewriter.jsx";
 import BlurText from "./components/contents/Home/BlurText.jsx";
 
 import Meabout from "./components/contents/Secondpage/Meabout.jsx";
-import Certificatecard from "./components/contents/Secondpage/Certificatecard.jsx";
 import Achievementcard from "./components/contents/Secondpage/Achievementcard.jsx";
 import Availablecard from "./components/contents/Secondpage/Availablecard.jsx";
 
@@ -137,9 +136,8 @@ function App() {
           <Meabout />
 
           <div className="about-cards-grid">
-            <Certificatecard delay={0.04} />
-            <Achievementcard delay={0.14} />
-            <Availablecard delay={0.24} />
+            <Achievementcard delay={0.04} />
+            <Availablecard delay={0.14} />
           </div>
         </SectionShell>
 
