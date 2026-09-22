@@ -1,0 +1,387 @@
+/* ── Floating glass pill navigation ─────────────────────────── */
+
+.header {
+  position: fixed;
+  top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
+  z-index: 1200;
+  display: flex;
+  justify-content: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
+.pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 1.4rem);
+  width: max-content;
+  max-width: 96vw;
+  padding: 0.42rem 0.5rem 0.42rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 32px -12px rgba(2, 8, 23, 0.6);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillScrolled {
+  background: rgba(10, 16, 30, 0.55);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 38px -12px rgba(2, 8, 23, 0.75);
+}
+
+/* ── Logo ── */
+.logo {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.04rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #2dd4bf;
+  white-space: nowrap;
+  padding: 0.3rem 0.35rem;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* ── Center links (pure Flexbox, even spacing) ── */
+.centerLinks {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.15rem;
+}
+
+.centerItem {
+  position: relative;
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active state: soft lighter pill + bright white top line/glow */
+.linkActive {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.linkActive::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 22%;
+  right: 22%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.85), 0 0 18px rgba(45, 212, 191, 0.45);
+  pointer-events: none;
+}
+
+.caret {
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  opacity: 0.75;
+  transition: transform 0.25s ease;
+}
+
+.hasDropdown:hover .caret,
+.hasDropdown:focus-within .caret {
+  transform: rotate(225deg) translateY(-1px);
+}
+
+/* ── Pure CSS hover dropdown ── */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translate(-50%, 8px);
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 18px;
+  background: rgba(10, 16, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 42px -14px rgba(2, 8, 23, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  z-index: 40;
+}
+
+/* Invisible hover bridge across the gap below the trigger */
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.hasDropdown:hover .dropdown,
+.hasDropdown:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.dropdownLink {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+  padding: 0.52rem 0.8rem;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdownLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.dropdownLinkActive {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* ── CTA button ── */
+.cta {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cta:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(45, 212, 191, 0.5);
+}
+
+/* ── Hamburger (mobile only) ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.hamburgerLine {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.hamburgerOpen .hamburgerLine:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+
+.hamburgerOpen .hamburgerLine:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+/* ── Mobile dropdown overlay ── */
+.mobileOverlay {
+  position: fixed;
+  top: calc(4.6rem + env(safe-area-inset-top, 0px));
+  left: 1rem;
+  right: 1rem;
+  z-index: 1150;
+  border-radius: 26px;
+  background: rgba(10, 16, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 22px 50px -16px rgba(2, 8, 23, 0.85);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.26s ease, transform 0.26s ease, visibility 0.26s;
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.mobileOverlayOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobileInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.9rem;
+}
+
+.mobileGroupLabel {
+  margin: 0.55rem 0.4rem 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.mobileLink {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  text-align: left;
+  padding: 0.72rem 0.85rem;
+  border-radius: 14px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobileLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.mobileLinkActive {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.mobileCta {
+  margin-top: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  transition: background 0.25s ease;
+}
+
+.mobileCta:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ── Focus visibility ── */
+.logo:focus-visible,
+.link:focus-visible,
+.cta:focus-visible,
+.dropdownLink:focus-visible,
+.hamburger:focus-visible,
+.mobileLink:focus-visible,
+.mobileCta:focus-visible {
+  outline: 2px solid rgba(45, 212, 191, 0.85);
+  outline-offset: 2px;
+}
+
+/* ── Responsive: mobile/tablet shows hamburger only ── */
+@media (max-width: 1024px) {
+  .centerLinks,
+  .cta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .pill {
+    width: 100%;
+    max-width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding-inline: 0.7rem;
+  }
+
+  .logo {
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .link,
+  .caret,
+  .dropdown,
+  .cta,
+  .hamburgerLine,
+  .mobileOverlay {
+    transition: none !important;
+  }
+}

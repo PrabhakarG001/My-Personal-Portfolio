@@ -14,6 +14,7 @@ import windows from "../../../assets/windows.svg";
 import vscode from "../../../assets/vscode.svg";
 import render from "../../../assets/render.svg";
 import mysql from "../../../assets/mysql.svg";
+import postgresql from "../../../assets/postgresql.svg";
 import python from "../../../assets/python.svg";
 import vercel from "../../../assets/vercel.svg";
 import tailwindcss from "../../../assets/tailwindcss.svg";
@@ -29,6 +30,7 @@ const techStack1 = [
   { name: "", logo: css3, type: "" },
   { name: "", logo: javascript, type: "" },
   { name: "", logo: mongodb, type: "" },
+  { name: "", logo: postgresql, type: "" },
   { name: "", logo: expressjs, type: "" },
   { name: "", logo: reactjs, type: "" },
   { name: "", logo: nodejs, type: "" },

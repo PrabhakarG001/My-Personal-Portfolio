@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Typewriter.css";
 
 const Typewriter = ({
-  words = ["Hi, I'm Prabhakar Gupta", "Software Development Engineer", "Full-Stack Developer", "Problem Solver"],
+  words = ["Hi, I'm Prabhakar Gupta", "Software Development Engineer", "Competitive Programmer"],
   typingSpeed = 100,
   deletingSpeed = 60,
   delay = 1500,

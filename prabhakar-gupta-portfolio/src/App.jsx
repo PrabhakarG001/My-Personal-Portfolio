@@ -5,7 +5,6 @@ import "./App.css";
 
 import SplashCursor from "./components/splashcursor/splashcursor.jsx";
 import Navbar from "./components/layout/Navbar.jsx";
-import CardNav from "./components/CardNav.jsx";
 import Dock from "./components/layout/Dock.jsx";
 import Footer from "./components/layout/footer.jsx";
 import Scrollbar from "./components/contents/Home/scrollbar.jsx";
@@ -64,38 +63,6 @@ function App() {
     restDelta: 0.001,
   });
 
-  const navItems = [
-    {
-      label: "Professional Profile",
-      bgColor: "rgba(255, 255, 255, 0.05)",
-      textColor: "#fff",
-      links: [
-        { label: "About Me", href: "#about", ariaLabel: "About Me" },
-        { label: "Experience", href: "#experience", ariaLabel: "Experience" },
-        { label: "Skills", href: "#skills", ariaLabel: "Skills" },
-        { label: "Resume", href: "#resume", ariaLabel: "Resume" },
-      ],
-    },
-    {
-      label: "Projects and Goals",
-      bgColor: "rgba(255, 255, 255, 0.08)",
-      textColor: "#fff",
-      links: [
-        { label: "Featured", href: "#projects", ariaLabel: "Featured Projects" },
-        { label: "Coding Profiles", href: "#coding-profiles", ariaLabel: "Coding Profiles" },
-        { label: "Courses", href: "#courses", ariaLabel: "Relevant Courses" },
-        { label: "Certifications", href: "#certifications", ariaLabel: "Certifications" },
-        { label: "Goals", href: "#goals", ariaLabel: "Career Goals" },
-      ],
-    },
-    {
-      label: "Get In Touch",
-      bgColor: "rgba(255, 255, 255, 0.05)",
-      textColor: "#fff",
-      links: [{ label: "Connect", href: "#contact", ariaLabel: "Connect" }],
-    },
-  ];
-
   // Loader overlay state – show on initial load
   const [showLoader, setShowLoader] = React.useState(true);
   React.useEffect(() => {
@@ -119,17 +86,6 @@ function App() {
       <AuroraHero />
       <SplashCursor />
       <Navbar />
-      <CardNav
-        logo="/logo.png"
-        logoAlt="Prabhakar Gupta"
-        items={navItems}
-        baseColor="rgba(15, 23, 42, 0.85)"
-        menuColor="#fff"
-        buttonBgColor="#2dd4bf"
-        buttonTextColor="#0f172a"
-        ease="power3.out"
-        className="glass-nav-card"
-      />
       <Dock />
       <Scrollbar />
 

@@ -1,7 +1,58 @@
 .achievement-card {
   height: 100%;
-
   color: var(--text-primary);
+}
+
+/* Single-card layout: span every column of the about-cards-grid */
+@media (min-width: 761px) {
+  .about-cards-grid .achievement-card {
+    grid-column: 1 / -1;
+  }
+
+  .achievement-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.76rem 1rem;
+    align-items: start;
+  }
+
+  .achievement-options .card-option {
+    margin-bottom: 0;
+  }
+
+  .achievement-options .card-option:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* GitHub achievement badge pills */
+.gh-badge-block {
+  min-width: 0;
+}
+
+.gh-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+}
+
+.gh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(167, 139, 250, 0.1);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+}
+
+.gh-badge svg {
+  font-size: 0.82rem;
 }
 
 .achievement-card .header {
@@ -56,11 +107,19 @@
 }
 @media (max-width: 768px) {
   .achievement-card {
-    /* match available and certificate card visual size on mobile */
+    /* single full-width card on mobile */
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+  }
+
+  .achievement-options .card-option {
+    margin-bottom: 0.76rem;
+  }
+
+  .achievement-options .card-option:last-child {
+    margin-bottom: 0;
   }
 }
 

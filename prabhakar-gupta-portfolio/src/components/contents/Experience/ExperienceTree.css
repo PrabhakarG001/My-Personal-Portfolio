@@ -125,7 +125,6 @@
   justify-self: end;
   width: 100%;
   max-width: 430px;
-  text-align: right;
 }
 
 .experience-row.side-right .experience-card-wrap {
@@ -136,40 +135,24 @@
   max-width: 430px;
 }
 
-.experience-row.side-left .experience-card-head {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
-.experience-row.side-left .experience-meta-row {
-  justify-content: flex-end;
-}
-
-.experience-row.side-left .experience-points li {
-  padding-left: 0;
-  padding-right: 1rem;
-}
-
-.experience-row.side-left .experience-points li::before {
-  left: auto;
-  right: 0;
-}
-
 /* ── Experience card visuals (extends universal-card) ── */
 .experience-card {
   padding: 1.1rem 1.25rem;
+  text-align: left;
 }
 
 .experience-card-inner {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  align-items: stretch;
+  gap: 0.62rem;
 }
 
 .experience-card-head {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  text-align: left;
 }
 
 .experience-org-icon {
@@ -267,6 +250,7 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  text-align: left;
 }
 
 .experience-points {
@@ -342,25 +326,6 @@
     max-width: none;
     width: 100%;
     text-align: left;
-  }
-
-  .experience-row.side-left .experience-card-head {
-    flex-direction: row;
-    text-align: left;
-  }
-
-  .experience-row.side-left .experience-meta-row {
-    justify-content: flex-start;
-  }
-
-  .experience-row.side-left .experience-points li {
-    padding-right: 0;
-    padding-left: 1rem;
-  }
-
-  .experience-row.side-left .experience-points li::before {
-    right: auto;
-    left: 0;
   }
 
   .experience-card {
