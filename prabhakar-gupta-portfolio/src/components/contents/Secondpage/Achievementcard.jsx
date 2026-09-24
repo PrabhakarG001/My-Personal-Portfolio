@@ -31,7 +31,7 @@ const Achievementcard = ({ delay = 0 }) => {
           <p className="text">
             Secured <strong>2nd Runner-Up</strong> position in Hack The Beginning &rsquo;2K26 among 150+ teams.{" "}
             <a
-              href="https://drive.google.com/drive/folders/1DIi-"
+              href="https://drive.google.com/drive/folders/1DIi-bXqJc4s9x8qNTq3hR_s0g7h39VN3"
               target="_blank"
               rel="noopener noreferrer"
               className="achievement-link"
